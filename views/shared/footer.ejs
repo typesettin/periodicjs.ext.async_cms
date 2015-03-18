@@ -1,0 +1,27 @@
+				</div> <!-- END OF <div id="ts-asyncadmin-content-container"> -->
+			</div>
+			<!-- END OF <div id="ts-asyncadmin-content-wrapper"> -->
+			<footer class="ts-position-fixed ts-position-bottom ts-width-100 ts-text-center ts-serif-clean ts-padding-md ts-bg-text-primary-color" style="border-top: 1px solid black;">
+				<section class="ts-text-container ">
+					<div class="ts-row ">
+					  <div class="ts-col-span6 ts-text-left ts-text-sm">
+					    <%- periodic.name %> | <a href="http://getperiodic.org" target="_blank">Periodic</a>
+					  </div>
+					  <div class="ts-col-span6 ts-pull-right ts-text-right ts-text-sm">
+					    Version <%= periodic.version %>
+								<input type="hidden" name="periodic-version" value="<%= periodic.version %>"/> | Typesettin &copy;
+					    <%var d=new Date();%>
+					      <%- d.getFullYear() %>
+					  </div>
+					</div>
+				</section>
+				
+			</footer>
+		</div>
+	</main>
+	<nav id="ts-pushmenu-mp-menu" class="ts-pushmenu-mp-menu ts-admin-menu">
+	  <% include _nav %>
+	</nav>
+	<%- locals.viewhelper.getHTML(locals.additionalFooterHTML) %>
+</body>
+</html>

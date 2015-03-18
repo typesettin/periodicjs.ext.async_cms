@@ -1,0 +1,7 @@
+{
+  "development":{
+    "settings":{
+      "adminPath": "p-admin"
+    }
+  }
+}

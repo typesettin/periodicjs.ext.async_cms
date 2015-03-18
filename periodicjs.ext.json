@@ -1,0 +1,127 @@
+{
+	"periodicCompatibility":"5.0.0",
+	"periodicDependencies": [{
+    	"extname":"periodicjs.ext.asyncadmin",
+    	"version":"~5.0.0"
+	}],
+	"periodicjs.ext.asyncadmin": {
+		"menu": {
+			"Global":{
+				"cmsmenu": {
+					"userprivilege":"110",
+				  "labelheading":true,
+				  "backlink":true,
+				  "label": "Content Mangement", 
+				  "link": "#cms",
+			    "linkclass":"",
+				  "links":[{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Items",
+				    "link": "/%locals.adminPath%/content/items",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Items",
+					    	"link": "/%locals.adminPath%/content/items",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Item",
+					      "link": "/%locals.adminPath%/content/item/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Collections",
+				    "link": "/%locals.adminPath%/content/collections",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Collections",
+					    	"link": "/%locals.adminPath%/content/collections",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Collection",
+					      "link": "/%locals.adminPath%/content/collection/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Compilations",
+				    "link": "/%locals.adminPath%/content/compilations",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Compilations",
+					    	"link": "/%locals.adminPath%/content/compilations",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Compilation",
+					      "link": "/%locals.adminPath%/content/compilation/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Content Types",
+				    "link": "/%locals.adminPath%/content/contenttypes",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Contenttypes",
+					    	"link": "/%locals.adminPath%/content/contenttypes",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Contenttype",
+					      "link": "/%locals.adminPath%/content/contenttype/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Categories",
+				    "link": "/%locals.adminPath%/content/categories",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Categories",
+					    	"link": "/%locals.adminPath%/content/categories",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Category",
+					      "link": "/%locals.adminPath%/content/category/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Tags",
+				    "link": "/%locals.adminPath%/content/tags",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Tags",
+					    	"link": "/%locals.adminPath%/content/tags",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Tag",
+					      "link": "/%locals.adminPath%/content/tag/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Assets",
+				    "link": "/%locals.adminPath%/content/assets",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Assets",
+					    	"link": "/%locals.adminPath%/content/assets",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Asset",
+					      "link": "/%locals.adminPath%/content/asset/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
+				  	}]
+				}
+			}
+		}
+	}
+}
