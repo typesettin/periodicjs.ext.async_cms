@@ -1,10 +1,1 @@
-<% if(locals.additionalPreContentHTML && locals.additionalPreContentHTML.length>0){%>
-	<section class="ts-row">
-		<div class="ts-col-span12">
-			<%- locals.viewhelper.getHTML(locals.additionalPreContentHTML) %>
-		</div>
-	</section>
-<%}
-else{%>
-<!-- no post content html -->
-<%} %>
+<% include ../../../periodicjs.ext.asyncadmin/views/shared/_html_inject_precontent %>
