@@ -20,7 +20,7 @@ var items_index = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/items/index',
 			themefileext: appSettings.templatefileextension,
-			extname: 'periodicjs.ext.asyncadmin'
+			extname: 'periodicjs.ext.async_cms'
 		},
 		viewdata = {
 			pagedata: {
@@ -41,7 +41,7 @@ var collections_index = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/collections/index',
 			themefileext: appSettings.templatefileextension,
-			extname: 'periodicjs.ext.asyncadmin'
+			extname: 'periodicjs.ext.async_cms'
 		},
 		viewdata = {
 			pagedata: {
@@ -61,7 +61,7 @@ var compilations_index = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/compilations/index',
 			themefileext: appSettings.templatefileextension,
-			extname: 'periodicjs.ext.asyncadmin'
+			extname: 'periodicjs.ext.async_cms'
 		},
 		viewdata = {
 			pagedata: {
