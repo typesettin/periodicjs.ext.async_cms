@@ -36,6 +36,28 @@ var items_index = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
+var items_new = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/items/new',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'New Item ',
+				toplink: '&raquo; Items',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			items: req.controllerData.items,
+			itemscount: req.controllerData.itemscount,
+			itempages: Math.ceil(req.controllerData.itemscount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+
+
 var collections_index = function (req, res) {
 	req.flash('info', 'testing flash now');
 	var viewtemplate = {
@@ -108,6 +130,7 @@ var controller = function (resources) {
 
 	return {
 		items_index: items_index,
+    items_new: items_new,
 		collections_index: collections_index,
 		compilations_index: compilations_index,
 		adminExtSettings: adminExtSettings,

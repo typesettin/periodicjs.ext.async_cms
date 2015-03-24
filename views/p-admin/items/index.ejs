@@ -24,8 +24,12 @@
                 Page
 
                 <input type="text" name="pagenum" class="ts-text-center autoFormSubmit" style="width:2em;" value="1">
-                of 1 
-
+                of 
+                <%if(itempages !== 0){%>
+                <%= itempages %> 
+                <%}else{%>
+                <%= 1 %> 
+                <%}%>
               </th>
               <th colspan="4" class="ts-text-right "> 
                 <a href="/p-admin/items" class="ts-text-primary-text-color">Reset Filters</a>
@@ -43,7 +47,7 @@
 
                   </select> per page
                 </span> | 
-                <span>1 items</span>
+                <span><%= itemscount %> items</span>
 
               </th>
             </tr>
@@ -86,8 +90,13 @@
                 Page
 
                 1
+                of
+                <%if(itempages !== 0){%>
+                <%= itempages %> 
+                <%}else{%>
+                <%= 1 %> 
+                <%}%>
 
-                of 1 
               </th>
               <th colspan="4" class="ts-text-right "> 
                 <a href="/p-admin/items">Reset Filters</a>

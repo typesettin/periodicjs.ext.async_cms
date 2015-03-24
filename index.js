@@ -111,6 +111,12 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/mailer', cmsController.mail_index);
 	// contentAdminRouter.get('/check_periodic_version', cmsController.check_periodic_version);
 
+	/**
+	 * admin/item manager routes
+	 */
+
+contentAdminRouter.get('/item/new',itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_new);
+
 	contentAdminRouter.use('/asset', mediaContentAdminRouter);
 	contentAdminRouter.use('/contenttype', contenttypeContentAdminRouter);
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
