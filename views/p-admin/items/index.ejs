@@ -1,8 +1,6 @@
 <% include ../../shared/header %>
 
 <div class="ts-container">
-  <%- JSON.stringify(items,null,' ') %>
-  <% console.log(items)%>
   <div class="ts-padding-lg">
     <form method="get" name="items-form" class="ts-form">
       <div class="ts-row ts-form-row">
@@ -19,7 +17,7 @@
 <div class="ts-row">
   <div class="ts-col-span12">
    <div class="ts-padding-lg">
-        <table class="ts-table ts-table-padding-md ts-text-left ts-table-border ts-width-100 ts-table-cell-border ts-sans-serif">
+        <table class="ts-table ts-table-padding-md ts-text-left ts-table-border ts-width-100 ts-sans-serif">
           <thead class="ts-table-head ts-text-primary-text-color">
             <tr>
               <th colspan="3" class="ts-text-left ts-text-primary-text-color">
@@ -56,28 +54,31 @@
               <td>Tags</td>
               <td>Type</td>
               <td>Date</td>
+              <td>Edit</td>
             </tr>
           </thead>
 
           <tbody class="ts-table-body">
-            <tr>
-              <th>0928IFJDAOS8FSAJ</th>
-              <td>John Smith</td>
-              <td>johnsmith@example.com</td>
-              <td>555-555-5555</td>
-              <td></td>
-              <td>
-              <small>
-                Fri Nov 14 2014 13:51:23 GMT+0000 (UTC)
-              </small>
-            </td>
+          <% console.log(items)%>
+          <% for(var i=0; i < items.length; i++) { %>
+          <tr>
+            <td><%= items[i].title %></td>
+            <td><%= items[i].author %></td>
+            <td><%= items[i].categories %></td>
+            <td><%= items[i].tags %></td>
+            <td><%= items[i].type %></td>
+            <td><small><%= items[i].date %></small></td>
               <td>
               <a href="/p-admin/item/edit/introducing-periodic" class="ts-button"> edit </a>
               <a href="/item/introducing-periodic" class="ts-button " target="_blank"> i </a>
-              <a data-href="/item/introducing-periodic/delete" class="ts-button" data-successfunction="backToItemLanding">x</a>
+              <a data-href="/item/introducing-periodic/delete" class="ts-button" 
+                data-successfunction="backToItemLanding">x
+              </a>
 
             </td>
-            </tr>
+            
+          </tr>
+          <% } %>
           </tbody>
           <tfoot class="ts-table-foot">
             <tr>
@@ -98,8 +99,8 @@
       </div> 
   </div>
 </div>
-  <!--<script type="text/javascript" defer>-->
-<!--window.showStylieNotification({message:'item admin js'});-->
-  <!--</script>-->
+  <script type="text/javascript" defer>
+window.showStylieNotification({message:'item admin js'});
+  </script>
 </div>
 <% include ../../shared/footer %>
