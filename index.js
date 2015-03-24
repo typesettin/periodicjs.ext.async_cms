@@ -48,10 +48,10 @@ module.exports = function (periodic) {
 		}
 	}
 
-	if(asyncadminInstalled!==true){
+	if (asyncadminInstalled !== true) {
 		throw new errorie({
-			name:'Extension: async_cms',
-			message:'Your application extension configuriation is missing periodicjs.ext.asyncadmin'
+			name: 'Extension: async_cms',
+			message: 'Your application extension configuriation is missing periodicjs.ext.asyncadmin'
 		});
 	}
 
@@ -115,7 +115,7 @@ module.exports = function (periodic) {
 	contentAdminRouter.use('/contenttype', contenttypeContentAdminRouter);
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
 	contentAdminRouter.use('/category', categoryContentAdminRouter);
-	periodic.app.use('/'+periodic.app.locals.adminPath+'/content', contentAdminRouter);
+	periodic.app.use('/' + periodic.app.locals.adminPath + '/content', contentAdminRouter);
 	periodic.app.use('/item', itemRouter);
 	periodic.app.use('/collection', collectionRouter);
 	periodic.app.use('/compilation', compilationRouter);
