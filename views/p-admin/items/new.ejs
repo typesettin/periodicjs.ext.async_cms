@@ -1,5 +1,77 @@
 <% include ../../shared/header %>
-	<form class="ts-form" method="post" action="/item/new">
-	</form>
+<div class="ts-container">
+  <div class="ts-row">
+  <div class="ts-col-span8 ">
+      <form class="ts-form" method="post" action="/item/new">
+        <input type="hidden" name="_csrf" value=<%= locals.token %> >
+        <h5>
+          <a href="/p-admin/items/" class="ts-text-primary-color"> Item </a> › New 
+          <input type="submit" name="save_button" 
+          style="font-size: 65%;" value="Save Item" 
+          class="ts-button ts-pull-right">
+        </h5>
+      </form>
+      <h4>Content Type Attributes</h4>
+      <h4>Content Media</h4>
+    </div>
+
+    <!--THE RIGHT SIDE-->
+    <div class="ts-col-span3 ts-pull-right">
+			<h2>Publish Options</h2>
+<div class="ts-document">
+	
+	<div class="ts-row ts-container-forminput">
+		<div class="ts-col-span2">
+			<small>Status:</small>
+		</div>
+	
+		<select name="status" class="ts-col-span10 autoFormSubmit">
+			
+					<option value="draft">Draft</option>
+				
+					<option value="schedule">Schedule in advance</option>
+				
+					<option value="publish">Publish</option>
+				
+					<option value="review">Review</option>
+				
+					<option value="trash">Trash</option>
+				
+		</select>
+	</div>
+	<div class="ts-row ts-container-forminput">
+		<div class="ts-col-span2">
+			<small>Date:</small>
+		</div>
+		<input type="date" id="newitemdate" class="ts-col-span10" value="2015-03-24" name="date">
+	</div>
+	<div class="ts-row ts-container-forminput">
+		<div class="ts-col-span2">
+			<small>Time:</small>
+		</div>
+		<input type="time" id="newitemtime" class="ts-col-span10" value="22:50" name="time">
+		<!-- http://cronchecker.net/check?utf8=%E2%9C%93&statement=1+*+*+*+*+*&button= -->
+	</div>
+	
+</div>
+			<h2>Attributes</h2>
+<div class="ts-document noFormSubmit">
+	<div class="ts-row ts-container-forminput">
+		<div class="_ltr_l-e-w" id="contenttypes-dc"><div id="contenttypes-dtulc" class="_ltr-dtulc"><ul id="contenttypes-ulc" class="_ltr-ulc"><li class="_ltr-taglistyle showli _ltr-li-wrapper"><input type="text" id="padmin-contenttypes" class="ts-col-span12" placeholder="Content Types" name="contenttypes-i"></li></ul></div><select id="contenttypes-sc" class="_ltr-sc"><option value="SELECT" selected="seleted" disabled="disabled">Select</option><option value="NEWTAG">Create Tag</option></select><div id="contenttypes-cbc" class="_ltr-cbc"></div></div>
+	</div>
+	<div class="ts-row ts-container-forminput">
+		<div class="_ltr_l-e-w" id="tags-dc"><div id="tags-dtulc" class="_ltr-dtulc"><ul id="tags-ulc" class="_ltr-ulc"><li class="_ltr-taglistyle showli _ltr-li-wrapper"><input type="text" class="ts-col-span12" id="padmin-tags" placeholder="Tags" name="tags-i"></li></ul></div><select id="tags-sc" class="_ltr-sc"><option value="SELECT" selected="seleted" disabled="disabled">Select</option><option value="NEWTAG">Create Tag</option></select><div id="tags-cbc" class="_ltr-cbc"></div></div>
+	</div>
+	<div class="ts-row ts-container-forminput">
+		<div class="_ltr_l-e-w" id="categories-dc"><div id="categories-dtulc" class="_ltr-dtulc"><ul id="categories-ulc" class="_ltr-ulc"><li class="_ltr-taglistyle showli _ltr-li-wrapper"><input type="text" class="ts-col-span12" id="padmin-categories" placeholder="Categories" name="categories-i"></li></ul></div><select id="categories-sc" class="_ltr-sc"><option value="SELECT" selected="seleted" disabled="disabled">Select</option><option value="NEWTAG">Create Tag</option></select><div id="categories-cbc" class="_ltr-cbc"></div></div>
+	</div>
+	<div class="ts-row ts-container-forminput">
+		<div class="_ltr_l-e-w" id="authors-dc"><div id="authors-dtulc" class="_ltr-dtulc"><ul id="authors-ulc" class="_ltr-ulc"><li class="_ltr-taglistyle showli _ltr-li-wrapper"><input type="text" id="padmin-authors" class="ts-col-span12" placeholder="Authors" name="authors-i"></li></ul></div><select id="authors-sc" class="_ltr-sc"><option value="SELECT" selected="seleted" disabled="disabled">Select</option><option value="NEWTAG" disabled="disabled">No available options</option></select><div id="authors-cbc" class="_ltr-cbc"></div></div>
+	</div>
+</div>
+			
+		</div>
+  </div>
+</div>
 <% include ../../shared/footer %>
 

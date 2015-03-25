@@ -1,0 +1,68 @@
+<h2>Publish Options</h2>
+<div class="ts-document">
+  <% if(genericdoc){%>
+  <div class="ts-row">
+    <div class="ts-col-span2">
+      <small>ID:</small>
+    </div>
+    <input type="text" id="docidlabel" disabled="disabled" class="ts-col-span10" value="<%= genericdoc._id %>" >
+  </div>
+  <div class="ts-row ">
+    <div class="ts-col-span2">
+      <small>Name:</small>
+    </div>
+    <input type="text" id="docidlabel" class="ts-col-span10" name="name" value="<%= genericdoc.name %>" >
+  </div>
+  <%}%>
+  <div class="ts-row ts-row-form">
+    <div class="ts-col-span2">
+      <small>Status:</small>
+    </div>
+  <% var docstatus = [{
+      "value":"draft",
+      "label":"Draft"
+      },{
+      "value":"schedule",
+      "label":"Schedule in advance"
+      },{
+      "value":"publish",
+      "label":"Publish"
+      },{
+      "value":"review",
+      "label":"Review"
+      },{
+      "value":"trash",
+      "label":"Trash"
+      }]; %>
+    <select name="status" class="ts-col-span10 autoFormSubmit">
+      <% docstatus.forEach(function(status){
+        %>
+          <option <% if(genericdoc && typeof genericdoc.status==='string' && genericdoc.status === status.value ){%> selected="selected"
+          <%}%> value="<%= status.value %>"><%= status.label %></option>
+        <%
+        }); %>
+    </select>
+  </div>
+  <div class="ts-row ">
+    <div class="ts-col-span2">
+      <small>Date:</small>
+    </div>
+    <input type="date" id="newitemdate" class="ts-col-span10" value="<% if(serverdate){%><%= serverdate %><%}%>" name="date">
+  </div>
+  <div class="ts-row ">
+    <div class="ts-col-span2">
+      <small>Time:</small>
+    </div>
+    <input type="time" id="newitemtime" class="ts-col-span10" value="<% if(servertime){%><%= servertime %><%}%>" name="time">
+    <!-- http://cronchecker.net/check?utf8=%E2%9C%93&statement=1+*+*+*+*+*&button= -->
+  </div>
+  <% if(typeof genericdocname === "string" && genericdoc){%>
+    
+    <div class="ts-text-center">
+      <a href="/p-admin/<%= genericdocname %>/new" target="_blank" class="ts-button ts-color-info">New <%= genericdocTitle %></a>
+      <a id="clone-item-button" class="ts-button ">Clone Copy</a>
+
+      <% if(genericdoc){%> <a href="/<%= genericdocname %>/<%= genericdoc.name %>" target="_blank" class="ts-button ts-color-default"/>View <%= genericdocTitle %></a> <%}%>
+    </div>
+  <%}%>
+</div>

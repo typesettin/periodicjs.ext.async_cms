@@ -115,7 +115,7 @@ module.exports = function (periodic) {
 	 * admin/item manager routes
 	 */
 
-contentAdminRouter.get('/item/new',itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_new);
+contentAdminRouter.get('/items/new',itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_new);
 
 	contentAdminRouter.use('/asset', mediaContentAdminRouter);
 	contentAdminRouter.use('/contenttype', contenttypeContentAdminRouter);
