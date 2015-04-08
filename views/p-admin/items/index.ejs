@@ -72,14 +72,13 @@
             <td><%= items[i].tags %></td>
             <td><%= items[i].type %></td>
             <td><small><%= items[i].date %></small></td>
-              <td>
-              <a href="/p-admin/item/edit/introducing-periodic" class="ts-button"> edit </a>
-              <a href="/item/introducing-periodic" class="ts-button " target="_blank"> i </a>
-              <a data-href="/item/introducing-periodic/delete" class="ts-button" 
-                data-successfunction="backToItemLanding">x
-              </a>
-
-            </td>
+            <td>
+            <a href="/p-admin/item/edit/introducing-periodic" class="ts-button"> edit </a>
+            <a href="/item/introducing-periodic" class="ts-button " target="_blank"> i </a>
+            <a data-href="/item/introducing-periodic/delete" class="ts-button" 
+              data-successfunction="backToItemLanding">x
+            </a>
+          </td>
             
           </tr>
           <% } %>

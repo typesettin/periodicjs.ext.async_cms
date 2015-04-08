@@ -3,7 +3,7 @@
 	<div class="ts-row">
 		<div class="ts-col-span8">
 			<% 
-				var genericdoc = item; 
+				var genericdoc = items; 
 				var genericdocname = "item"; 
 				var genericdocdeletefunction = "backToItemLanding"; 
 				var genericdocnamelink = "items"; 
@@ -20,7 +20,6 @@
 			<% include ../../shared/content_options %>
 			<% include ../../shared/content_taxonmy %>
 			<% if(genericdoc){%>
-				<% include ../../shared/content_revisions %>
 				<% include ../../shared/content_delete %>
 			<%}%>
 		</div>
