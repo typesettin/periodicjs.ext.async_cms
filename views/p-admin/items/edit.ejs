@@ -1,8 +1,42 @@
 <% include ../../shared/header %>
 
-<% include ../../shared/content_taxonmy %>
-<script type="text/javascript" defer>
-	window.showStylieNotification({message:'item admin js'});
-</script>
+<div class="ts-container">
+  <div class="ts-text-container ts-genericdoc">
+  	<% genericdoc = item %>
+  	<% genericdocid = item._id %>
+  	<% genericdoctype = "Item" %>
+  	<% genericdoctypelink = "item" %>
+  	<form class="ts-form">
+	  	<div class="ts-row">
+	  		<div class="ts-genericdoc-entry ts-col-span8 ts-screensm-col-span12 ts-screenxs-col-span12">
+	  			<% include ../../shared/genericdoc_compose_title_content %>
+	  			<details open="open">
+	  				<summary>Content Type Attributes</summary>
+	  				<aside>Content Attributes</aside>
+	  			</details>
+	  			<details open="open">
+	  				<summary>Content Media</summary>
+	  				<aside>media</aside>
+	  			</details>
+	  		</div>
+	  		<div class=" ts-col-span4 ts-screensm-col-span12 ts-screenxs-col-span12">
+	  			<details open="open">
+	  				<summary>Publish Options</summary>
+	  				<aside>pub</aside>
+	  			</details>
+	  			<details open="open">
+	  				<summary>Taxonomy</summary>
+	  				<aside>pub</aside>
+	  			</details>
+	  			<details open="open">
+	  				<summary>Track Changes</summary>
+	  				<aside>pub</aside>
+	  			</details>
+	  		</div>
+	  	</div>
+  		
+  	</form>
+	</div>
 </div>
+
 <% include ../../shared/footer %>
