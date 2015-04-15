@@ -48,15 +48,16 @@ module.exports = function (periodic) {
 		}
 	}
 
-	if(asyncadminInstalled!==true){
+	if (asyncadminInstalled !== true) {
 		throw new errorie({
-			name:'Extension: async_cms',
-			message:'Your application extension configuriation is missing periodicjs.ext.asyncadmin'
+			name: 'Extension: async_cms',
+			message: 'Your application extension configuriation is missing periodicjs.ext.asyncadmin'
 		});
 	}
 
 	var contentAdminRouter = periodic.express.Router(),
 		itemRouter = periodic.express.Router(),
+		itemContentAdminRouter = periodic.express.Router(),
 		tagRouter = periodic.express.Router(),
 		tagContentAdminRouter = periodic.express.Router(),
 		mediaRouter = periodic.express.Router(),
@@ -68,10 +69,11 @@ module.exports = function (periodic) {
 		collectionRouter = periodic.express.Router(),
 		compilationRouter = periodic.express.Router(),
 		itemController = periodic.app.controller.native.item,
-		// tagController = periodic.app.controller.native.tag,
+		tagController = periodic.app.controller.native.tag,
 		// mediaassetController = periodic.app.controller.native.asset,
-		// categoryController = periodic.app.controller.native.category,
-		// contenttypeController = periodic.app.controller.native.contenttype,
+		categoryController = periodic.app.controller.native.category,
+		contenttypeController = periodic.app.controller.native.contenttype,
+		userController = periodic.app.controller.native.user,
 		collectionController = periodic.app.controller.native.collection,
 		compilationController = periodic.app.controller.native.compilation,
 		authController = periodic.app.controller.extension.login.auth,
@@ -111,11 +113,52 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/mailer', cmsController.mail_index);
 	// contentAdminRouter.get('/check_periodic_version', cmsController.check_periodic_version);
 
+	/**
+	 * admin/item manager routes
+	 */
+
+	itemContentAdminRouter.get('/new',cmsController.item_new);
+	itemContentAdminRouter.get('/:id/edit',itemController.loadFullItem, cmsController.item_edit);
+	// adminRouter.get('/items/search', itemController.loadItems, adminController.items_index);
+	// adminRouter.get('/item/edit/:id/revision/:changeset', itemController.loadFullItem, adminController.item_review_revision);
+	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_revisions);
+	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
+	// itemRouter.post('/new', itemController.create);
+	// itemRouter.post('/edit', adminController.item_loadItem, itemController.loadItem, itemController.update);
+	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
+	// itemRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
+
+
+	/**
+	 * admin/collection manager routes
+	 */
+	// contentAdminRouter.get('/collections/new',collectionController.loadItemsWithCount, collectionController.loadItemsWithDefaultLimit, collectionController.loadItems, cmsController.collections_new);
+
+
+
+
+	/**
+	 * periodic routes
+	 */
+	contentAdminRouter.get('/user/search.:ext', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
+	contentAdminRouter.get('/user/search', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
+	contentAdminRouter.get('/category/search.:ext', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
+	contentAdminRouter.get('/category/search', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
+	contentAdminRouter.get('/category/:id/children', global.CoreCache.disableCache, categoryController.loadCategory, categoryController.loadChildren, categoryController.showChildren);
+	contentAdminRouter.get('/contenttype/search.:ext', global.CoreCache.disableCache, contenttypeController.loadContenttypes, contenttypeController.searchResults);
+	contentAdminRouter.get('/contenttype/search', global.CoreCache.disableCache, contenttypeController.loadContenttypes, contenttypeController.searchResults);
+	contentAdminRouter.get('/tag/search.:ext', global.CoreCache.disableCache, tagController.loadTags, tagController.searchResults);
+	contentAdminRouter.get('/tag/search', global.CoreCache.disableCache, tagController.loadTags, tagController.searchResults);
+	contentAdminRouter.get('/tag/:id/children', global.CoreCache.disableCache, tagController.loadTag, tagController.loadChildren, tagController.showChildren);
+
+	//link routers
+
+	contentAdminRouter.use('/item', itemContentAdminRouter);
 	contentAdminRouter.use('/asset', mediaContentAdminRouter);
 	contentAdminRouter.use('/contenttype', contenttypeContentAdminRouter);
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
 	contentAdminRouter.use('/category', categoryContentAdminRouter);
-	periodic.app.use('/'+periodic.app.locals.adminPath+'/content', contentAdminRouter);
+	periodic.app.use('/' + periodic.app.locals.adminPath + '/content', contentAdminRouter);
 	periodic.app.use('/item', itemRouter);
 	periodic.app.use('/collection', collectionRouter);
 	periodic.app.use('/compilation', compilationRouter);

@@ -119,6 +119,21 @@
 					      "link": "/%locals.adminPath%/content/asset/new",
 					      "linkclass":"async-admin-ajax-link"
 					    }]
+				  	},{
+					  "labelheading":true,
+					  "backlink":true,
+				    "label":"Data",
+				    "link": "/%locals.adminPath%/content/datas",
+				    "linkclass":"",
+				    "links":[{
+					      "label":"All Assets",
+					    	"link": "/%locals.adminPath%/content/datas",
+					      "linkclass":"async-admin-ajax-link"
+					    },{
+					      "label":"New Asset",
+					      "link": "/%locals.adminPath%/content/data/new",
+					      "linkclass":"async-admin-ajax-link"
+					    }]
 				  	}]
 				}
 			}

@@ -1,16 +1,12 @@
 <% include ../../shared/header %>
+
 <div class="ts-container">
-	<%- JSON.stringify(items,null,' ') %>
-	<% console.log(items)%>
-<p>new items home</p>
-<p>new iwebuwtems home</p>
-<p>new items home</p>
-<p>new items home</p>
-<p>new items home</p>
-<p>new items home</p>
-<p>new items home</p>
-<script type="text/javascript" defer>
-	window.showStylieNotification({message:'item admin js'});
-</script>
+  <div class="ts-text-container">
+  	<% genericdoctype = "Item" %>
+  	<% genericdoctypelink = "item" %>
+    <% items.forEach(function(genericdoc,i){%>
+    <% include ../../shared/genericdoc_list_item %>
+    <%})%>
+  </div>
 </div>
 <% include ../../shared/footer %>
