@@ -1,23 +1,26 @@
 'use strict';
-var ajaxlinks,
-	navlinks,
-	PushMenu = require('stylie.pushmenu'),
-	Pushie = require('pushie'),
-	asyncAdminPushie,
-	async = require('async'),
-	classie = require('classie'),
-	StylieNotification = require('stylie.notifications'),
-	StyliePushMenu,
-	asyncHTMLWrapper,
-	asyncHTMLContentContainer,
-	asyncContentSelector = '#ts-asyncadmin-content-container',
-	flashMessageArray = [],
-	asyncFlashFunctions = [],
-	request = require('superagent'),
-	mtpms,
-	menuElement,
-	menuTriggerElement,
-	nav_header;
+var	PushMenu                    = require('stylie.pushmenu'),
+    Pushie                      = require('pushie'),
+    async                       = require('async'),
+    classie                     = require('classie'),
+    request                     = require('superagent'),
+    Formie                      = require('formie'),
+    StylieNotification          = require('stylie.notifications'),
+    asyncContentSelector        = '#ts-asyncadmin-content-container',
+    flashMessageArray           = [],
+    asyncFlashFunctions         = [],
+    ajaxlinks,
+    navlinks,
+    asyncAdminPushie,
+    StyliePushMenu,
+    asyncHTMLWrapper,
+    asyncHTMLContentContainer,
+    mtpms,
+    menuElement,
+    menuTriggerElement,
+    nav_header,
+    create_account_formie,
+    create_account_get_rate_button;
 
 var preventDefaultClick = function (e) {
 	e.preventDefault();
@@ -192,6 +195,48 @@ window.showStylieNotification = function (options) {
 };
 
 
+
+
+
+
+
+
+
+
+var initElementSelectors = function () {
+	create_account_get_rate_button = document.querySelector('#create_account_get_rate_button');
+};
+
+var initFormieElement = function () {
+	create_account_formie = new Formie({
+		ajaxformselector: '#item_form',
+		headers: {
+			'customheader': 'customvalue'
+		},
+		beforesubmitcallback: function (event, formelement) {
+			console.log(event, formelement);
+		},
+		successcallback: function (response) {
+			console.log('response.body', response.body);
+			var res = response.body;
+			if (res.result === 'error') {
+				window.showStylieNotification({
+					message: res.data.error,
+					type: 'error'
+				});
+			}
+		},
+		errorcallback: function (error, response) {
+			console.log(error, response);
+			var res = JSON.parse(response.text);
+			window.showStylieNotification({
+				message: res.data.error,
+				type: 'error'
+			});
+		}
+	});
+};
+
 window.addEventListener('load', function () {
 	asyncHTMLWrapper = document.querySelector('#ts-asyncadmin-content-wrapper');
 	asyncHTMLContentContainer = document.querySelector(asyncContentSelector);
@@ -201,6 +246,9 @@ window.addEventListener('load', function () {
 	nav_header = document.querySelector('#nav-header');
 	mtpms = document.querySelector('main.ts-pushmenu-scroller');
 	ajaxlinks = document.querySelectorAll('.async-admin-ajax-link');
+  //Formie Logic
+	initElementSelectors();
+	initFormieElement();
 
 	for (var u = 0; u < ajaxlinks.length; u++) {
 		ajaxlinks[u].addEventListener('click', preventDefaultClick, false);
@@ -224,3 +272,4 @@ window.addEventListener('load', function () {
 	initFlashMessage();
 	window.StyliePushMenu = StyliePushMenu;
 });
+
