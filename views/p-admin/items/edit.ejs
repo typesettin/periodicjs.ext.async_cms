@@ -5,8 +5,11 @@
   	<% genericdoc = item %>
   	<% genericdocid = item._id %>
   	<% genericdoctype = "Item" %>
-  	<% genericdoctypelink = "item" %>
-  	<form class="ts-form">
+  	<% genericdoctypename = "item" %>
+  	<% genericdoctypelink = "items" %>
+  	<form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit?format=json">
+			<input type="hidden" name="_csrf" value=<%- locals.token %> >
+			<input type="hidden" name="docid" value=<%- genericdocid %> >
 	  	<div class="ts-row">
 	  		<div class="ts-genericdoc-entry ts-col-span8 ts-screensm-col-span12 ts-screenxs-col-span12">
 	  			<% include ../../shared/genericdoc_compose_title_content %>
@@ -20,10 +23,7 @@
 	  			</details>
 	  		</div>
 	  		<div class=" ts-col-span4 ts-screensm-col-span12 ts-screenxs-col-span12">
-	  			<details open="open">
-	  				<summary>Publish Options</summary>
-	  				<aside>pub</aside>
-	  			</details>
+	  			<% include ../../shared/genericdoc_compose_publish %>
 	  			<details open="open">
 	  				<summary>Taxonomy</summary>
 	  				<aside>pub</aside>

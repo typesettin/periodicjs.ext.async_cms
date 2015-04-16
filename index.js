@@ -124,7 +124,7 @@ module.exports = function (periodic) {
 	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_revisions);
 	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
 	// itemRouter.post('/new', itemController.create);
-	// itemRouter.post('/edit', adminController.item_loadItem, itemController.loadItem, itemController.update);
+	itemContentAdminRouter.post('/:id/edit', itemController.loadItem, itemController.update);
 	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
 	// itemRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
 
