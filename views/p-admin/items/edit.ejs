@@ -13,10 +13,8 @@
 	  	<div class="ts-row">
 	  		<div class="ts-genericdoc-entry ts-col-span8 ts-screensm-col-span12 ts-screenxs-col-span12">
 	  			<% include ../../shared/genericdoc_compose_title_content %>
-	  			<details open="open">
-	  				<summary>Content Type Attributes</summary>
-	  				<aside>Content Attributes</aside>
-	  			</details>
+	  			<% include ../../shared/genericdoc_compose_content_attributes %>
+
 	  			<details open="open">
 	  				<summary>Content Media</summary>
 	  				<aside>media</aside>
@@ -28,10 +26,7 @@
 	  				<summary>Taxonomy</summary>
 	  				<aside>pub</aside>
 	  			</details>
-	  			<details open="open">
-	  				<summary>Track Changes</summary>
-	  				<aside>pub</aside>
-	  			</details>
+	  			<% include ../../shared/genericdoc_compose_content_revisions %>
 	  		</div>
 	  	</div>
   	</form>

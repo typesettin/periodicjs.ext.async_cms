@@ -1,0 +1,39 @@
+<details class="ts-text-sm">
+	<summary>Track Changes</summary>
+	<aside>
+		<div id="latest_content_revision" class="ts-row ts-text-center" style="display:none;">
+			<small><a href="/p-admin/<%- genericdoctypename %>/edit/<%- genericdoc._id %>/revisions">View new changes</a></small>
+		</div>
+		<%if(genericdoc && genericdoc.changes && genericdoc.changes.length>0){
+			genericdoc.changes.reverse();
+			%>
+			
+			<div id="content_revision_track_changes" class="ts-row">
+				<%
+				genericdoc.changes.forEach(function(changeset,index){
+					if(index<5){
+						var changedprops=[],
+							changesetdata = changeset.changeset;
+						for(var prop in changesetdata){
+							changedprops.push(prop);
+						}
+						%>
+					<div class="changeset ts-row">
+						<small><%- (genericdoc.changes.length - index)%>. 
+							<a href="/p-admin/<%- genericdoctypename %>/edit/<%- genericdoc._id %>/revision/<%- (genericdoc.changes.length - index)%>"><%- changeset.createdat%></a> 
+							<div style="padding-left:1.5em;">
+								<%- changeset.editor_username %> changed:  
+								 <%- JSON.stringify(changedprops, null, 1) %>  </div>
+						</small>
+					</div>
+					<%}
+
+				});
+				if(genericdoc.changes.length>5){%>
+					<div class="ts-row ts-text-center"><small><a href="/p-admin/<%- genericdoctypename %>/edit/<%- genericdoc._id %>/revisions">View all changes</a></small></div>
+				<%}%>
+			</div>
+			<%}
+			else{%> <h3>No Changes</h3> <%}%>
+	</aside>
+</details>

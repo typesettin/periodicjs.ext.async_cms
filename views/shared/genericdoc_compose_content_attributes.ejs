@@ -1,0 +1,59 @@
+<details class="ts-text-sm">
+	<summary>Content Type Attributes</summary>
+	<aside id="doc-ct-attr">
+		<div>
+			<% 
+			var contenttypestouse;
+			if(!genericdoc && default_contentypes){
+				contenttypestouse = default_contentypes;
+			}
+			else if(genericdoc && genericdoc.contenttypes){
+				contenttypestouse = genericdoc.contenttypes;
+			}
+			if(contenttypestouse){
+				contenttypestouse.forEach(function(ct){
+					%>
+					<div>
+						<strong style="margin-top:0;"><%= ct.title %><small> <a href="/p-admin/contenttype/<%=ct.name%>">(edit)</a></small></strong>
+						<% if(ct.attributes){
+							ct.attributes.forEach(function(attr){
+								var defaultVal = attr.defaultvalue;
+
+								if(genericdoc && genericdoc.contenttypeattributes && genericdoc.contenttypeattributes[ct.name] && genericdoc.contenttypeattributes[ct.name][attr.name]){
+									defaultVal = genericdoc.contenttypeattributes[ct.name][attr.name];
+								}
+								%>
+								<div class="ts-row ts-form-row">
+									<label class="ts-label ts-col-span3">
+										<%= attr.title %>
+									</label>
+									<div class="ts-col-span9">
+									<% 
+										if(attr.datatype==='array' && attr.defaultvalue){
+											var selectOptionsFromDefaultVal = attr.defaultvalue.split(',');
+											%>
+											<select class="ts-input noFormSubmit ts-text-sm" name="contenttypeattributes.<%= ct.name %>.<%= attr.name %>">
+												<% selectOptionsFromDefaultVal.forEach(function(ctvalues,i){
+													%>
+													<option <% if(selectOptionsFromDefaultVal[i] === defaultVal ){%> selected="selected"
+													<%}%> value="<%= ctvalues %>"><%= ctvalues %></option>
+													<%
+												}); %>
+											</select>
+											<%
+										} 
+										else{%>
+											<input class="ts-input noFormSubmit ts-text-sm" type="text" placeholder="<%= attr.title %>" value="<%- defaultVal %>" name="contenttypeattributes.<%= ct.name %>.<%= attr.name %>">
+									<%}%>
+									</div>
+								</div>
+							<%});
+						} %>
+					</div>
+					<%
+				});
+			} %>
+		</div>
+	</aside>
+</details>
+
