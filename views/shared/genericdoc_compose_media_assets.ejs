@@ -1,0 +1,69 @@
+
+<details open="open"  class="ts-text-sm">
+  <summary>
+    <% if (typeof mediaassettitle ==='string'){%>
+      <%- mediaassettitle %>
+    <%}
+    else{%> 
+      Media Assets 
+    <%} %>
+  </summary>
+  <aside>
+    <div class="ts-row ts-form-row">
+      <!-- <div id="filedrag">drag or drop files here</div> -->
+      <!-- http://www.sitepoint.com/html5-file-drag-and-drop/ -->
+      <div class="ts-col-span8 ts-text-center">
+        <div class=" ts-form-row ts-row">
+          <div class="ts-col-span9">
+            <input type="text" placeholder="search" id="media-search-query" class=" ts-input" name="media-search-query"/>
+          </div>
+          <div class="ts-col-span3">
+            <a data-href="/p-admin/assets" data-successfunction="mediaSearchResult" class="ts-col-span12 ts-button ts-text-sm" id="media-asset-search-button" />search</a>
+          </div>
+        </div>
+      </div>
+      <div class="ts-col-span1 ts-text-sm">
+        <div class="ts-row ts-form-row ts-text-center">
+          or                              
+        </div>
+      </div>
+      <div class="ts-col-span3">
+        <input type="file" id="padmin-mediafiles" class="ts-col-span12 ts-button ts-text-sm ts-input" name="mediafiles" multiple="multiple" />
+      </div>
+    </div>
+    <div id="media-files-search-result" style="margin:0.5em 0 0; border-left:none; border-right:none; padding-bottom:0.5em;" class="ts-row pea-border ts-hidden ts-container-forminput">
+    </div>
+    <div id="media-files-result" class="ts-row ts-form-row">
+      <input type="hidden" id="primaryasset-input" name="primaryasset" value="<% if (genericdoc && genericdoc.primaryasset){%><%- genericdoc.primaryasset._id%><%} %>"/>
+      
+      
+      <% if(genericdoc && genericdoc.assets){
+        genericdoc.assets.forEach(function(asset){
+          %>
+          <div data-id="asset._id" class="ts-col-span4 media-item-x">
+            <input style="display:none;" name="assets" type="checkbox" value="<%=asset._id%>" checked="checked"></input>
+            <% if(asset.assettype && asset.assettype.match("image")){
+              %><img class="ts-col-span11" src="<%=asset.fileurl%>"/><%
+            } 
+            else{%>
+            <div class="ts-col-span11"> <%=asset.fileurl%></div>
+            <%
+          }%>
+          <div class="mix-options ts-text-right"> 
+            <a href="/p-admin/asset/<%= asset._id %>" target="_blank" title="edit asset" class="ts-button edit-asset ts-color-info">i</a>
+
+            <a data-assetid="<%= asset._id %>" title="make primary asset" class="ts-button make-primary ts-color-warn"
+              <% if(genericdoc.primaryasset && genericdoc.primaryasset._id.toString() === asset._id.toString()){%>
+              style="display:none;"
+              <%}%>
+              >*</a>
+              
+              <a data-assetid="<%= asset._id %>" title="remove asset" class="ts-button remove-asset ts-color-error">x</a>
+            </div>
+          </div>
+          <%
+        });
+      } %>
+    </div>
+  </aside>
+</details>

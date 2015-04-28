@@ -1,7 +1,7 @@
 {
   "name": "periodicjs.ext.async_cms",
   "description": "cms for periodicjs",
-  "version": "5.0.1",
+  "version": "5.0.101",
   "main": "index.js",
   "engines": {
     "node": ">=0.10.x"
@@ -21,6 +21,7 @@
     "postuninstall": "node uninstall.js"
   },
   "dependencies": {
+    "validate-js": "^1.5.1"
   },
   "devDependencies": {
     "browserify": "~6.3.2",
