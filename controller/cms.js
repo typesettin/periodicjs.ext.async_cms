@@ -14,7 +14,8 @@ var Utilities = require('periodicjs.core.utilities'),
   Compilation,
   Item,
   User,
-  adminExtSettings;
+  adminExtSettings,
+  adminPath;
 
 
 var items_index = function (req, res) {
@@ -26,7 +27,7 @@ var items_index = function (req, res) {
   viewdata = {
     pagedata: {
       title: 'Item Admin',
-      toplink: '&raquo; Items',
+      toplink: '&raquo;   <a href="/' + adminPath + '/content/items" class="async-admin-ajax-link">Items</a>',
       extensions: CoreUtilities.getAdminMenu()
     },
     items: req.controllerData.items,
@@ -46,7 +47,7 @@ var item_new = function (req, res) {
   viewdata = {
     pagedata: {
       title: 'New Item ',
-      toplink: '&raquo; Items &raquo; New',
+      toplink: '&raquo; <a href="/' + adminPath + '/content/items" class="async-admin-ajax-link">Items</a> &raquo; New',
       extensions: CoreUtilities.getAdminMenu()
     },
     item: null,
@@ -68,7 +69,7 @@ var item_edit = function (req, res) {
   viewdata = {
     pagedata: {
       title: req.controllerData.item.title + ' - Edit Item',
-      toplink: '&raquo; Items',
+      toplink: '&raquo; <a href="/' + adminPath + '/content/items" class="async-admin-ajax-link">Items</a>',
       extensions: CoreUtilities.getAdminMenu()
     },
     item: req.controllerData.item,
@@ -149,6 +150,7 @@ var compilations_index = function (req, res) {
   // AppDBSetting = mongoose.model('Setting');
   // var appenvironment = appSettings.application.environment;
   adminExtSettings = resources.app.controller.extension.admin.adminExtSettings;
+  adminPath = resources.app.locals.adminPath;
 
   return {
     items_index: items_index,

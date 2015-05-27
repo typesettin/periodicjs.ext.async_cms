@@ -72,7 +72,7 @@
 	      <a id="clone-item-button" class="ts-button">Clone</a>
 	      <% if(genericdoc){%> 
 	      	<a href="/<%- genericdoctypename %>/<%- genericdoc._id %>" target="_blank" class="ts-button"/>View</a>
-	      	<a href="/<%- genericdoctypename %>/<%- genericdoc._id %>" target="_blank" class="ts-button ts-button-error-color"/>Delete</a>
+	      	<a data-href="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/delete" data-deleted-redirect-href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>" class="ts-button ts-button-error-color ts-dialog-delete"/>Delete</a>
 	      <%}%>
 			</div>
 	  <%}%>

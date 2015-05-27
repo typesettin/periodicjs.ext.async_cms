@@ -5,9 +5,11 @@
 	  <h4>Content Management &rsaquo; Items</h4>
   	<% genericdoctype = "Item" %>
   	<% genericdoctypelink = "item" %>
+  	<% genericdoctypeplurallink = "items" %>
     <% items.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_item %>
     <%})%>
+		<input type="hidden" name="_csrf" value=<%- locals.token %> >
   </div>
 </div>
 <% include ../../shared/footer %>

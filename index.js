@@ -3,6 +3,7 @@
 var errorie = require('errorie'),
 	asyncadminInstalled,
 	path = require('path'),
+	multer = require('multer'),
 	fs = require('fs-extra'),
 	extend = require('utils-merge'),
 	CMS_adminExtSettings,
@@ -70,7 +71,7 @@ module.exports = function (periodic) {
 		compilationRouter = periodic.express.Router(),
 		itemController = periodic.app.controller.native.item,
 		tagController = periodic.app.controller.native.tag,
-		// mediaassetController = periodic.app.controller.native.asset,
+		assetController = periodic.app.controller.native.asset,
 		categoryController = periodic.app.controller.native.category,
 		contenttypeController = periodic.app.controller.native.contenttype,
 		userController = periodic.app.controller.native.user,
@@ -106,7 +107,7 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypeWithCount, contenttypeController.loadContenttypeWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
 	// contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
 	// contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
-	// contentAdminRouter.get('/assets', mediaassetController.loadAssetWithCount, mediaassetController.loadAssetWithDefaultLimit, mediaassetController.loadAssets, cmsController.assets_index);
+	// contentAdminRouter.get('/assets', assetController.loadAssetWithCount, assetController.loadAssetWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
 	// contentAdminRouter.get('/extensions', cmsController.loadExtensions, cmsController.extensions_index);
 	// contentAdminRouter.get('/themes', cmsController.loadThemes, adminSettingsController.load_theme_settings, cmsController.themes_index);
 	// contentAdminRouter.get('/users', userController.loadUsersWithCount, userController.loadUsersWithDefaultLimit, uacController.loadUacUsers, cmsController.users_index);
@@ -124,9 +125,12 @@ module.exports = function (periodic) {
 	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_revisions);
 	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
 	// itemRouter.post('/new', itemController.create);
-	itemContentAdminRouter.post('/:id/edit', itemController.loadItem, itemController.update);
+	itemContentAdminRouter.post('/:id/edit', 
+		assetController.multiupload, 
+		assetController.create_assets_from_files, 
+		periodic.core.controller.save_revision, itemController.loadItem, itemController.update);
 	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
-	// itemRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
+	itemContentAdminRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
 
 
 	/**
@@ -138,10 +142,35 @@ module.exports = function (periodic) {
 
 
 	/**
+	 * admin/tag manager routes
+	 */
+	tagContentAdminRouter.post('/new/:id', tagController.loadTag, tagController.create);
+	tagContentAdminRouter.post('/new', tagController.loadTag, tagController.create);
+	// tagRouter.post('/:id/delete', tagController.loadTag, tagController.remove);
+	// tagRouter.post('/edit', tagController.update);
+	// tagAdminRouter.get('/edit/:id', tagController.loadTag, adminController.tag_show);
+	// tagAdminRouter.get('/:id', tagController.loadTag, adminController.tag_show);
+	// tagAdminRouter.get('/:id/parent', tagController.loadTag, adminController.tag_parent);
+
+
+	/**
+	 * admin/category manager routes
+	 */
+	categoryContentAdminRouter.post('/new/:id', categoryController.loadCategory, categoryController.create);
+	categoryContentAdminRouter.post('/new', categoryController.loadCategory, categoryController.create);
+	// categoryRouter.post('/:id/delete', categoryController.loadCategory, categoryController.remove);
+	// categoryRouter.post('/edit', categoryController.update);
+	// categoryAdminRouter.get('/edit/:id', categoryController.loadCategory, adminController.category_show);
+	// categoryAdminRouter.get('/:id', categoryController.loadCategory, adminController.category_show);
+	// categoryAdminRouter.get('/:id/parent', categoryController.loadCategory, adminController.category_parent);
+
+
+	/**
 	 * periodic routes
 	 */
 	contentAdminRouter.get('/user/search.:ext', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
 	contentAdminRouter.get('/user/search', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
+	contentAdminRouter.post('/user/search/:id', global.CoreCache.disableCache, userController.loadUser, userController.show);
 	contentAdminRouter.get('/category/search.:ext', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
 	contentAdminRouter.get('/category/search', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
 	contentAdminRouter.get('/category/:id/children', global.CoreCache.disableCache, categoryController.loadCategory, categoryController.loadChildren, categoryController.showChildren);
