@@ -2,7 +2,9 @@
 	<summary>Track Changes</summary>
 	<aside>
 		<div id="latest_content_revision" class="ts-row ts-text-center" style="display:none;">
+		<% if(genericdoc){%>
 			<small><a href="/p-admin/<%- genericdoctypename %>/edit/<%- genericdoc._id %>/revisions">View new changes</a></small>
+		<%}%>
 		</div>
 		<%if(genericdoc && genericdoc.changes && genericdoc.changes.length>0){
 			genericdoc.changes.reverse();

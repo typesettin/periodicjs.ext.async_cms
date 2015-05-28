@@ -1,10 +1,10 @@
-<details open="open" class="ts-text-sm">
+<details class="ts-text-sm">
   <summary>Taxonomy</summary>
   <aside>
     <div class="ts-document noFormSubmit">
       <div class="ts-row ts-form-row ts-container-margin-md">
         <input type="text" id="padmin-contenttypes" data-ajax-prop="contenttypes" data-ajax-source="/p-admin/content/contenttype/new" data-ajax-setdata-variable="genericdoc_contenttypes" 
-        class="ts-col-span12 ts-datalist-tagged" placeholder="Content Types" name="contenttypes-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        class="ts-col-span12 ts-datalist-tagged" placeholder="Content Types" name="contenttypes-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form" />
       </div>
       <div class="ts-row ts-form-row ts-container-margin-md">
         <input type="text" class="ts-col-span12 ts-datalist-tagged" 
@@ -42,5 +42,6 @@ if(genericdoc && genericdoc.tags){%>
   <%- locals.viewhelper.passObjToClient(genericdoc.contenttypes,"genericdoc_contenttypes") %>
 </script>
 <%}%>
+<% include _template_compose_taxonomies %>
 <!-- 
 <div id="tags-cbc" class="_ltr-cbc"><input id="lp-cbx_546608ee216039001a7cd1dc" name="tags" type="checkbox" value="546608ee216039001a7cd1dc" checked="checked"></input><input id="lp-cbx_55649562f34621960448bfe1" name="tags" type="checkbox" value="55649562f34621960448bfe1" checked="checked"></input></div> -->

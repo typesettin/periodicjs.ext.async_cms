@@ -1,28 +1,16 @@
-<input type="hidden" name="_csrf" value=<%= locals.token %> >
-<div class="ts-container">
-	<div class="ts-row">
-		<div class="ts-col-span8">
-			<% 
-				var genericdoc = items; 
-				var genericdocname = "item"; 
-				var genericdocdeletefunction = "backToItemLanding"; 
-				var genericdocnamelink = "items"; 
-				var genericdocTitle = "Item"; 
-				var mediaassettitle = "<h2>Content Media</h2>";
-			%>
-			<% include ../../shared/html_inject_precontent %>			
-			<% include ../../shared/compose_content %>
-			<% include ../../shared/content_attributes %>
-			<% include ../../shared/media_asset %>
-			<% include ../../shared/html_inject_postcontent %>
-		</div>
-		<div class="ts-col-span3 ts-pull-right">
-			<% include ../../shared/content_options %>
-			<% include ../../shared/content_taxonmy %>
-			<% if(genericdoc){%>
-				<% include ../../shared/content_delete %>
-			<%}%>
-		</div>
+<input type="hidden" name="_csrf" value=<%- locals.token %> >
+<%if(typeof genericdocid !=='undefined'){%>
+	<input type="hidden" name="docid" value=<%- genericdocid %> >
+<%}%>
+<div class="ts-row">
+	<div class="ts-genericdoc-entry ts-col-span8 ts-screensm-col-span12 ts-screenxs-col-span12">
+		<% include ../../shared/genericdoc_compose_title_content %>
+		<% include ../../shared/genericdoc_compose_content_attributes %>
+		<% include ../../shared/genericdoc_compose_media_assets %>
+	</div>
+	<div class=" ts-col-span4 ts-screensm-col-span12 ts-screenxs-col-span12">
+		<% include ../../shared/genericdoc_compose_publish %>
+		<% include ../../shared/genericdoc_compose_taxonomy %>
+		<% include ../../shared/genericdoc_compose_content_revisions %>
 	</div>
 </div>
-

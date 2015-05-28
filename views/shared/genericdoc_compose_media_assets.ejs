@@ -1,69 +1,41 @@
-
-<details open="open"  class="ts-text-sm">
+<details <% if(genericdoc){%>open="open" <%}%> class="ts-text-sm">
   <summary>
     <% if (typeof mediaassettitle ==='string'){%>
       <%- mediaassettitle %>
     <%}
     else{%> 
-      Media Assets 
+      Assets 
     <%} %>
   </summary>
   <aside>
-    <div class="ts-row ts-form-row">
-      <!-- <div id="filedrag">drag or drop files here</div> -->
-      <!-- http://www.sitepoint.com/html5-file-drag-and-drop/ -->
-      <div class="ts-col-span8 ts-text-center">
-        <div class=" ts-form-row ts-row">
-          <div class="ts-col-span9">
-            <input type="text" placeholder="search" id="media-search-query" class=" ts-input" name="media-search-query"/>
-          </div>
-          <div class="ts-col-span3">
-            <a data-href="/p-admin/assets" data-successfunction="mediaSearchResult" class="ts-col-span12 ts-button ts-text-sm" id="media-asset-search-button" />search</a>
-          </div>
-        </div>
+    <% if(genericdoc){%>
+      <div class="ts-row ts-form-row">
+        <input type="file" 
+        value="Upload new assets"
+        id="padmin-assets"
+        multiple="multiple" 
+        class="ts-col-span12 ts-medialist-tagged" 
+        placeholder="Upload Assets" 
+        name="mediafiles" 
+        title="upload-assets" 
+        data-ajax-prop="assets" 
+        data-ajax-source="/p-admin/content/asset/new" 
+        data-ajax-setdata-variable="genericdoc_assets"  
+        data-ajax-setprimaryasset-variable="genericdoc_primaryasset"  
+        data-ajax-formie="edit-<%- genericdoctypename %>-form"
+        />
       </div>
-      <div class="ts-col-span1 ts-text-sm">
-        <div class="ts-row ts-form-row ts-text-center">
-          or                              
-        </div>
+    <%} else{%>
+      <div class="ts-row ts-form-row">
+        Save <%- genericdoctypename %> before adding assets
       </div>
-      <div class="ts-col-span3">
-        <input type="file" id="padmin-mediafiles" class="ts-col-span12 ts-button ts-text-sm ts-input" name="mediafiles" multiple="multiple" />
-      </div>
-    </div>
-    <div id="media-files-search-result" style="margin:0.5em 0 0; border-left:none; border-right:none; padding-bottom:0.5em;" class="ts-row pea-border ts-hidden ts-container-forminput">
-    </div>
-    <div id="media-files-result" class="ts-row ts-form-row">
-      <input type="hidden" id="primaryasset-input" name="primaryasset" value="<% if (genericdoc && genericdoc.primaryasset){%><%- genericdoc.primaryasset._id%><%} %>"/>
-      
-      
-      <% if(genericdoc && genericdoc.assets){
-        genericdoc.assets.forEach(function(asset){
-          %>
-          <div data-id="asset._id" class="ts-col-span4 media-item-x">
-            <input style="display:none;" name="assets" type="checkbox" value="<%=asset._id%>" checked="checked"></input>
-            <% if(asset.assettype && asset.assettype.match("image")){
-              %><img class="ts-col-span11" src="<%=asset.fileurl%>"/><%
-            } 
-            else{%>
-            <div class="ts-col-span11"> <%=asset.fileurl%></div>
-            <%
-          }%>
-          <div class="mix-options ts-text-right"> 
-            <a href="/p-admin/asset/<%= asset._id %>" target="_blank" title="edit asset" class="ts-button edit-asset ts-color-info">i</a>
-
-            <a data-assetid="<%= asset._id %>" title="make primary asset" class="ts-button make-primary ts-color-warn"
-              <% if(genericdoc.primaryasset && genericdoc.primaryasset._id.toString() === asset._id.toString()){%>
-              style="display:none;"
-              <%}%>
-              >*</a>
-              
-              <a data-assetid="<%= asset._id %>" title="remove asset" class="ts-button remove-asset ts-color-error">x</a>
-            </div>
-          </div>
-          <%
-        });
-      } %>
-    </div>
+    <%}%>
   </aside>
 </details>
+<% if(genericdoc){%>
+<script type="text/javascript">
+  <%- locals.viewhelper.passObjToClient(genericdoc.primaryasset,"genericdoc_primaryasset") %>
+  <%- locals.viewhelper.passObjToClient(genericdoc.assets,"genericdoc_assets") %>
+</script>
+<%}%>
+<% include _template_compose_assets %>

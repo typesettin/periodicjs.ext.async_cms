@@ -3,7 +3,6 @@
 var errorie = require('errorie'),
 	asyncadminInstalled,
 	path = require('path'),
-	multer = require('multer'),
 	fs = require('fs-extra'),
 	extend = require('utils-merge'),
 	CMS_adminExtSettings,
@@ -38,6 +37,7 @@ module.exports = function (periodic) {
 	periodic.app.controller.extension.admin = {
 		CMS_adminExtSettings: CMS_adminExtSettings
 	};
+	periodic.app.locals.cms_item_route = CMS_adminExtSettings.content_routes.item;
 	periodic.app.controller.extension.admin = {
 		cms: require('./controller/cms')(periodic),
 		// settings: require('./controller/settings')(periodic)
@@ -118,16 +118,21 @@ module.exports = function (periodic) {
 	 * admin/item manager routes
 	 */
 
-	itemContentAdminRouter.get('/new',cmsController.item_new);
-	itemContentAdminRouter.get('/:id/edit',itemController.loadFullItem, cmsController.item_edit);
+	itemContentAdminRouter.get('/new', cmsController.item_new);
+	itemContentAdminRouter.get('/:id/edit', itemController.loadFullItem, cmsController.item_edit);
+	itemContentAdminRouter.get('/:id', itemController.loadFullItem, cmsController.item_edit);
 	// adminRouter.get('/items/search', itemController.loadItems, adminController.items_index);
 	// adminRouter.get('/item/edit/:id/revision/:changeset', itemController.loadFullItem, adminController.item_review_revision);
 	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_revisions);
 	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
-	// itemRouter.post('/new', itemController.create);
-	itemContentAdminRouter.post('/:id/edit', 
-		assetController.multiupload, 
-		assetController.create_assets_from_files, 
+	itemContentAdminRouter.post('/new',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision,
+		itemController.create);
+	itemContentAdminRouter.post('/:id/edit',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, itemController.loadItem, itemController.update);
 	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
 	itemContentAdminRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
@@ -163,6 +168,17 @@ module.exports = function (periodic) {
 	// categoryAdminRouter.get('/edit/:id', categoryController.loadCategory, adminController.category_show);
 	// categoryAdminRouter.get('/:id', categoryController.loadCategory, adminController.category_show);
 	// categoryAdminRouter.get('/:id/parent', categoryController.loadCategory, adminController.category_parent);
+
+	/**
+	 * admin/categorytype manager routes
+	 */
+	contenttypeContentAdminRouter.post('/new/:id', contenttypeController.loadContenttype, contenttypeController.create);
+	contenttypeContentAdminRouter.post('/new', contenttypeController.loadContenttype, contenttypeController.create);
+	// contenttypeRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
+	// contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
+	// contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
+	// contenttypeAdminRouter.get('/edit/:id', contenttypeController.loadContenttype, adminController.contenttype_show);
+	// contenttypeAdminRouter.get('/:id', contenttypeController.loadContenttype, adminController.contenttype_show);
 
 
 	/**

@@ -71,7 +71,12 @@
 				<a href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>/new" target="_blank" class="ts-button">New</a>
 	      <a id="clone-item-button" class="ts-button">Clone</a>
 	      <% if(genericdoc){%> 
-	      	<a href="/<%- genericdoctypename %>/<%- genericdoc._id %>" target="_blank" class="ts-button"/>View</a>
+	      	<a href=" <%
+	      	if(locals.cms_item_route){%>
+	      	<%- locals.cms_item_route.replace(/%doc.name%/gi,genericdoc.name).replace(/%doc._id%/gi,genericdoc._id) %> 
+	      	<%}
+	      	else{%> 
+	      	/<%- genericdoctypename %>/<%- genericdoc._id %> <%}%> " target="_blank" class="ts-button"/>View</a>
 	      	<a data-href="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/delete" data-deleted-redirect-href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>" class="ts-button ts-button-error-color ts-dialog-delete"/>Delete</a>
 	      <%}%>
 			</div>

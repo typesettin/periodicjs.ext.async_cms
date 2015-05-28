@@ -1,11 +1,14 @@
 <% include ../../shared/header %>
-
+<% genericdoctype = "Item" %>
+<% genericdoctypelink = "item" %>
+<% genericdoctypeplurallink = "items" %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-	  <h4>Content Management &rsaquo; Items</h4>
-  	<% genericdoctype = "Item" %>
-  	<% genericdoctypelink = "item" %>
-  	<% genericdoctypeplurallink = "items" %>
+    <div>
+      <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
+      <h4>Content Management &rsaquo; Items</h4>
+    </div>
+
     <% items.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_item %>
     <%})%>

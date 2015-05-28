@@ -96,12 +96,12 @@ module.exports = function (grunt) {
 			development: {
 				options: {
 					sourceMap: true,
-					sourceMapURL: 'asyncadmin.css.map',
+					sourceMapURL: 'async_cms.css.map',
 					yuicompress: true,
 					compress: true
 				},
 				files: {
-					'public/stylesheets/asyncadmin.css': 'resources/stylesheets/asyncadmin.less'
+					'public/stylesheets/async_cms.css': 'resources/stylesheets/async_cms.less'
 				}
 			}
 		},
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
 				cwd: 'public',
 				expand: true,
 				src: '**/*.*',
-				dest: '../../public/extensions/periodicjs.ext.asyncadmin',
+				dest: '../../public/extensions/periodicjs.ext.async_cms',
 			},
 		},
 		watch: {
