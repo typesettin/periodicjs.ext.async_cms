@@ -1,8 +1,6 @@
 'use strict';
 
-var Utilities = require('periodicjs.core.utilities'),
-	Controller = require('periodicjs.core.controller'),
-	moment = require('moment'),
+var moment = require('moment'),
 	CoreUtilities,
 	CoreController,
 	appSettings,
@@ -14,7 +12,7 @@ var Utilities = require('periodicjs.core.utilities'),
 	Compilation,
 	Item,
 	User,
-	adminExtSettings,
+	async_cms_settings,
 	adminPath;
 
 
@@ -54,7 +52,7 @@ var item_new = function (req, res) {
 			default_contentypes: { /*defaultcontenttypes*/ },
 			serverdate: moment().format('YYYY-MM-DD'),
 			servertime: moment().format('HH:mm'),
-			adminSettings: adminExtSettings,
+			adminSettings: async_cms_settings,
 			user: req.user
 		};
 	CoreController.renderView(req, res, viewtemplate, viewdata);
@@ -75,7 +73,7 @@ var item_edit = function (req, res) {
 			item: req.controllerData.item,
 			serverdate: moment(req.controllerData.item.publishat).format('YYYY-MM-DD'),
 			servertime: moment(req.controllerData.item.publishat).format('HH:mm'),
-			adminSettings: adminExtSettings,
+			adminSettings: async_cms_settings,
 			user: req.user
 		};
 	CoreController.renderView(req, res, viewtemplate, viewdata);
@@ -140,8 +138,8 @@ var controller = function (resources) {
 	logger = resources.logger;
 	mongoose = resources.mongoose;
 	appSettings = resources.settings;
-	CoreController = new Controller(resources);
-	CoreUtilities = new Utilities(resources);
+	CoreController = resources.core.controller;
+	CoreUtilities = resources.core.utilities;
 	Collection = mongoose.model('Collection');
 	Compilation = mongoose.model('Compilation');
 	Contenttype = mongoose.model('Contenttype');
@@ -149,7 +147,7 @@ var controller = function (resources) {
 	User = mongoose.model('User');
 	// AppDBSetting = mongoose.model('Setting');
 	// var appenvironment = appSettings.application.environment;
-	adminExtSettings = resources.app.controller.extension.admin.adminExtSettings;
+	async_cms_settings = resources.app.controller.extension.async_cms.async_cms_settings;
 	adminPath = resources.app.locals.adminPath;
 
 	return {
@@ -158,7 +156,7 @@ var controller = function (resources) {
 		item_edit: item_edit,
 		collections_index: collections_index,
 		compilations_index: compilations_index,
-		adminExtSettings: adminExtSettings,
+		async_cms_settings: async_cms_settings,
 	};
 };
 

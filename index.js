@@ -5,7 +5,7 @@ var errorie = require('errorie'),
 	path = require('path'),
 	fs = require('fs-extra'),
 	extend = require('utils-merge'),
-	CMS_adminExtSettings,
+	async_cms_settings,
 	appenvironment,
 	settingJSON,
 	// activate_middleware,
@@ -13,7 +13,7 @@ var errorie = require('errorie'),
 	CoreExtension = new Extensions({
 		extensionFilePath: path.resolve(process.cwd(), './content/config/extensions.json')
 	}),
-	CMS_adminExtSettingsFile = path.resolve(CoreExtension.getconfigdir({
+	async_cms_settingsFile = path.resolve(CoreExtension.getconfigdir({
 		extname: 'periodicjs.ext.async_cms'
 	}), './settings.json'),
 	defaultExtSettings = require('./controller/default_config');
@@ -32,13 +32,17 @@ module.exports = function (periodic) {
 	// periodic = express,app,logger,config,db,mongoose
 	// 
 	appenvironment = periodic.settings.application.environment;
-	settingJSON = fs.readJsonSync(CMS_adminExtSettingsFile);
-	CMS_adminExtSettings = (settingJSON[appenvironment]) ? extend(defaultExtSettings, settingJSON[appenvironment]) : defaultExtSettings;
-	periodic.app.controller.extension.admin = {
-		CMS_adminExtSettings: CMS_adminExtSettings
+	settingJSON = fs.readJsonSync(async_cms_settingsFile);
+	async_cms_settings = (settingJSON[appenvironment]) ? extend(defaultExtSettings, settingJSON[appenvironment]) : defaultExtSettings;
+	periodic.app.controller.extension.async_cms = {
+		async_cms_settings: async_cms_settings
 	};
-	periodic.app.locals.cms_item_route = CMS_adminExtSettings.content_routes.item;
-	periodic.app.controller.extension.admin = {
+	if(async_cms_settings.content_routes){
+		if(async_cms_settings.content_routes.item){
+			periodic.app.locals.cms_item_route = async_cms_settings.content_routes.item;
+		}
+	}
+	periodic.app.controller.extension.async_cms = {
 		cms: require('./controller/cms')(periodic),
 		// settings: require('./controller/settings')(periodic)
 	};
@@ -79,7 +83,7 @@ module.exports = function (periodic) {
 		compilationController = periodic.app.controller.native.compilation,
 		authController = periodic.app.controller.extension.login.auth,
 		uacController = periodic.app.controller.extension.user_access_control.uac,
-		cmsController = periodic.app.controller.extension.admin.cms;
+		cmsController = periodic.app.controller.extension.async_cms.cms;
 
 	/**
 	 * access control routes
