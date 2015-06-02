@@ -37,8 +37,8 @@ module.exports = function (periodic) {
 	periodic.app.controller.extension.async_cms = {
 		async_cms_settings: async_cms_settings
 	};
-	if(async_cms_settings.content_routes){
-		if(async_cms_settings.content_routes.item){
+	if (async_cms_settings.content_routes) {
+		if (async_cms_settings.content_routes.item) {
 			periodic.app.locals.cms_item_route = async_cms_settings.content_routes.item;
 		}
 	}
