@@ -120,6 +120,68 @@ var compilations_index = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
+var contenttypes_index = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/contenttypes/index',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'Content Type Admin',
+				toplink: '&raquo;   <a href="/' + adminPath + '/content/contenttypes" class="async-admin-ajax-link">Content Types</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			contenttypes: req.controllerData.contenttypes,
+			contenttypescount: req.controllerData.contenttypescount,
+			contenttypepages: Math.ceil(req.controllerData.contenttypescount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var contenttype_new = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/contenttypes/new',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'New Content Type ',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/contenttypes" class="async-admin-ajax-link">Items</a> &raquo; New Content Type',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			contenttype: null,
+			default_contentypes: { /*defaultcontenttypes*/ },
+			serverdate: moment().format('YYYY-MM-DD'),
+			servertime: moment().format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var contenttype_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/contenttypes/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.contenttype.title + ' - Edit Content Type',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/contenttypes" class="async-admin-ajax-link">Content Types</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			contenttype: req.controllerData.contenttype,
+			serverdate: moment(req.controllerData.contenttype.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.contenttype.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
 
 /**
  * admin controller
@@ -156,6 +218,9 @@ var controller = function (resources) {
 		item_edit: item_edit,
 		collections_index: collections_index,
 		compilations_index: compilations_index,
+		contenttypes_index: contenttypes_index,
+		contenttype_edit: contenttype_edit,
+		contenttype_new: contenttype_new,
 		async_cms_settings: async_cms_settings,
 	};
 };

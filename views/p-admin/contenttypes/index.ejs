@@ -1,0 +1,18 @@
+<% include ../../shared/header %>
+<% genericdoctype = "Contenttype" %>
+<% genericdoctypelink = "contenttype" %>
+<% genericdoctypeplurallink = "contenttypes" %>
+<div class="ts-container">
+  <div class="ts-page-content-container">
+    <div>
+      <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
+      <h4>Content Management &rsaquo; Content Types</h4>
+    </div>
+
+    <% contenttypes.forEach(function(genericdoc,i){%>
+    <% include ../../shared/genericdoc_list_contenttype %>
+    <%})%>
+		<input type="hidden" name="_csrf" value=<%- locals.token %> >
+  </div>
+</div>
+<% include ../../shared/footer %>

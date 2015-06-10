@@ -108,7 +108,7 @@ module.exports = function (periodic) {
 	contentAdminRouter.get('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
 	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
 	contentAdminRouter.get('/compliations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
-	// contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypeWithCount, contenttypeController.loadContenttypeWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
+	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypeWithCount, contenttypeController.loadContenttypeWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
 	// contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
 	// contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
 	// contentAdminRouter.get('/assets', assetController.loadAssetWithCount, assetController.loadAssetWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
@@ -178,11 +178,13 @@ module.exports = function (periodic) {
 	 */
 	contenttypeContentAdminRouter.post('/new/:id', contenttypeController.loadContenttype, contenttypeController.create);
 	contenttypeContentAdminRouter.post('/new', contenttypeController.loadContenttype, contenttypeController.create);
-	// contenttypeRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
+	contenttypeContentAdminRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
 	// contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
 	// contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
-	// contenttypeAdminRouter.get('/edit/:id', contenttypeController.loadContenttype, adminController.contenttype_show);
-	// contenttypeAdminRouter.get('/:id', contenttypeController.loadContenttype, adminController.contenttype_show);
+	contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);	
+	contenttypeContentAdminRouter.get('/edit/:id', contenttypeController.loadContenttype, cmsController.contenttype_show);
+	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_show);
+
 
 
 	/**
