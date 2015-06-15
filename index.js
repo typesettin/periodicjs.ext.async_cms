@@ -179,11 +179,11 @@ module.exports = function (periodic) {
 	contenttypeContentAdminRouter.post('/new/:id', contenttypeController.loadContenttype, contenttypeController.create);
 	contenttypeContentAdminRouter.post('/new', contenttypeController.loadContenttype, contenttypeController.create);
 	contenttypeContentAdminRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
-	// contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
-	// contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
-	contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);	
-	contenttypeContentAdminRouter.get('/edit/:id', contenttypeController.loadContenttype, cmsController.contenttype_show);
-	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_show);
+	contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
+	contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
+	contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);
+	contenttypeContentAdminRouter.get('/:id/edit', contenttypeController.loadContenttype, cmsController.contenttype_edit);
+	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 
 
 

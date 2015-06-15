@@ -1,0 +1,20 @@
+<% include ../../shared/header %>
+<% include ../../shared/html_inject_precontent %>
+<% genericdoc = contenttype %>
+<% genericdoctype = "Contenttype" %>
+<% genericdoctypelink = "contenttype" %>
+<% genericdoctypeplurallink = "contenttypes" %>
+<div class="ts-container">
+  <div class="ts-page-content-container">
+    <div class="ts_row">
+      <button class="ts-button-error-color ts-dialog-delete ts-button ts-pull-right"  data-href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>/<%- genericdoc._id %>/delete" data-deleted-redirect-href="/<%- locals.adminPath %>/content/<%- genericdoctypeplurallink %>">Delete <%- genericdoctype %></button>
+      <h4>Edit <a href="/<%- locals.adminPath %>/content/<%- genericdoctypeplurallink %>/">Content Type</a> &rsaquo; <%- contenttype.name %>
+      </h4>
+    </div>
+    <% include _show_list_contenttypes %>    
+  </div>
+</div>
+<input type="hidden" name="_csrf" value=<%- locals.token %> >
+<% include ../../shared/html_inject_postcontent %>
+<script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
+<% include ../../shared/footer %>

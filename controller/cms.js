@@ -15,7 +15,6 @@ var moment = require('moment'),
 	async_cms_settings,
 	adminPath;
 
-
 var items_index = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/items/index',
@@ -164,7 +163,7 @@ var contenttype_new = function (req, res) {
 
 var contenttype_edit = function (req, res) {
 	var viewtemplate = {
-			viewname: 'p-admin/contenttypes/edit',
+			viewname: 'p-admin/contenttypes/show',
 			themefileext: appSettings.templatefileextension,
 			extname: 'periodicjs.ext.async_cms'
 		},

@@ -1,0 +1,88 @@
+<div class="ts-row">
+  <div class="ts-col-span12">
+    <div class="ts-document">
+      <form class="ts-form async-admin-ajax-forms" id="contenttype-remove-form" name="contenttype-remove-form" method="post" action="/contenttype/removeitem/<%- contenttype.name %>" data-successsubmitfunction="adminRefresh" data-beforesubmitfunction="setItemToRemove" >
+        <input type="hidden" name="_csrf" value=<%- locals.token %> >
+        <input type="hidden" name="name" id="remove-item-name" value="" />
+        <table class="ts-table ts-form ts-width-100 ts-table-padding-md ts-text-left ts-sans-serif" style="margin-bottom:1em;">
+          <thead class="ts-table-head">
+            <tr class="ts-text-left">
+              <th class="ts-col-span5" >Attribute Name</th>
+              <th class="ts-col-span2" >Data Type</th>
+              <th class="ts-col-span5" >Default Value</th>
+            </tr>
+          </thead>
+          <tbody class="ts-table-body" id="ct-t-body">
+            <% if (contenttype.attributes && contenttype.attributes.length>0){
+              contenttype.attributes.forEach(function(attribute){
+                %>
+                <tr id="attr-name-val-<%- attribute.name %>">
+                  <td><%- attribute.title %></td>
+                  <td><%- attribute.datatype %></td>
+                  <td><%- attribute.defaultvalue %>
+                    <button type="button" value="<%- attribute.name %>" name="attributename" class="edit-content-type-button ts-button ts-pull-right ts-button-error-color">x</button>
+                  </td> 
+                </tr>
+                <%
+              });
+            }%>
+          </tbody>
+        </table>
+      </form>
+      <form class="ts-form async-admin-ajax-forms" id="contenttype-add-form" name="contenttype-add-form" method="post" action="/contenttype/append/<%- contenttype.name %>" data-successsubmitfunction="adminRefresh">
+        <table class="ts-table ts-form ts-width-100 ts-table-padding-md ts-text-left ts-sans-serif">
+          <tfoot class="ts-table-foot">
+            <tr class="ts-form-row ts-row" style="border-bottom:none;">
+              <td class="ts-col-span5">
+                <input type="hidden" name="_csrf" value=<%- locals.token %> >
+                <div class="ts-row ts-container-forminput">
+                  <input type="text" class="ts-col-span12" id="padmin-name" placeholder="Attribute Name" name="title"/>
+                </div>
+              </td>
+              <td class="ts-col-span2">
+                <div class="ts-row ts-container-forminput">
+                  <% var contenttypeselect = [{
+                    "value":"string",
+                    "label":"String"
+                    },{
+                    "value":"url",
+                    "label":"Url"
+                    },{
+                    "value":"number",
+                    "label":"Number"
+                    },{
+                    "value":"array",
+                    "label":"Array"
+                    },{
+                    "value":"object",
+                    "label":"Object"
+                    }]; %>
+                  <select name="datatype" id="padmin-datatype" class="ts-col-span12 ts-input">
+                    <% contenttypeselect.forEach(function(type){
+                      %>
+                        <option value="<%- type.value %>"><%- type.label %>
+                        </option>
+                      <%
+                    }) %> 
+                  </select>
+                </div>
+              </td>
+              <td class="ts-col-span5">
+                <div class="ts-row ts-container-forminput">
+                  <input type="text" class="ts-col-span12" id="padmin-defaultvalue" placeholder="Default Value" name="defaultvalue"/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div class="ts-text-center">
+                  <input type="submit" name="save_button" value="add attribute" class="ts-button ts-button-primary-text-color"/>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
