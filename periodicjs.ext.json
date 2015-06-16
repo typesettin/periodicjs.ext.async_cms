@@ -85,13 +85,8 @@
 					      }
 					    }]
 				  	},{
-				    "tree-item": "folder",
-				    "tree-item-label":"Content Types",
-				    "tree-item-link": "/%locals.adminPath%/content/contenttypes",
-				    "tree-item-id":"asynccms.contenttypes"	,
-				    "tree-item-folder-contents":[{
 				  		"tree-item": "file",
-					      "tree-item-label":"All Contenttype",
+					      "tree-item-label":"Contenttypes",
 					      "tree-item-id":"asynccms.contenttypes.all",
 					    	"tree-item-link": "/%locals.adminPath%/content/contenttypes",
 					      "tree-item-attributes":{
@@ -99,16 +94,6 @@
 					      	"title":"cms link"
 					      }
 					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Contenttype",
-					      "tree-item-id":"asynccms.contenttypes.all",
-					      "tree-item-link": "/%locals.adminPath%/content/contenttype/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
 				    "tree-item": "folder",
 				    "tree-item-label":"Categories",
 				    "tree-item-link": "/%locals.adminPath%/content/categories",

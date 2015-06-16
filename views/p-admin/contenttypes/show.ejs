@@ -8,7 +8,7 @@
   <div class="ts-page-content-container">
     <div class="ts_row">
       <button class="ts-button-error-color ts-dialog-delete ts-button ts-pull-right"  data-href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>/<%- genericdoc._id %>/delete" data-deleted-redirect-href="/<%- locals.adminPath %>/content/<%- genericdoctypeplurallink %>">Delete <%- genericdoctype %></button>
-      <h4>Edit <a href="/<%- locals.adminPath %>/content/<%- genericdoctypeplurallink %>/">Content Type</a> &rsaquo; <%- contenttype.name %>
+      <h4>Edit <a href="/<%- locals.adminPath %>/content/<%- genericdoctypeplurallink %>/"> <span class="ts-text-accent-color">Content Type</span></a> &rsaquo; <%- contenttype.name %>
       </h4>
     </div>
     <% include _show_list_contenttypes %>    
