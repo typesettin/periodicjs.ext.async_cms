@@ -142,30 +142,15 @@
 					      }
 					    }]
 				  	},{
-				    "tree-item": "folder",
-				    "tree-item-label":"Assets",
-				    "tree-item-link": "/%locals.adminPath%/content/assets",
-				    "tree-item-id":"asynccms.assets"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Assets",
-					      "tree-item-id":"asynccms.assets.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/assets",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Asset",
-					      "tree-item-id":"asynccms.assets.all",
-					      "tree-item-link": "/%locals.adminPath%/content/asset/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
+			  		"tree-item": "file",
+				      "tree-item-label":"Assets",
+				      "tree-item-id":"asynccms.assets.all",
+				    	"tree-item-link": "/%locals.adminPath%/content/assets",
+				      "tree-item-attributes":{
+				      	"class":"async-admin-ajax-link",
+				      	"title":"cms link"
+				      }
+				    },{
 				    "tree-item": "folder",
 				    "tree-item-label":"Data",
 				    "tree-item-link": "/%locals.adminPath%/content/datas",

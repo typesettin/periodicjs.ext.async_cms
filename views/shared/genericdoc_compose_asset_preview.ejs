@@ -1,0 +1,21 @@
+<details open="open" class="ts-text-sm">
+	<summary>
+<!-- 		<div class="ts-pull-right">
+	      <button class="ts-button ts-button-accent-color" type="submit" name="savebutton">save
+	      </button>
+		</div> -->
+		Asset Preview
+	</summary>
+	<aside>
+		<div class="ts-row ts-form-row">
+			<figure>
+				<% if(asset.assettype && asset.assettype.match("image")){ %>
+					<img class="ts-col-span12" src="<%-asset.fileurl%>"/><%
+				} 
+				else{ %>
+					<div class="ts-col-span12"> <%-asset.fileurl%></div>
+				<% } %>
+			</figure>
+		</div>
+	</aside>
+</details>

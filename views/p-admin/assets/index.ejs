@@ -1,0 +1,19 @@
+<% include ../../shared/header %>
+<% genericdoctype = "Asset" %>
+<% genericdoctypelink = "asset" %>
+<% genericdoctypeplurallink = "assets" %>
+<div class="ts-container">
+  <div class="ts-page-content-container">
+    <div>
+      <a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-asset-modal">New <%- genericdoctype %></a>
+      <h4>Content Management &rsaquo; Assets</h4>
+    </div>
+
+    <% assets.forEach(function(genericdoc,i){%>
+    <% include ../../shared/genericdoc_list_item %>
+    <%})%>
+		<input type="hidden" name="_csrf" value=<%- locals.token %> >
+  </div>
+</div>
+<% include _new_asset_modal %>
+<% include ../../shared/footer %>

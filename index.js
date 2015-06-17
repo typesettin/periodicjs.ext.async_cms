@@ -65,14 +65,16 @@ module.exports = function (periodic) {
 		itemContentAdminRouter = periodic.express.Router(),
 		tagRouter = periodic.express.Router(),
 		tagContentAdminRouter = periodic.express.Router(),
-		mediaRouter = periodic.express.Router(),
-		mediaContentAdminRouter = periodic.express.Router(),
+		assetRouter = periodic.express.Router(),
+		assetContentAdminRouter = periodic.express.Router(),
 		contenttypeRouter = periodic.express.Router(),
 		contenttypeContentAdminRouter = periodic.express.Router(),
 		categoryRouter = periodic.express.Router(),
 		categoryContentAdminRouter = periodic.express.Router(),
 		collectionRouter = periodic.express.Router(),
+		collectionContentAdminRouter = periodic.express.Router(),
 		compilationRouter = periodic.express.Router(),
+		compilationContentAdminRouter = periodic.express.Router(),
 		itemController = periodic.app.controller.native.item,
 		tagController = periodic.app.controller.native.tag,
 		assetController = periodic.app.controller.native.asset,
@@ -98,7 +100,7 @@ module.exports = function (periodic) {
 	categoryContentAdminRouter.all('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	contenttypeRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	contenttypeContentAdminRouter.all('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
-	mediaRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
+	assetRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 
 	/**
 	 * admin routes
@@ -107,11 +109,11 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/', cmsController.getMarkdownReleases, cmsController.getHomepageStats, cmsController.admin_index);
 	contentAdminRouter.get('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
 	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
-	contentAdminRouter.get('/compliations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
+	contentAdminRouter.get('/compilations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
 	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypeWithCount, contenttypeController.loadContenttypeWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
 	// contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
 	// contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
-	// contentAdminRouter.get('/assets', assetController.loadAssetWithCount, assetController.loadAssetWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
+	contentAdminRouter.get('/assets', assetController.loadAssetWithCount, assetController.loadAssetWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
 	// contentAdminRouter.get('/extensions', cmsController.loadExtensions, cmsController.extensions_index);
 	// contentAdminRouter.get('/themes', cmsController.loadThemes, adminSettingsController.load_theme_settings, cmsController.themes_index);
 	// contentAdminRouter.get('/users', userController.loadUsersWithCount, userController.loadUsersWithDefaultLimit, uacController.loadUacUsers, cmsController.users_index);
@@ -145,8 +147,72 @@ module.exports = function (periodic) {
 	/**
 	 * admin/collection manager routes
 	 */
-	// contentAdminRouter.get('/collections/new',collectionController.loadItemsWithCount, collectionController.loadItemsWithDefaultLimit, collectionController.loadItems, cmsController.collections_new);
+	collectionContentAdminRouter.get('/new', cmsController.collection_new);
+	collectionContentAdminRouter.get('/:id/edit', collectionController.loadCollection, cmsController.collection_edit);
+	collectionContentAdminRouter.get('/:id', collectionController.loadCollection, cmsController.collection_edit);
+	// // adminRouter.get('/collections/search', collectionController.loadCollections, adminController.collections_index);
+	// // adminRouter.get('/collection/edit/:id/revision/:changeset', collectionController.loadCollection, adminController.collection_review_revision);
+	// // adminRouter.get('/collection/edit/:id/revisions', collectionController.loadCollection, adminController.collection_revisions);
+	// // adminRouter.get('/collection/search', adminController.setSearchLimitTo1000, collectionController.loadCollections, collectionController.index);
+	collectionContentAdminRouter.post('/new',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision,
+		collectionController.create);
+	collectionContentAdminRouter.post('/:id/edit',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision, collectionController.loadCollection, collectionController.update);
+	// collectionRouter.post('/removechangeset/:id/:contententity/:changesetnum', collectionController.loadCollection, adminController.remove_changeset_from_content, collectionController.update);
+	collectionContentAdminRouter.post('/:id/delete', collectionController.loadCollection, collectionController.remove);
 
+	/**
+	//  * admin/compilation manager routes
+	*/
+
+	compilationContentAdminRouter.get('/new', cmsController.compilation_new);
+	compilationContentAdminRouter.get('/:id/edit', compilationController.loadCompilation, cmsController.compilation_edit);
+	compilationContentAdminRouter.get('/:id', compilationController.loadCompilation, cmsController.compilation_edit);
+	// adminRouter.get('/compilations/search', compilationController.loadCompilations, adminController.compilations_index);
+	// adminRouter.get('/compilation/edit/:id/revision/:changeset', compilationController.loadCompilation, adminController.compilation_review_revision);
+	// adminRouter.get('/compilation/edit/:id/revisions', compilationController.loadCompilation, adminController.compilation_revisions);
+	// adminRouter.get('/compilation/search', adminController.setSearchLimitTo1000, compilationController.loadCompilations, compilationController.index);
+	compilationContentAdminRouter.post('/new',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision,
+		compilationController.create);
+	compilationContentAdminRouter.post('/:id/edit',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision, compilationController.loadCompilation, compilationController.update);
+	// compilationRouter.post('/removechangeset/:id/:contententity/:changesetnum', compilationController.loadCompilation, adminController.remove_changeset_from_content, compilationController.update);
+	compilationContentAdminRouter.post('/:id/delete', compilationController.loadCompilation, compilationController.remove);
+
+	/**
+	 * admin/asset manager routes
+	 */
+
+	// assetContentAdminRouter.get('/new', cmsController.asset_new);
+	assetContentAdminRouter.get('/:id/edit', assetController.loadAsset, cmsController.asset_edit);
+	assetContentAdminRouter.get('/:id', assetController.loadAsset, cmsController.asset_edit);
+	// // adminRouter.get('/assets/search', assetController.loadAssets, adminController.assets_index);
+	// // adminRouter.get('/asset/edit/:id/revision/:changeset', assetController.loadAsset, adminController.asset_review_revision);
+	// // adminRouter.get('/asset/edit/:id/revisions', assetController.loadAsset, adminController.asset_revisions);
+	// // adminRouter.get('/asset/search', adminController.setSearchLimitTo1000, assetController.loadAssets, assetController.index);
+	assetContentAdminRouter.post('/new',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision,
+		assetController.assetcreate);
+	assetContentAdminRouter.post('/:id/edit',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision, 
+		assetController.loadAsset,
+		assetController.update);
+	// // assetRouter.post('/removechangeset/:id/:contententity/:changesetnum', assetController.loadAsset, adminController.remove_changeset_from_content, assetController.update);
+	assetContentAdminRouter.post('/:id/delete', assetController.loadAsset, assetController.remove);
 
 
 
@@ -205,7 +271,9 @@ module.exports = function (periodic) {
 	//link routers
 
 	contentAdminRouter.use('/item', itemContentAdminRouter);
-	contentAdminRouter.use('/asset', mediaContentAdminRouter);
+	contentAdminRouter.use('/collection', collectionContentAdminRouter);
+	contentAdminRouter.use('/compilation', compilationContentAdminRouter);
+	contentAdminRouter.use('/asset', assetContentAdminRouter);
 	contentAdminRouter.use('/contenttype', contenttypeContentAdminRouter);
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
 	contentAdminRouter.use('/category', categoryContentAdminRouter);
@@ -216,6 +284,6 @@ module.exports = function (periodic) {
 	periodic.app.use('/tag', tagRouter);
 	periodic.app.use('/category', categoryRouter);
 	periodic.app.use('/contenttype', contenttypeRouter);
-	periodic.app.use('/mediaasset', mediaRouter);
+	periodic.app.use('/asset', assetRouter);
 	return periodic;
 };

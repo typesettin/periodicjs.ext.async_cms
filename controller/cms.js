@@ -79,7 +79,7 @@ var item_edit = function (req, res) {
 };
 
 var collections_index = function (req, res) {
-	req.flash('info', 'testing flash now');
+	// req.flash('info', 'testing flash now');
 	var viewtemplate = {
 			viewname: 'p-admin/collections/index',
 			themefileext: appSettings.templatefileextension,
@@ -94,6 +94,49 @@ var collections_index = function (req, res) {
 			collections: req.controllerData.collections,
 			collectionscount: req.controllerData.collectionscount,
 			collectionpages: Math.ceil(req.controllerData.collectionscount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var collection_new = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/collections/new',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'New Collection ',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/collections" class="async-admin-ajax-link">Collections</a> &raquo; New',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			collection: null,
+			default_contentypes: { /*defaultcontenttypes*/ },
+			serverdate: moment().format('YYYY-MM-DD'),
+			servertime: moment().format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var collection_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/collections/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.collection.title + ' - Edit Collection',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/collections" class="async-admin-ajax-link">Collections</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			collection: req.controllerData.collection,
+			serverdate: moment(req.controllerData.collection.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.collection.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
 			user: req.user
 		};
 	CoreController.renderView(req, res, viewtemplate, viewdata);
@@ -114,6 +157,112 @@ var compilations_index = function (req, res) {
 			compilations: req.controllerData.compilations,
 			compilationscount: req.controllerData.compilationscount,
 			compilationpages: Math.ceil(req.controllerData.compilationscount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var compilation_new = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/compilations/new',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'New Compilation ',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/compilations" class="async-admin-ajax-link">Compilations</a> &raquo; New',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			compilation: null,
+			default_contentypes: { /*defaultcontenttypes*/ },
+			serverdate: moment().format('YYYY-MM-DD'),
+			servertime: moment().format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var compilation_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/compilations/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.compilation.title + ' - Edit Compilation',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/compilations" class="async-admin-ajax-link">Compilations</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			compilation: req.controllerData.compilation,
+			serverdate: moment(req.controllerData.compilation.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.compilation.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var assets_index = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/assets/index',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'Asset Admin',
+				toplink: '&raquo; Assets',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			assets: req.controllerData.assets,
+			assetscount: req.controllerData.assetscount,
+			assetpages: Math.ceil(req.controllerData.assetscount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var asset_new = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/assets/new',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'New Asset ',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/assets" class="async-admin-ajax-link">Assets</a> &raquo; New',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			asset: null,
+			default_contentypes: { /*defaultcontenttypes*/ },
+			serverdate: moment().format('YYYY-MM-DD'),
+			servertime: moment().format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var asset_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/assets/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.asset.title + ' - Edit Asset',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/assets" class="async-admin-ajax-link">Assets</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			asset: req.controllerData.asset,
+			serverdate: moment(req.controllerData.asset.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.asset.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
 			user: req.user
 		};
 	CoreController.renderView(req, res, viewtemplate, viewdata);
@@ -216,7 +365,14 @@ var controller = function (resources) {
 		item_new: item_new,
 		item_edit: item_edit,
 		collections_index: collections_index,
+		collection_new: collection_new,
+		collection_edit: collection_edit,
 		compilations_index: compilations_index,
+		compilation_new: compilation_new,
+		compilation_edit: compilation_edit,
+		assets_index: assets_index,
+		asset_new: asset_new,
+		asset_edit: asset_edit,
 		contenttypes_index: contenttypes_index,
 		contenttype_edit: contenttype_edit,
 		contenttype_new: contenttype_new,

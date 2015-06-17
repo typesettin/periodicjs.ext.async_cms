@@ -68,7 +68,9 @@
 	  </div>
 	  <% if(typeof genericdoctypename === "string" && genericdoc){%>
 			<div class="ts-row  ts-text-center ts-text-sm ts-padding-lg">
-				<a href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>/new" target="_blank" class="ts-button">New</a>
+				<% if(genericdoctype && genericdoctype!=='Asset'){%>
+					<a href="/<%- locals.adminPath %>/content/<%- genericdoctypelink %>/new" target="_blank" class="ts-button">New</a>
+				<%} %>
 	      <a id="clone-item-button" class="ts-button">Clone</a>
 	      <% if(genericdoc){%> 
 	      	<a href=" <%
