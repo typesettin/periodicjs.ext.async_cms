@@ -6,14 +6,17 @@
         <input type="text" id="padmin-contenttypes" data-ajax-prop="contenttypes" data-ajax-source="/p-admin/content/contenttype/new" data-ajax-setdata-variable="genericdoc_contenttypes" 
         class="ts-col-span12 ts-datalist-tagged" placeholder="Content Types" name="contenttypes-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form" />
       </div>
-      <div class="ts-row ts-form-row ts-container-margin-md">
-        <input type="text" class="ts-col-span12 ts-datalist-tagged" 
-        id="padmin-tags" data-ajax-prop="tags" data-ajax-source="/p-admin/content/tag/new" data-ajax-setdata-variable="genericdoc_tags"  placeholder="Tags" name="tags-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
-      </div>
-      <div class="ts-row ts-form-row ts-container-margin-md">
-        <input type="text" id="padmin-categories" data-ajax-prop="categories" data-ajax-source="/p-admin/content/category/new"  data-ajax-setdata-variable="genericdoc_categories" class="ts-col-span12 ts-datalist-tagged" 
-        placeholder="Categories" name="categories-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
-      </div>
+      <% if(genericdoctypename!=='category' && genericdoctypename!=='tag'){%>
+        <div class="ts-row ts-form-row ts-container-margin-md">
+          <input type="text" class="ts-col-span12 ts-datalist-tagged" 
+          id="padmin-tags" data-ajax-prop="tags" data-ajax-source="/p-admin/content/tag/new" data-ajax-setdata-variable="genericdoc_tags"  placeholder="Tags" name="tags-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        </div>
+        <div class="ts-row ts-form-row ts-container-margin-md">
+          <input type="text" id="padmin-categories" data-ajax-prop="categories" data-ajax-source="/p-admin/content/category/new"  data-ajax-setdata-variable="genericdoc_categories" class="ts-col-span12 ts-datalist-tagged" 
+          placeholder="Categories" name="categories-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        </div>
+
+      <%} %>
       <div class="ts-row ts-form-row ts-container-margin-md">
         <input type="text" id="padmin-authors" data-ajax-prop="authors" data-ajax-source="/p-admin/content/user/search" data-ajax-setdata-variable="genericdoc_authors" 
         class="ts-col-span12 ts-datalist-tagged" placeholder="Authors" name="authors-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>

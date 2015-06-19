@@ -7,11 +7,11 @@ var moment = require('moment'),
 	mongoose,
 	logger,
 	// configError,
-	Contenttype,
-	Collection,
-	Compilation,
-	Item,
-	User,
+	// Contenttype,
+	// Collection,
+	// Compilation,
+	// Item,
+	// User,
 	async_cms_settings,
 	adminPath;
 
@@ -225,28 +225,6 @@ var assets_index = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
-var asset_new = function (req, res) {
-	var viewtemplate = {
-			viewname: 'p-admin/assets/new',
-			themefileext: appSettings.templatefileextension,
-			extname: 'periodicjs.ext.async_cms'
-		},
-		viewdata = {
-			pagedata: {
-				title: 'New Asset ',
-				toplink: '&raquo; <a href="/' + adminPath + '/content/assets" class="async-admin-ajax-link">Assets</a> &raquo; New',
-				extensions: CoreUtilities.getAdminMenu()
-			},
-			asset: null,
-			default_contentypes: { /*defaultcontenttypes*/ },
-			serverdate: moment().format('YYYY-MM-DD'),
-			servertime: moment().format('HH:mm'),
-			adminSettings: async_cms_settings,
-			user: req.user
-		};
-	CoreController.renderView(req, res, viewtemplate, viewdata);
-};
-
 var asset_edit = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/assets/edit',
@@ -288,28 +266,6 @@ var contenttypes_index = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
-var contenttype_new = function (req, res) {
-	var viewtemplate = {
-			viewname: 'p-admin/contenttypes/new',
-			themefileext: appSettings.templatefileextension,
-			extname: 'periodicjs.ext.async_cms'
-		},
-		viewdata = {
-			pagedata: {
-				title: 'New Content Type ',
-				toplink: '&raquo; <a href="/' + adminPath + '/content/contenttypes" class="async-admin-ajax-link">Items</a> &raquo; New Content Type',
-				extensions: CoreUtilities.getAdminMenu()
-			},
-			contenttype: null,
-			default_contentypes: { /*defaultcontenttypes*/ },
-			serverdate: moment().format('YYYY-MM-DD'),
-			servertime: moment().format('HH:mm'),
-			adminSettings: async_cms_settings,
-			user: req.user
-		};
-	CoreController.renderView(req, res, viewtemplate, viewdata);
-};
-
 var contenttype_edit = function (req, res) {
 	var viewtemplate = {
 			viewname: 'p-admin/contenttypes/show',
@@ -326,6 +282,124 @@ var contenttype_edit = function (req, res) {
 			serverdate: moment(req.controllerData.contenttype.publishat).format('YYYY-MM-DD'),
 			servertime: moment(req.controllerData.contenttype.publishat).format('HH:mm'),
 			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var tags_index = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/tags/index',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'Tag Admin',
+				toplink: '&raquo; Tags',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			tags: req.controllerData.tags,
+			tagscount: req.controllerData.tagscount,
+			tagpages: Math.ceil(req.controllerData.tagscount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var tag_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/tags/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.tag.title + ' - Edit Tag',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/tags" class="async-admin-ajax-link">Tags</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			tag: req.controllerData.tag,
+			serverdate: moment(req.controllerData.tag.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.tag.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var tag_parent = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/tags/show_parent',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.tag.title + ' - Edit Category',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/tags" class="async-admin-ajax-link">Tags</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			parent: req.controllerData.tag.parent,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var categories_index = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/categories/index',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: 'Category Admin',
+				toplink: '&raquo; Categories',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			categories: req.controllerData.categories,
+			categoriescount: req.controllerData.categoriescount,
+			categorypages: Math.ceil(req.controllerData.categoriescount / req.query.limit),
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var category_edit = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/categories/edit',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.category.title + ' - Edit Category',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/categories" class="async-admin-ajax-link">Categories</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			category: req.controllerData.category,
+			serverdate: moment(req.controllerData.category.publishat).format('YYYY-MM-DD'),
+			servertime: moment(req.controllerData.category.publishat).format('HH:mm'),
+			adminSettings: async_cms_settings,
+			user: req.user
+		};
+	CoreController.renderView(req, res, viewtemplate, viewdata);
+};
+
+var category_parent = function (req, res) {
+	var viewtemplate = {
+			viewname: 'p-admin/categories/show_parent',
+			themefileext: appSettings.templatefileextension,
+			extname: 'periodicjs.ext.async_cms'
+		},
+		viewdata = {
+			pagedata: {
+				title: req.controllerData.category.title + ' - Edit Category',
+				toplink: '&raquo; <a href="/' + adminPath + '/content/categories" class="async-admin-ajax-link">Categories</a>',
+				extensions: CoreUtilities.getAdminMenu()
+			},
+			parent: req.controllerData.category.parent,
 			user: req.user
 		};
 	CoreController.renderView(req, res, viewtemplate, viewdata);
@@ -350,11 +424,11 @@ var controller = function (resources) {
 	appSettings = resources.settings;
 	CoreController = resources.core.controller;
 	CoreUtilities = resources.core.utilities;
-	Collection = mongoose.model('Collection');
-	Compilation = mongoose.model('Compilation');
-	Contenttype = mongoose.model('Contenttype');
-	Item = mongoose.model('Item');
-	User = mongoose.model('User');
+	// Collection = mongoose.model('Collection');
+	// Compilation = mongoose.model('Compilation');
+	// Contenttype = mongoose.model('Contenttype');
+	// Item = mongoose.model('Item');
+	// User = mongoose.model('User');
 	// AppDBSetting = mongoose.model('Setting');
 	// var appenvironment = appSettings.application.environment;
 	async_cms_settings = resources.app.controller.extension.async_cms.async_cms_settings;
@@ -371,11 +445,17 @@ var controller = function (resources) {
 		compilation_new: compilation_new,
 		compilation_edit: compilation_edit,
 		assets_index: assets_index,
-		asset_new: asset_new,
 		asset_edit: asset_edit,
+		// asset_new: asset_new,
 		contenttypes_index: contenttypes_index,
 		contenttype_edit: contenttype_edit,
-		contenttype_new: contenttype_new,
+		// contenttype_new: contenttype_new,
+		tags_index: tags_index,
+		tag_edit: tag_edit,
+		tag_parent: tag_parent,
+		categories_index: categories_index,
+		category_edit: category_edit,
+		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
 	};
 };

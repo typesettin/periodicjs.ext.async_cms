@@ -14,7 +14,7 @@
 				contenttypestouse.forEach(function(ct){
 					%>
 					<div>
-						<strong style="margin-top:0;"><%- ct.title %><small> <a href="/p-admin/contenttype/<%-ct.name%>">(edit)</a></small></strong>
+						<strong style="margin-top:0;"><%- ct.title %><small> <a class="async-admin-ajax-link " href="/<%- locals.adminPath %>/content/contenttype/<%-ct.name%>">(edit)</a></small></strong>
 						<% if(ct.attributes){
 							ct.attributes.forEach(function(attr){
 								var defaultVal = attr.defaultvalue;

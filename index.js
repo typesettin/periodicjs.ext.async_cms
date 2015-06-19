@@ -110,10 +110,11 @@ module.exports = function (periodic) {
 	contentAdminRouter.get('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
 	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
 	contentAdminRouter.get('/compilations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
-	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypeWithCount, contenttypeController.loadContenttypeWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
-	// contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
-	// contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
-	contentAdminRouter.get('/assets', assetController.loadAssetWithCount, assetController.loadAssetWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
+	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypesWithCount, contenttypeController.loadContenttypesWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
+	contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
+	contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
+	contentAdminRouter.get('/assets', assetController.loadAssetsWithCount, assetController.loadAssetsWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
+
 	// contentAdminRouter.get('/extensions', cmsController.loadExtensions, cmsController.extensions_index);
 	// contentAdminRouter.get('/themes', cmsController.loadThemes, adminSettingsController.load_theme_settings, cmsController.themes_index);
 	// contentAdminRouter.get('/users', userController.loadUsersWithCount, userController.loadUsersWithDefaultLimit, uacController.loadUacUsers, cmsController.users_index);
@@ -221,11 +222,11 @@ module.exports = function (periodic) {
 	 */
 	tagContentAdminRouter.post('/new/:id', tagController.loadTag, tagController.create);
 	tagContentAdminRouter.post('/new', tagController.loadTag, tagController.create);
-	// tagRouter.post('/:id/delete', tagController.loadTag, tagController.remove);
-	// tagRouter.post('/edit', tagController.update);
-	// tagAdminRouter.get('/edit/:id', tagController.loadTag, adminController.tag_show);
-	// tagAdminRouter.get('/:id', tagController.loadTag, adminController.tag_show);
-	// tagAdminRouter.get('/:id/parent', tagController.loadTag, adminController.tag_parent);
+	tagContentAdminRouter.post('/:id/delete', tagController.loadTag, tagController.remove);
+	tagContentAdminRouter.post('/:id/edit', tagController.update);
+	tagContentAdminRouter.get('/:id/edit', tagController.loadTag, cmsController.tag_edit);
+	tagContentAdminRouter.get('/:id', tagController.loadTag, cmsController.tag_edit);
+	tagContentAdminRouter.get('/:id/parent', tagController.loadTag, cmsController.tag_parent);
 
 
 	/**
@@ -233,11 +234,11 @@ module.exports = function (periodic) {
 	 */
 	categoryContentAdminRouter.post('/new/:id', categoryController.loadCategory, categoryController.create);
 	categoryContentAdminRouter.post('/new', categoryController.loadCategory, categoryController.create);
-	// categoryRouter.post('/:id/delete', categoryController.loadCategory, categoryController.remove);
-	// categoryRouter.post('/edit', categoryController.update);
-	// categoryAdminRouter.get('/edit/:id', categoryController.loadCategory, adminController.category_show);
-	// categoryAdminRouter.get('/:id', categoryController.loadCategory, adminController.category_show);
-	// categoryAdminRouter.get('/:id/parent', categoryController.loadCategory, adminController.category_parent);
+	categoryContentAdminRouter.post('/:id/delete', categoryController.loadCategory, categoryController.remove);
+	categoryContentAdminRouter.post('/:id/edit', categoryController.update);
+	categoryContentAdminRouter.get('/:id/edit', categoryController.loadCategory, cmsController.category_edit);
+	categoryContentAdminRouter.get('/:id', categoryController.loadCategory, cmsController.category_edit);
+	categoryContentAdminRouter.get('/:id/parent', categoryController.loadCategory, cmsController.category_parent);
 
 	/**
 	 * admin/categorytype manager routes
@@ -247,7 +248,7 @@ module.exports = function (periodic) {
 	contenttypeContentAdminRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
 	contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
 	contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
-	contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);
+	// contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);
 	contenttypeContentAdminRouter.get('/:id/edit', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 

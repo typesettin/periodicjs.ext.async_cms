@@ -12,6 +12,9 @@
 				  "tree-item": "folder",
 				  "tree-item-label": "Content Mangement", 
 				  "tree-item-id": "asynccms",
+			    "tree-item-input-attributes":{
+			    	"checked":"checked"
+			    },
 				  "tree-item-folder-contents":[{
 						"tree-item": "file",
 						  "tree-item-label":"Items",

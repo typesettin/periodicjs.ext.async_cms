@@ -1,0 +1,19 @@
+<% include ../../shared/header %>
+<% genericdoctype = "Category" %>
+<% genericdoctypelink = "category" %>
+<% genericdoctypeplurallink = "categories" %>
+<div class="ts-container">
+  <div class="ts-page-content-container">
+    <div>
+      <a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-<%-genericdoctypelink %>-modal">New <%- genericdoctype %></a>
+      <h4>Content Management &rsaquo; Categories</h4>
+    </div>
+
+    <% categories.forEach(function(genericdoc,i){%>
+    <% include ../../shared/genericdoc_list_taxonomy %>
+    <%})%>
+		<input type="hidden" name="_csrf" value=<%- locals.token %> >
+  </div>
+</div>
+<% include ../../shared/_new_taxonomy_modal %>
+<% include ../../shared/footer %>
