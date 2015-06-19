@@ -13,135 +13,60 @@
 				  "tree-item-label": "Content Mangement", 
 				  "tree-item-id": "asynccms",
 				  "tree-item-folder-contents":[{
-				    "tree-item": "folder",
-				    "tree-item-label":"Items",
-				    "tree-item-id":"asynccms.items"	,
-				    "tree-item-link": "/%locals.adminPath%/content/items",
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Items",
-					      "tree-item-id":"asynccms.items.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/items",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Item",
-					      "tree-item-id":"asynccms.items.new",
-					      "tree-item-link": "/%locals.adminPath%/content/item/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
-				    "tree-item": "folder",
-				    "tree-item-label":"Collections",
-				    "tree-item-link": "/%locals.adminPath%/content/collections",
-				    "tree-item-id":"asynccms.collections"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Collections",
-					      "tree-item-id":"asynccms.collections.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/collections",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Collection",
-					      "tree-item-id":"asynccms.collections.all",
-					      "tree-item-link": "/%locals.adminPath%/content/collection/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
-				    "tree-item": "folder",
-				    "tree-item-label":"Compilations",
-				    "tree-item-link": "/%locals.adminPath%/content/compilations",
-				    "tree-item-id":"asynccms.compilation"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Compilation",
-					      "tree-item-id":"asynccms.compilation.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/compilations",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Compilation",
-					      "tree-item-id":"asynccms.compilation.all",
-					      "tree-item-link": "/%locals.adminPath%/content/compilation/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
-				  		"tree-item": "file",
-					      "tree-item-label":"Contenttypes",
-					      "tree-item-id":"asynccms.contenttypes.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/contenttypes",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    "tree-item": "folder",
-				    "tree-item-label":"Categories",
-				    "tree-item-link": "/%locals.adminPath%/content/categories",
-				    "tree-item-id":"asynccms.categories"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Categories",
-					      "tree-item-id":"asynccms.categories.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/categories",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Category",
-					      "tree-item-id":"asynccms.categories.all",
-					      "tree-item-link": "/%locals.adminPath%/content/category/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
-				    "tree-item": "folder",
-				    "tree-item-label":"Tags",
-				    "tree-item-link": "/%locals.adminPath%/content/tags",
-				    "tree-item-id":"asynccms.tags"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Tags",
-					      "tree-item-id":"asynccms.tags.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/tags",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Tag",
-					      "tree-item-id":"asynccms.tags.all",
-					      "tree-item-link": "/%locals.adminPath%/content/tag/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	},{
+						"tree-item": "file",
+						  "tree-item-label":"Items",
+						  "tree-item-id":"asynccms.items.all",
+							"tree-item-link": "/%locals.adminPath%/content/items",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
+						"tree-item": "file",
+						  "tree-item-label":"Collections",
+						  "tree-item-id":"asynccms.collections.all",
+							"tree-item-link": "/%locals.adminPath%/content/collections",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
+						"tree-item": "file",
+						  "tree-item-label":"Compilations",
+						  "tree-item-id":"asynccms.compilation.all",
+							"tree-item-link": "/%locals.adminPath%/content/compilations",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
+						"tree-item": "file",
+						  "tree-item-label":"Contenttypes",
+						  "tree-item-id":"asynccms.contenttypes.all",
+							"tree-item-link": "/%locals.adminPath%/content/contenttypes",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
+						"tree-item": "file",
+						  "tree-item-label":"Categories",
+						  "tree-item-id":"asynccms.categories.all",
+							"tree-item-link": "/%locals.adminPath%/content/categories",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
+						"tree-item": "file",
+						  "tree-item-label":"Tags",
+						  "tree-item-id":"asynccms.tags.all",
+							"tree-item-link": "/%locals.adminPath%/content/tags",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						},{
 			  		"tree-item": "file",
 				      "tree-item-label":"Assets",
 				      "tree-item-id":"asynccms.assets.all",
@@ -151,30 +76,15 @@
 				      	"title":"cms link"
 				      }
 				    },{
-				    "tree-item": "folder",
-				    "tree-item-label":"Data",
-				    "tree-item-link": "/%locals.adminPath%/content/datas",
-				    "tree-item-id":"asynccms.datas"	,
-				    "tree-item-folder-contents":[{
-				  		"tree-item": "file",
-					      "tree-item-label":"All Data",
-					      "tree-item-id":"asynccms.datas.all",
-					    	"tree-item-link": "/%locals.adminPath%/content/datas",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    },{
-				    		"tree-item": "file",
-					      "tree-item-label":"New Asset",
-					      "tree-item-id":"asynccms.datas.all",
-					      "tree-item-link": "/%locals.adminPath%/content/data/new",
-					      "tree-item-attributes":{
-					      	"class":"async-admin-ajax-link",
-					      	"title":"cms link"
-					      }
-					    }]
-				  	}
+						"tree-item": "file",
+						  "tree-item-label":"Data Objects",
+						  "tree-item-id":"asynccms.datas.all",
+							"tree-item-link": "/%locals.adminPath%/content/datas",
+						  "tree-item-attributes":{
+						  	"class":"async-admin-ajax-link",
+						  	"title":"cms link"
+						  }
+						}
 				  ]
 				}
 			}
