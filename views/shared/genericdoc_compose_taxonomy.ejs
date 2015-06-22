@@ -15,15 +15,33 @@
           <input type="text" id="padmin-categories" data-ajax-prop="categories" data-ajax-source="/p-admin/content/category/new"  data-ajax-setdata-variable="genericdoc_categories" class="ts-col-span12 ts-datalist-tagged" 
           placeholder="Categories" name="categories-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
         </div>
+        <div class="ts-row ts-form-row ts-container-margin-md">
+          <input type="text" id="padmin-authors" data-ajax-prop="authors" data-ajax-source="/p-admin/content/user/search" data-ajax-setdata-variable="genericdoc_authors" 
+          class="ts-col-span12 ts-datalist-tagged" placeholder="Authors" name="authors-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        </div>
+
+      <%} else if( genericdoctypename==='tag'){%>
+        <div class="ts-row ts-form-row ts-container-margin-md">
+          <input type="text" class="ts-col-span12 ts-datalist-tagged" 
+          id="padmin-parent" data-ajax-prop="parent" data-ajax-source="/p-admin/content/tag/new" data-ajax-setdata-variable="genericdoc_parenttax"  placeholder="Parent Tag" name="parent-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        </div>
+
+      <%} else if( genericdoctypename==='category'){%>
+        <div class="ts-row ts-form-row ts-container-margin-md">
+          <input type="text" class="ts-col-span12 ts-datalist-tagged" 
+          id="padmin-parent" data-ajax-prop="parent" data-ajax-source="/p-admin/content/category/new" data-ajax-setdata-variable="genericdoc_parenttax"  placeholder="Parent Category" name="parent-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
+        </div>
 
       <%} %>
-      <div class="ts-row ts-form-row ts-container-margin-md">
-        <input type="text" id="padmin-authors" data-ajax-prop="authors" data-ajax-source="/p-admin/content/user/search" data-ajax-setdata-variable="genericdoc_authors" 
-        class="ts-col-span12 ts-datalist-tagged" placeholder="Authors" name="authors-ts-datalist-tagged" data-ajax-formie="edit-<%- genericdoctypename %>-form"/>
-      </div>
     </div>
   </aside>
 </details>
+<% 
+if(genericdoc && genericdoc.parent){%>
+<script type="text/javascript">
+  <%- locals.viewhelper.passObjToClient(genericdoc.parent,"genericdoc_parenttax") %>
+</script>
+<%}%>
 <% 
 if(genericdoc && genericdoc.tags){%>
 <script type="text/javascript">

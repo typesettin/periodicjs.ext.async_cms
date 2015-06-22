@@ -209,7 +209,7 @@ module.exports = function (periodic) {
 	assetContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, 
+		periodic.core.controller.save_revision,
 		assetController.loadAsset,
 		assetController.update);
 	// // assetRouter.post('/removechangeset/:id/:contententity/:changesetnum', assetController.loadAsset, adminController.remove_changeset_from_content, assetController.update);
@@ -262,12 +262,16 @@ module.exports = function (periodic) {
 	contentAdminRouter.post('/user/search/:id', global.CoreCache.disableCache, userController.loadUser, userController.show);
 	contentAdminRouter.get('/category/search.:ext', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
 	contentAdminRouter.get('/category/search', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
-	contentAdminRouter.get('/category/:id/children', global.CoreCache.disableCache, categoryController.loadCategory, categoryController.loadChildren, categoryController.showChildren);
+	contentAdminRouter.get('/category/:id/children', global.CoreCache.disableCache, categoryController.loadCategory, categoryController.loadChildren, function (req, res) {
+		res.send(req.controllerData);
+	});
 	contentAdminRouter.get('/contenttype/search.:ext', global.CoreCache.disableCache, contenttypeController.loadContenttypes, contenttypeController.searchResults);
 	contentAdminRouter.get('/contenttype/search', global.CoreCache.disableCache, contenttypeController.loadContenttypes, contenttypeController.searchResults);
 	contentAdminRouter.get('/tag/search.:ext', global.CoreCache.disableCache, tagController.loadTags, tagController.searchResults);
 	contentAdminRouter.get('/tag/search', global.CoreCache.disableCache, tagController.loadTags, tagController.searchResults);
-	contentAdminRouter.get('/tag/:id/children', global.CoreCache.disableCache, tagController.loadTag, tagController.loadChildren, tagController.showChildren);
+	contentAdminRouter.get('/tag/:id/children', global.CoreCache.disableCache, tagController.loadTag, tagController.loadChildren, function (req, res) {
+		res.send(req.controllerData);
+	});
 
 	//link routers
 
