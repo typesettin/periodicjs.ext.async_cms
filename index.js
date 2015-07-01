@@ -9,13 +9,7 @@ var errorie = require('errorie'),
 	appenvironment,
 	settingJSON,
 	// activate_middleware,
-	Extensions = require('periodicjs.core.extensions'),
-	CoreExtension = new Extensions({
-		extensionFilePath: path.resolve(process.cwd(), './content/config/extensions.json')
-	}),
-	async_cms_settingsFile = path.resolve(CoreExtension.getconfigdir({
-		extname: 'periodicjs.ext.async_cms'
-	}), './settings.json'),
+	async_cms_settingsFile = path.join(process.cwd(), 'content/config/extensions/periodicjs.ext.async_cms/settings.json'),
 	defaultExtSettings = require('./controller/default_config');
 
 /**
