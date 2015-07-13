@@ -7,7 +7,7 @@
   	<% genericdoctypename = "asset" %>
   	<% genericdoctypelink = "assets" %>
   	<form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
-data-successsubmitfunction="refresh_content_attributes_media">
+data-successsubmitfunction="adminRefresh">
   	  <% include compose_asset_form %>
 		</form>
 	</div>

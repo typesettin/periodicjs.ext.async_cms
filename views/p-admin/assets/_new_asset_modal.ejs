@@ -1,9 +1,23 @@
+<%
+  update_asset_test = ( typeof updateasset !=='undefined' && updateasset); 
+%>
+
 <div class="ts-modal-hidden-container">
   <div id="new-asset-modal" data-name="new-asset-modal" class="ts-modal ts-modal-effect-1">
     <section class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-md ts-shadow ">
-    <h6>Upload new assets</h6>
-    
-      <form class="ts-form async-admin-ajax-forms" name="new-asset-form" id="new-asset-form" method="post" action="/<%- locals.adminPath %>/content/asset/new" data-successsubmitfunction="adminRefresh" enctype="multipart/form-data" >
+    <h6> <% if( update_asset_test){%>Update asset<%}else{%>Upload new assets<%} %> </h6>
+      <form 
+        class="ts-form async-admin-ajax-forms" 
+        name="new-asset-form" 
+        id="new-asset-form" 
+        method="post" 
+        <% if( update_asset_test){%>
+        action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit"
+        <%}else{%>
+        action="/<%- locals.adminPath %>/content/asset/new" 
+        <%} %>
+        data-successsubmitfunction="adminRefresh" 
+        enctype="multipart/form-data" >
         <input type="hidden" name="_csrf" value=<%- locals.token %> >
         <div  id="new-asset-modal-content">
           <div class="ts-row">

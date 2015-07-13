@@ -202,9 +202,9 @@ module.exports = function (periodic) {
 		assetController.assetcreate);
 	assetContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
-		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision,
 		assetController.loadAsset,
+		cmsController.update_asset_from_file,
 		assetController.update);
 	// // assetRouter.post('/removechangeset/:id/:contententity/:changesetnum', assetController.loadAsset, adminController.remove_changeset_from_content, assetController.update);
 	assetContentAdminRouter.post('/:id/delete', assetController.loadAsset, assetController.remove);

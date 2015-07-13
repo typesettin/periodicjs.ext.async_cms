@@ -6,6 +6,8 @@ var moment = require('moment'),
 	appSettings,
 	mongoose,
 	logger,
+	merge = require('utils-merge'),
+	assetController,
 	// configError,
 	// Contenttype,
 	// Collection,
@@ -405,6 +407,24 @@ var category_parent = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
+var update_asset_from_file = function(req,res,next){
+	try{
+		// console.log('req.controllerData.files[0]',req.controllerData.files[0]);
+		var assetFromFile = req.controllerData.files[0],
+			updatedAssetObj = assetController.get_asset_object_from_file({file:assetFromFile,req:req}),
+			originalbodydoc = req.controllerData.asset._doc || req.controllerData.asset;
+		delete updatedAssetObj.changes;
+		req.skipemptyvaluecheck = true;
+		req.body = 	merge(originalbodydoc,updatedAssetObj);
+		req.body.docid = req.controllerData.asset._id;
+		delete req.body._id;
+		next();
+	}
+	catch(e){
+		next(e);
+	}
+};
+
 /**
  * admin controller
  * @module authController
@@ -431,6 +451,7 @@ var controller = function (resources) {
 	// User = mongoose.model('User');
 	// AppDBSetting = mongoose.model('Setting');
 	// var appenvironment = appSettings.application.environment;
+	assetController = resources.app.controller.native.asset;
 	async_cms_settings = resources.app.controller.extension.async_cms.async_cms_settings;
 	adminPath = resources.app.locals.adminPath;
 
@@ -457,6 +478,7 @@ var controller = function (resources) {
 		category_edit: category_edit,
 		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
+		update_asset_from_file: update_asset_from_file
 	};
 };
 

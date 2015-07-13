@@ -8,7 +8,24 @@
       <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
       <h4>Content Management &rsaquo; Items</h4>
     </div>
-
+    <form 
+      id="search-options-form" 
+      name="search-options-form" 
+      class="ts-form async-admin-ajax-forms" 
+      method="get">
+      <input type="hidden" name="_csrf" value=<%- locals.token %> >
+      <details class="ts-genericdoc">
+        <summary>Search options
+        <div class="ts-pull-right"> 
+        <input id="generic-search-limit" class="generic-search-limit" type="text" placeholder="0" value="<%- request.query.limit %>" name="limit"/>
+         of 
+        <%- itemscount %> 
+        <%- genericdoctypeplurallink %> | page 
+        <%- request.query.pagenum %> of 
+        <%- itempages %></div>
+        </summary>
+      </details>
+    </form>
     <% items.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_item %>
     <%})%>
