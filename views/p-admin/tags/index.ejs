@@ -2,13 +2,11 @@
 <% genericdoctype = "Tag" %>
 <% genericdoctypelink = "tag" %>
 <% genericdoctypeplurallink = "tags" %>
+<% genericdoccount = tagscount %>
+<% genericdocpages = tagpages %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-    <div>
-      <a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-tag-modal">New <%- genericdoctype %></a>
-      <h4>Content Management &rsaquo; Tags</h4>
-    </div>
-
+    <% include ../../shared/genericdoc_search_filters %>
     <% tags.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_taxonomy %>
     <%})%>

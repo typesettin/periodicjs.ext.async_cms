@@ -2,13 +2,11 @@
 <% genericdoctype = "Asset" %>
 <% genericdoctypelink = "asset" %>
 <% genericdoctypeplurallink = "assets" %>
+<% genericdoccount = assetscount %>
+<% genericdocpages = assetpages %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-    <div>
-      <a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-asset-modal">New <%- genericdoctype %></a>
-      <h4>Content Management &rsaquo; Assets</h4>
-    </div>
-
+    <% include ../../shared/genericdoc_search_filters %>
     <% assets.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_item %>
     <%})%>

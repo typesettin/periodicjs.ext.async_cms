@@ -2,13 +2,11 @@
 <% genericdoctype = "Collection" %>
 <% genericdoctypelink = "collection" %>
 <% genericdoctypeplurallink = "collections" %>
+<% genericdoccount = collectionscount %>
+<% genericdocpages = collectionpages %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-    <div>
-      <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
-      <h4>Content Management &rsaquo; Collections</h4>
-    </div>
-
+    <% include ../../shared/genericdoc_search_filters %>
     <% collections.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_item %>
     <%})%>

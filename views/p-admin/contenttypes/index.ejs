@@ -2,13 +2,11 @@
 <% genericdoctype = "Contenttype" %>
 <% genericdoctypelink = "contenttype" %>
 <% genericdoctypeplurallink = "contenttypes" %>
+<% genericdoccount = contenttypescount %>
+<% genericdocpages = contenttypepages %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-    <div>
-      <a class=" ts-button ts-pull-right ts-open-modal" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new" data-tsmodal-id="new-contenttype-modal">New <%- genericdoctype %></a>
-      <h4>Content Management &rsaquo; Content Types</h4>
-    </div>
-
+    <% include ../../shared/genericdoc_search_filters %>
     <% contenttypes.forEach(function(genericdoc,i){%>
     <% include ../../shared/genericdoc_list_contenttype %>
     <%})%>

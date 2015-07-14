@@ -1,11 +1,12 @@
 {
   "name": "periodicjs.ext.async_cms",
   "description": "cms for periodicjs",
-  "version": "5.9.2",
+  "version": "5.9.25",
   "main": "index.js",
   "engines": {
     "node": ">=0.12.x"
   },
+  "license": "MIT",
   "author": {
     "name": "Yaw Joseph Etse",
     "email": "yaw.etse@gmail.com",
