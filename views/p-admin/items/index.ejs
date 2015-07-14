@@ -4,25 +4,49 @@
 <% genericdoctypeplurallink = "items" %>
 <div class="ts-container">
   <div class="ts-page-content-container">
-    <div>
-      <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
-      <h4>Content Management &rsaquo; Items</h4>
-    </div>
     <form 
       id="search-options-form" 
       name="search-options-form" 
-      class="ts-form async-admin-ajax-forms" 
+      class="ts-form search-options-form async-admin-ajax-page-forms" 
       method="get">
-      <input type="hidden" name="_csrf" value=<%- locals.token %> >
       <details class="ts-genericdoc">
-        <summary>Search options
-        <div class="ts-pull-right"> 
-        <input id="generic-search-limit" class="generic-search-limit" type="text" placeholder="0" value="<%- request.query.limit %>" name="limit"/>
-         of 
-        <%- itemscount %> 
-        <%- genericdoctypeplurallink %> | page 
-        <%- request.query.pagenum %> of 
-        <%- itempages %></div>
+        <summary>
+        <div>
+          <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
+          <h4>Content Management &rsaquo; Items</h4>
+        </div>
+        <div>
+          <input name="search" value="<%- request.query.search %>"/>
+          <div class="ts-pull-right"> 
+            <% var genericdocsperpage = [{
+            "value":"15",
+            "label":"15"
+            },{
+            "value":"30",
+            "label":"30"
+            },{
+            "value":"50",
+            "label":"50"
+            },{
+            "value":"200",
+            "label":"200"
+            }]; %>
+            <select name="limit"  class="autoFormSubmit">
+              <% genericdocsperpage.forEach(function(iperpage){
+                %>
+                  <option <% if(request.query.limit === iperpage.value ){%> selected="selected"
+                  <%}%> value="<%= iperpage.value %>"><%= iperpage.label %></option>
+                <%
+                }); %>
+            </select> 
+
+           of 
+          <%- itemscount %> 
+          <%- genericdoctypeplurallink %> | page 
+          <%- request.query.pagenum %> of 
+          <%- itempages %></div>  
+        </div>
+        
         </summary>
       </details>
     </form>
@@ -32,4 +56,5 @@
 		<input type="hidden" name="_csrf" value=<%- locals.token %> >
   </div>
 </div>
+<script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
 <% include ../../shared/footer %>
