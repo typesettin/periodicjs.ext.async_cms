@@ -409,15 +409,20 @@ var category_parent = function (req, res) {
 
 var update_asset_from_file = function(req,res,next){
 	try{
-		// console.log('req.controllerData.files[0]',req.controllerData.files[0]);
+		console.log('req.controllerData.files[0]',req.controllerData.files[0]);
+		console.log('req.body',req.body);
 		var assetFromFile = req.controllerData.files[0],
-			updatedAssetObj = assetController.get_asset_object_from_file({file:assetFromFile,req:req}),
+		updatedAssetObj,
+		originalbodydoc;
+		if(assetFromFile){
+			updatedAssetObj = assetController.get_asset_object_from_file({file:assetFromFile,req:req});
 			originalbodydoc = req.controllerData.asset._doc || req.controllerData.asset;
-		delete updatedAssetObj.changes;
-		req.skipemptyvaluecheck = true;
-		req.body = 	merge(originalbodydoc,updatedAssetObj);
-		req.body.docid = req.controllerData.asset._id;
-		delete req.body._id;
+			delete updatedAssetObj.changes;
+			req.skipemptyvaluecheck = true;
+			req.body = 	merge(originalbodydoc,updatedAssetObj);
+			req.body.docid = req.controllerData.asset._id;
+			delete req.body._id;
+		}
 		next();
 	}
 	catch(e){
