@@ -6,7 +6,12 @@
   <details class="ts-genericdoc">
     <summary>
       <span class="ts-text-xx ts-text-bold">Content Management &rsaquo; <%-genericdoctype%>s</span>
-      <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
+      <% if(genericdoctypelink ==="asset" ) {%>
+        <a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-asset-modal">New <%- genericdoctype %></a>
+      <%}else{%>
+        <a class="async-admin-ajax-link ts-button ts-pull-right" href="/<%- locals.adminPath %>/content/<%- genericdoctypelink  %>/new">New <%- genericdoctype %></a>
+      <%}%>
+
     <div>
       Search: <input name="search" value="<%- request.query.search %>"/>
       <div class="ts-pull-right"> 
