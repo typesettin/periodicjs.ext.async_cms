@@ -101,7 +101,7 @@ module.exports = function (periodic) {
 	 */
 	// contentAdminRouter.get('/', cmsController.admin_index);
 	// contentAdminRouter.get('/', cmsController.getMarkdownReleases, cmsController.getHomepageStats, cmsController.admin_index);
-	contentAdminRouter.get('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
+	contentAdminRouter.use('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
 	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
 	contentAdminRouter.get('/compilations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
 	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypesWithCount, contenttypeController.loadContenttypesWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);

@@ -47,27 +47,16 @@
     
     </summary>
     <aside>
-    More Filters Coming Soon
-      <!--
-      <div class="ts-row">
-        <div class="ts-col-span3 ts-form-row ts-text-xs ts-container-margin-md">
-          <input type="text" class=" ts-datalist-tagged" 
-          id="padmin-tags" data-ajax-prop="tags" data-ajax-source="/p-admin/content/tag/new" data-ajax-setdata-variable="genericdoc_tags"  placeholder="Tags" name="tags-ts-datalist-tagged"/>
+      <div id="<%- genericdoctype %>-filterlist-container" class="asyncadmin-ts-filterlist ts-row" data-filterkeys="createdat,updatedat,title,name,content,contenttypes,tags,categories,assets,primaryasset,authors,primaryauthor,changes" data-formelement="search-options-form">
+        <div class="ts-col-span10 ts-text-xs ts-container-margin-md">
+          <div class=" ts-form-row ts-filterlist-element-container">
+          </div>
         </div>
-        <div class="ts-col-span3 ts-form-row ts-text-xs ts-container-margin-md">
-          <input type="text" id="padmin-categories" data-ajax-prop="categories" data-ajax-source="/p-admin/content/category/new"  data-ajax-setdata-variable="genericdoc_categories" class=" ts-datalist-tagged" 
-          placeholder="Categories" name="categories-ts-datalist-tagged"/>
-        </div>
-        <div class="ts-col-span3 ts-form-row ts-text-xs ts-container-margin-md">
-          <input type="text" id="padmin-authors" data-ajax-prop="authors" data-ajax-source="/p-admin/content/user/search" data-ajax-setdata-variable="genericdoc_authors" 
-          class=" ts-datalist-tagged" placeholder="Authors" name="authors-ts-datalist-tagged"/>
-        </div>
-        <div class="ts-col-span3 ts-form-row ts-text-xs ts-container-margin-md">
-          <input type="text" class=" ts-datalist-tagged" 
-          id="padmin-parent" data-ajax-prop="parent" data-ajax-source="/p-admin/content/tag/new" data-ajax-setdata-variable="genericdoc_parenttax"  placeholder="Parent Tag" name="parent-ts-datalist-tagged"/>
+        <div class="ts-col-span2 ts-form-row ts-text-xs ts-text-center ts-container-margin-md">
+          <a  class="ts-button add-filterlist-button ts-width-100" name="parent-ts-datalist-tagged">Add filter</a>
         </div>
       </div>
-      -->
     </aside>
   </details>
+  <hr>
 </form>
