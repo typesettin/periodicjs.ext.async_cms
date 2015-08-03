@@ -1,3 +1,4 @@
+<% fk_to_use = (typeof genericdoc_tktouse !=='undefined')? genericdoc_tktouse : "createdat,updatedat,title,name,content,contenttypes,tags,categories,assets,primaryasset,authors,primaryauthor,changes" %>
 <form 
   id="search-options-form" 
   name="search-options-form" 
@@ -47,7 +48,7 @@
     
     </summary>
     <aside>
-      <div id="<%- genericdoctype %>-filterlist-container" class="asyncadmin-ts-filterlist ts-row" data-filterkeys="createdat,updatedat,title,name,content,contenttypes,tags,categories,assets,primaryasset,authors,primaryauthor,changes" data-formelement="search-options-form">
+      <div id="<%- genericdoctype %>-filterlist-container" class="asyncadmin-ts-filterlist ts-row" data-filterkeys="<%- fk_to_use %>"  data-formelement="search-options-form">
         <div class="ts-col-span10 ts-text-xs ts-container-margin-md">
           <div class=" ts-form-row ts-filterlist-element-container">
           </div>
