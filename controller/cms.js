@@ -20,31 +20,31 @@ var moment = require('moment'),
 	adminPath;
 pluralize.addIrregularRule('category', 'categories');
 
-var get_entity_modifications = function(entityname){
+var get_entity_modifications = function (entityname) {
 	var entity = entityname.toLowerCase(),
 		plural_entity = pluralize.plural(entity);
 	return {
-		name: entity,//item
-		plural_name: pluralize.plural(entity),//items
+		name: entity, //item
+		plural_name: pluralize.plural(entity), //items
 		capitalized_name: capitalize(entity), //Item
-		capitalized_plural_name:capitalize(plural_entity) //Items
+		capitalized_plural_name: capitalize(plural_entity) //Items
 	};
 };
 
-var get_index_page = function(options){
+var get_index_page = function (options) {
 	var entity = get_entity_modifications(options.entity);
 
-	return function(req,res){
+	return function (req, res) {
 		var viewtemplate = {
-				viewname: 'p-admin/'+entity.plural_name+'/index',
+				viewname: 'p-admin/' + entity.plural_name + '/index',
 				themefileext: appSettings.templatefileextension,
 				extname: 'periodicjs.ext.async_cms'
 			},
-			
-			viewdata = merge( req.controllerData,{
+
+			viewdata = merge(req.controllerData, {
 				pagedata: {
-					title: entity.capitalized_name+' Admin',
-					toplink: '&raquo;   <a href="/' + adminPath + '/content/'+entity.plural_name+'" class="async-admin-ajax-link">'+entity.capitalized_plural_name+'</a>',
+					title: entity.capitalized_name + ' Admin',
+					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_plural_name + '</a>',
 					extensions: CoreUtilities.getAdminMenu()
 				},
 				user: req.user
@@ -53,20 +53,20 @@ var get_index_page = function(options){
 	};
 };
 
-var get_new_page = function(options){
+var get_new_page = function (options) {
 	var entity = get_entity_modifications(options.entity);
 
-	return function(req,res){
-		req.controllerData[entity.name]=null;
+	return function (req, res) {
+		req.controllerData[entity.name] = null;
 		var viewtemplate = {
-				viewname: 'p-admin/'+entity.plural_name+'/new',
+				viewname: 'p-admin/' + entity.plural_name + '/new',
 				themefileext: appSettings.templatefileextension,
 				extname: 'periodicjs.ext.async_cms'
 			},
-			viewdata = merge( req.controllerData,{
+			viewdata = merge(req.controllerData, {
 				pagedata: {
-					title: 'New '+entity.capitalized_name,
-					toplink: '&raquo;   <a href="/' + adminPath + '/content/'+entity.plural_name+'" class="async-admin-ajax-link">'+entity.capitalized_plural_name+'</a> &raquo; New',
+					title: 'New ' + entity.capitalized_name,
+					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_plural_name + '</a> &raquo; New',
 					extensions: CoreUtilities.getAdminMenu()
 				},
 				default_contentypes: { /*defaultcontenttypes*/ },
@@ -79,19 +79,19 @@ var get_new_page = function(options){
 	};
 };
 
-var get_edit_page = function(options){
+var get_edit_page = function (options) {
 	var entity = get_entity_modifications(options.entity);
 
-	return function(req,res){
+	return function (req, res) {
 		var viewtemplate = {
-				viewname: adminPath + '/'+entity.plural_name+'/edit',
+				viewname: adminPath + '/' + entity.plural_name + '/edit',
 				themefileext: appSettings.templatefileextension,
 				extname: 'periodicjs.ext.async_cms'
 			},
-			viewdata = merge( req.controllerData,{
+			viewdata = merge(req.controllerData, {
 				pagedata: {
-					title: req.controllerData[entity.name].title + ' - Edit '+entity.capitalized_name,
-					toplink: '&raquo;   <a href="/' + adminPath + '/content/'+entity.plural_name+'" class="async-admin-ajax-link">'+entity.capitalized_name+'</a> &raquo; '+req.controllerData[entity.name].title,
+					title: req.controllerData[entity.name].title + ' - Edit ' + entity.capitalized_name,
+					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_name + '</a> &raquo; ' + req.controllerData[entity.name].title,
 					extensions: CoreUtilities.getAdminMenu()
 				},
 				default_contentypes: { /*defaultcontenttypes*/ },
@@ -140,25 +140,28 @@ var category_parent = function (req, res) {
 	CoreController.renderView(req, res, viewtemplate, viewdata);
 };
 
-var update_asset_from_file = function(req,res,next){
-	try{
-		console.log('req.controllerData.files[0]',req.controllerData.files[0]);
-		console.log('req.body',req.body);
+var update_asset_from_file = function (req, res, next) {
+	try {
+		console.log('req.controllerData.files[0]', req.controllerData.files[0]);
+		console.log('req.body', req.body);
 		var assetFromFile = req.controllerData.files[0],
-		updatedAssetObj,
-		originalbodydoc;
-		if(assetFromFile){
-			updatedAssetObj = assetController.get_asset_object_from_file({file:assetFromFile,req:req});
+			updatedAssetObj,
+			originalbodydoc;
+		if (assetFromFile) {
+			updatedAssetObj = assetController.get_asset_object_from_file({
+				file: assetFromFile,
+				req: req
+			});
 			originalbodydoc = req.controllerData.asset._doc || req.controllerData.asset;
 			delete updatedAssetObj.changes;
 			req.skipemptyvaluecheck = true;
-			req.body = 	merge(originalbodydoc,updatedAssetObj);
+			req.body = merge(originalbodydoc, updatedAssetObj);
 			req.body.docid = req.controllerData.asset._id;
 			delete req.body._id;
 		}
 		next();
 	}
-	catch(e){
+	catch (e) {
 		next(e);
 	}
 };
@@ -189,29 +192,69 @@ var controller = function (resources) {
 	adminPath = resources.app.locals.adminPath;
 
 	return {
-		datas_index: get_index_page({entity:'data'}),
-		data_new: get_new_page({entity:'data'}),
-		data_edit: get_edit_page({entity:'data'}),
-		items_index: get_index_page({entity:'item'}),
-		item_new: get_new_page({entity:'item'}),
-		item_edit: get_edit_page({entity:'item'}),
-		collections_index: get_index_page({entity:'collection'}),
-		collection_new: get_new_page({entity:'collection'}),
-		collection_edit: get_edit_page({entity:'collection'}),
-		compilations_index: get_index_page({entity:'compilation'}),
-		compilation_new: get_new_page({entity:'compilation'}),
-		compilation_edit: get_edit_page({entity:'compilation'}),
-		assets_index: get_index_page({entity:'asset'}),
+		datas_index: get_index_page({
+			entity: 'data'
+		}),
+		data_new: get_new_page({
+			entity: 'data'
+		}),
+		data_edit: get_edit_page({
+			entity: 'data'
+		}),
+		items_index: get_index_page({
+			entity: 'item'
+		}),
+		item_new: get_new_page({
+			entity: 'item'
+		}),
+		item_edit: get_edit_page({
+			entity: 'item'
+		}),
+		collections_index: get_index_page({
+			entity: 'collection'
+		}),
+		collection_new: get_new_page({
+			entity: 'collection'
+		}),
+		collection_edit: get_edit_page({
+			entity: 'collection'
+		}),
+		compilations_index: get_index_page({
+			entity: 'compilation'
+		}),
+		compilation_new: get_new_page({
+			entity: 'compilation'
+		}),
+		compilation_edit: get_edit_page({
+			entity: 'compilation'
+		}),
+		assets_index: get_index_page({
+			entity: 'asset'
+		}),
 		// asset_new: get_new_page({entity:'asset'}),
-		asset_edit: get_edit_page({entity:'asset'}),
-		contenttypes_index: get_index_page({entity:'contenttype'}),
+		asset_edit: get_edit_page({
+			entity: 'asset'
+		}),
+		contenttypes_index: get_index_page({
+			entity: 'contenttype'
+		}),
 		// contenttype_new: get_new_page({entity:'contenttype'}),
-		contenttype_edit: get_edit_page({entity:'contenttype'}),
-		tags_index: get_index_page({entity:'tag'}),
-		tag_edit: get_edit_page({entity:'tag'}),
+		contenttype_edit: get_edit_page({
+			entity: 'contenttype'
+		}),
+		tags_index: get_index_page({
+			entity: 'tag'
+		}),
+		tag_edit: get_edit_page({
+			entity: 'tag'
+		}),
 		tag_parent: tag_parent,
-		categories_index: get_index_page({entity:'category'}),
-		category_edit: get_edit_page({entity:'category'}),
+		categories_index: get_index_page({
+			entity: 'category'
+		}),
+		category_edit: get_edit_page({
+			entity: 'category'
+		}),
 		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
 		update_asset_from_file: update_asset_from_file

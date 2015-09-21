@@ -8,9 +8,37 @@
 <div class="ts-container">
   <div class="ts-page-content-container">
     <% include ../../shared/genericdoc_search_filters %>
-    <% contenttypes.forEach(function(genericdoc,i){%>
-    <% include ../../shared/genericdoc_list_contenttype %>
-    <%})%>
+    <!-- < % contenttypes.forEach(function(genericdoc,i){%>
+    < % include ../../shared/genericdoc_list_contenttype %>
+    < %})%> -->
+    <%- locals.get_data_table_html({
+			data: contenttypes,
+			data_attributes:[
+				{label:'Title'},
+				{label:'Create Date'},
+				{label:'Attributes'},
+				// {label:'Authors'},
+				// {label:'Content Types'},
+				// {label:'Tags'},
+				// {label:'Categories'},
+				{label:'Options'},
+			],
+			responsive_table :true,
+			responsive_collapse: locals.cms_default_responsive_collapse({
+				adminPath: locals.adminPath,
+				model_name: 'contenttype'
+			}),
+			responsive_expand:locals.default_responsive_expand(),
+			thead:locals.default_thead(),
+			tbody:locals.cms_default_tbody({
+				adminPath: locals.adminPath,
+				model_name: 'contenttype'
+			}),
+			custom_tfoot: locals.default_custom_tfoot({
+				total:contenttypes.length,
+				count:contenttypescount
+			})
+		}) %>
 		<input type="hidden" name="_csrf" value=<%- locals.token %> >
   </div>
 </div>

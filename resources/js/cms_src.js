@@ -80,6 +80,19 @@ var getChildTaxonomy = function () {
 		});
 };
 
+var initAdvancedCodemirror = function () {
+
+	if (window.StylieTab && window.StylieTab['dbseed-tabs']) {
+		window.StylieTab['dbseed-tabs'].on('tabsShowIndex', function ( /*idex*/ ) {
+			if (window.codeMirrors && window.codeMirrors['genericdoc-codemirror']) {
+				window.codeMirrors['genericdoc-codemirror'].refresh();
+			}
+		});
+	}
+
+
+};
+
 var init = function () {
 	ctTableBody = document.getElementById('ct-t-body');
 	childTaxonomy = document.getElementById('ts-child-taxonomy');
@@ -90,6 +103,7 @@ var init = function () {
 	if (childTaxonomy) {
 		getChildTaxonomy();
 	}
+	initAdvancedCodemirror();
 };
 
 // window.RemoveContentTypeRowResult = function ( /* AjaxResponseObject */ ) {

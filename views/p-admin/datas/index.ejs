@@ -1,15 +1,16 @@
 <% include ../../shared/header %>
-<% genericdoctype = "Compilation" %>
-<% genericdoctypelink = "compilation" %>
-<% genericdoctypeplurallink = "compilations" %>
-<% genericdoccount = compilationscount %>
-<% genericdocpages = compilationpages %>
+<% genericdoctype = "Data" %>
+<% genericdoctypelink = "data" %>
+<% genericdoctypeplurallink = "datas" %>
+<% genericdoccount = datascount %>
+<% genericdocpages = datapages %>
 <% genericdoc_tktouse = "createdat,updatedat,title,name,content,contenttypes,tags,categories,assets,primaryasset,authors,primaryauthor,changes" %>
 <div class="ts-container">
   <div class="ts-page-content-container">
     <% include ../../shared/genericdoc_search_filters %>
+
     <%- locals.get_data_table_html({
-			data: compilations,
+			data: datas,
 			data_attributes:[
 				{label:'Title'},
 				{label:'Create Date'},
@@ -23,20 +24,24 @@
 			responsive_table :true,
 			responsive_collapse: locals.cms_default_responsive_collapse({
 				adminPath: locals.adminPath,
-				model_name: 'compilation'
+				model_name: 'data'
 			}),
 			responsive_expand:locals.default_responsive_expand(),
 			thead:locals.default_thead(),
 			tbody:locals.cms_default_tbody({
 				adminPath: locals.adminPath,
-				model_name: 'compilation'
+				model_name: 'data'
 			}),
 			custom_tfoot: locals.default_custom_tfoot({
-				total:compilations.length,
-				count:compilationscount
+				total:datas.length,
+				count:datascount
 			})
 		}) %>
-		<input type="hidden" name="_csrf" value=<%- locals.token %> >
+
+    <input type="hidden" name="_csrf" value=<%- locals.token %> >
   </div>
 </div>
+<script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
+<% include ../../shared/_template_compose_taxonomies %>
+
 <% include ../../shared/footer %>

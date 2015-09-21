@@ -1,15 +1,38 @@
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
-  	<% genericdoc = item %>
-  	<% genericdocid = item._id %>
-  	<% genericdoctype = "Item" %>
-  	<% genericdoctypename = "item" %>
-  	<% genericdoctypelink = "items" %>
-  	<form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
-data-successsubmitfunction="refresh_content_attributes_media">
-  	  <% include compose_item_form %>
-		</form>
+    
+
+    <div class="ts-row">
+      <div class="ts-col-span12">
+        <div id="dbseed-tabs" class="ts-tabs">
+          <nav>
+            <ul class="ts-col-span12 ts-text-center">
+              <li class="ts-col-span3 ts-no-margin">Basic</li>
+              <li class="ts-col-span3 ts-no-margin">Advanced</li>
+            </ul>
+          </nav>
+          <div class="ts-tabs-content">
+            <section class="ts-no-padding">
+              <% genericdoc = item %>
+              <% genericdocid = item._id %>
+              <% genericdoctype = "Item" %>
+              <% genericdoctypename = "item" %>
+              <% genericdoctypelink = "items" %>
+              <form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
+          data-successsubmitfunction="refresh_content_attributes_media">
+                <% include compose_item_form %>
+              </form>
+            </section>
+            <section class="ts-no-padding">
+              <% include ../../shared/genericdoc_show_doc %>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  	
 	</div>
 </div>
 <script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>

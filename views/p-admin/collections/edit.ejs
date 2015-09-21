@@ -1,16 +1,39 @@
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
-  	<% genericdoc = collection %>
-  	<% genericdocid = collection._id %>
-  	<% genericdoctype = "Collection" %>
-  	<% genericdoctypename = "collection" %>
-  	<% genericdoctypelink = "collections" %>
-  	<form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
-data-successsubmitfunction="refresh_content_attributes_media">
-  	  <% include compose_collection_form %>
-		</form>
-	</div>
+    
+
+    <div class="ts-row">
+      <div class="ts-col-span12">
+        <div id="dbseed-tabs" class="ts-tabs">
+          <nav>
+            <ul class="ts-col-span12 ts-text-center">
+              <li class="ts-col-span3 ts-no-margin">Basic</li>
+              <li class="ts-col-span3 ts-no-margin">Advanced</li>
+            </ul>
+          </nav>
+          <div class="ts-tabs-content">
+            <section class="ts-no-padding">
+              <% genericdoc = collection %>
+              <% genericdocid = collection._id %>
+              <% genericdoctype = "Collection" %>
+              <% genericdoctypename = "collection" %>
+              <% genericdoctypelink = "collections" %>
+              <form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
+          data-successsubmitfunction="refresh_content_attributes_media">
+                <% include compose_collection_form %>
+              </form>
+            </section>
+            <section class="ts-no-padding">
+              <% include ../../shared/genericdoc_show_doc %>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
 </div>
 <script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
 <% include ../../shared/footer %>

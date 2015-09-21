@@ -5,6 +5,7 @@ var errorie = require('errorie'),
 	path = require('path'),
 	fs = require('fs-extra'),
 	extend = require('utils-merge'),
+	cms_view_helpers = require('./controller/cms_view_helpers'),
 	async_cms_settings,
 	appenvironment,
 	settingJSON,
@@ -54,9 +55,13 @@ module.exports = function (periodic) {
 		});
 	}
 
+	periodic.app.locals.cms_default_responsive_collapse = cms_view_helpers.cms_default_responsive_collapse;
+	periodic.app.locals.cms_default_tbody = cms_view_helpers.cms_default_tbody;
 	var contentAdminRouter = periodic.express.Router(),
 		itemRouter = periodic.express.Router(),
 		itemContentAdminRouter = periodic.express.Router(),
+		dataRouter = periodic.express.Router(),
+		dataContentAdminRouter = periodic.express.Router(),
 		tagRouter = periodic.express.Router(),
 		tagContentAdminRouter = periodic.express.Router(),
 		assetRouter = periodic.express.Router(),
@@ -70,6 +75,7 @@ module.exports = function (periodic) {
 		compilationRouter = periodic.express.Router(),
 		compilationContentAdminRouter = periodic.express.Router(),
 		itemController = periodic.app.controller.native.item,
+		dataController = periodic.app.controller.native.data,
 		tagController = periodic.app.controller.native.tag,
 		assetController = periodic.app.controller.native.asset,
 		categoryController = periodic.app.controller.native.category,
@@ -86,6 +92,7 @@ module.exports = function (periodic) {
 	 */
 	contentAdminRouter.all('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	itemRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
+	dataRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	collectionRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	compilationRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
 	tagRouter.post('*', global.CoreCache.disableCache, authController.ensureAuthenticated, uacController.loadUserRoles, uacController.check_user_access);
@@ -102,6 +109,7 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/', cmsController.admin_index);
 	// contentAdminRouter.get('/', cmsController.getMarkdownReleases, cmsController.getHomepageStats, cmsController.admin_index);
 	contentAdminRouter.use('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
+	contentAdminRouter.use('/datas', dataController.loadDatasWithCount, dataController.loadDatasWithDefaultLimit, dataController.loadDatas, cmsController.datas_index);
 	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
 	contentAdminRouter.get('/compilations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
 	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypesWithCount, contenttypeController.loadContenttypesWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
@@ -114,6 +122,29 @@ module.exports = function (periodic) {
 	// contentAdminRouter.get('/users', userController.loadUsersWithCount, userController.loadUsersWithDefaultLimit, uacController.loadUacUsers, cmsController.users_index);
 	// contentAdminRouter.get('/mailer', cmsController.mail_index);
 	// contentAdminRouter.get('/check_periodic_version', cmsController.check_periodic_version);
+
+	/**
+	 * admin/data manager routes
+	 */
+
+	dataContentAdminRouter.get('/new', cmsController.data_new);
+	dataContentAdminRouter.get('/:id/edit', dataController.loadFullData, cmsController.data_edit);
+	dataContentAdminRouter.get('/:id', dataController.loadFullData, cmsController.data_edit);
+	// adminRouter.get('/datas/search', dataController.loadDatas, adminController.datas_index);
+	// adminRouter.get('/data/edit/:id/revision/:changeset', dataController.loadFullData, adminController.data_review_revision);
+	// adminRouter.get('/data/edit/:id/revisions', dataController.loadFullData, adminController.data_revisions);
+	// adminRouter.get('/data/search', adminController.setSearchLimitTo1000, dataController.loadDatas, dataController.index);
+	dataContentAdminRouter.post('/new',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision,
+		dataController.create);
+	dataContentAdminRouter.post('/:id/edit',
+		assetController.multiupload,
+		assetController.create_assets_from_files,
+		periodic.core.controller.save_revision, dataController.loadData, dataController.update);
+	// dataRouter.post('/removechangeset/:id/:contententity/:changesetnum', dataController.loadData, adminController.remove_changeset_from_content, dataController.update);
+	dataContentAdminRouter.post('/:id/delete', dataController.loadData, dataController.remove);
 
 	/**
 	 * admin/item manager routes
@@ -268,8 +299,9 @@ module.exports = function (periodic) {
 	});
 
 	//link routers
-
+	console.log('periodic.app.locals.adminPath', periodic.app.locals.adminPath);
 	contentAdminRouter.use('/item', itemContentAdminRouter);
+	contentAdminRouter.use('/data', dataContentAdminRouter);
 	contentAdminRouter.use('/collection', collectionContentAdminRouter);
 	contentAdminRouter.use('/compilation', compilationContentAdminRouter);
 	contentAdminRouter.use('/asset', assetContentAdminRouter);
@@ -277,6 +309,7 @@ module.exports = function (periodic) {
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
 	contentAdminRouter.use('/category', categoryContentAdminRouter);
 	periodic.app.use('/' + periodic.app.locals.adminPath + '/content', contentAdminRouter);
+	periodic.app.use('/data', dataRouter);
 	periodic.app.use('/item', itemRouter);
 	periodic.app.use('/collection', collectionRouter);
 	periodic.app.use('/compilation', compilationRouter);

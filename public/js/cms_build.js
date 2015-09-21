@@ -8,7 +8,229 @@
 
 module.exports = require('./lib/classie');
 
-},{"./lib/classie":2}],2:[function(require,module,exports){
+},{"./lib/classie":3}],2:[function(require,module,exports){
+/* 
+ * classList.js: Cross-browser full element.classList implementation.
+ * 2014-07-23
+ *
+ * By Eli Grey, http://eligrey.com
+ * Public Domain.
+ * NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
+ */
+
+/*global self, document, DOMException, DOMTokenList */
+
+/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js*/
+
+if ("document" in self) {
+
+    // Full polyfill for browsers with no classList support
+    if (!("classList" in document.createElement("_")) || document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g"))) {
+
+        (function(view) {
+
+            "use strict";
+
+            if (!('Element' in view)) {
+                return;
+            }
+
+            var classListProp = "classList",
+                protoProp = "prototype",
+                elemCtrProto = view.Element[protoProp],
+                objCtr = Object,
+                strTrim = String[protoProp].trim || function() {
+                    return this.replace(/^\s+|\s+$/g, "");
+                }, arrIndexOf = Array[protoProp].indexOf || function(item) {
+                    var
+                    i = 0,
+                        len = this.length;
+                    for (; i < len; i++) {
+                        if (i in this && this[i] === item) {
+                            return i;
+                        }
+                    }
+                    return -1;
+                },
+                // Vendors: please allow content code to instantiate DOMExceptions
+                DOMEx = function(type, message) {
+                    this.name = type;
+                    this.code = DOMException[type];
+                    this.message = message;
+                }, checkTokenAndGetIndex = function(classList, token) {
+                    if (token === "") {
+                        throw new DOMEx(
+                            "SYNTAX_ERR", "An invalid or illegal string was specified");
+                    }
+                    if (/\s/.test(token)) {
+                        throw new DOMEx(
+                            "INVALID_CHARACTER_ERR", "String contains an invalid character");
+                    }
+                    return arrIndexOf.call(classList, token);
+                }, ClassList = function(elem) {
+                    var
+                    trimmedClasses = strTrim.call(elem.getAttribute("class") || ""),
+                        classes = trimmedClasses ? trimmedClasses.split(/\s+/) : [],
+                        i = 0,
+                        len = classes.length;
+                    for (; i < len; i++) {
+                        this.push(classes[i]);
+                    }
+                    this._updateClassName = function() {
+                        elem.setAttribute("class", this.toString());
+                    };
+                }, classListProto = ClassList[protoProp] = [],
+                classListGetter = function() {
+                    return new ClassList(this);
+                };
+            // Most DOMException implementations don't allow calling DOMException's toString()
+            // on non-DOMExceptions. Error's toString() is sufficient here.
+            DOMEx[protoProp] = Error[protoProp];
+            classListProto.item = function(i) {
+                return this[i] || null;
+            };
+            classListProto.contains = function(token) {
+                token += "";
+                return checkTokenAndGetIndex(this, token) !== -1;
+            };
+            classListProto.add = function() {
+                var
+                tokens = arguments,
+                    i = 0,
+                    l = tokens.length,
+                    token, updated = false;
+                do {
+                    token = tokens[i] + "";
+                    if (checkTokenAndGetIndex(this, token) === -1) {
+                        this.push(token);
+                        updated = true;
+                    }
+                }
+                while (++i < l);
+
+                if (updated) {
+                    this._updateClassName();
+                }
+            };
+            classListProto.remove = function() {
+                var
+                tokens = arguments,
+                    i = 0,
+                    l = tokens.length,
+                    token, updated = false,
+                    index;
+                do {
+                    token = tokens[i] + "";
+                    index = checkTokenAndGetIndex(this, token);
+                    while (index !== -1) {
+                        this.splice(index, 1);
+                        updated = true;
+                        index = checkTokenAndGetIndex(this, token);
+                    }
+                }
+                while (++i < l);
+
+                if (updated) {
+                    this._updateClassName();
+                }
+            };
+            classListProto.toggle = function(token, force) {
+                token += "";
+
+                var
+                result = this.contains(token),
+                    method = result ?
+                        force !== true && "remove" :
+                        force !== false && "add";
+
+                if (method) {
+                    this[method](token);
+                }
+
+                if (force === true || force === false) {
+                    return force;
+                } else {
+                    return !result;
+                }
+            };
+            classListProto.toString = function() {
+                return this.join(" ");
+            };
+
+            if (objCtr.defineProperty) {
+                var classListPropDesc = {
+                    get: classListGetter,
+                    enumerable: true,
+                    configurable: true
+                };
+                try {
+                    objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+                } catch (ex) { // IE 8 doesn't support enumerable:true
+                    if (ex.number === -0x7FF5EC54) {
+                        classListPropDesc.enumerable = false;
+                        objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+                    }
+                }
+            } else if (objCtr[protoProp].__defineGetter__) {
+                elemCtrProto.__defineGetter__(classListProp, classListGetter);
+            }
+
+        }(self));
+
+    } else {
+        // There is full or partial native classList support, so just check if we need
+        // to normalize the add/remove and toggle APIs.
+
+        (function() {
+            "use strict";
+
+            var testElement = document.createElement("_");
+
+            testElement.classList.add("c1", "c2");
+
+            // Polyfill for IE 10/11 and Firefox <26, where classList.add and
+            // classList.remove exist but support only one argument at a time.
+            if (!testElement.classList.contains("c2")) {
+                var createMethod = function(method) {
+                    var original = DOMTokenList.prototype[method];
+
+                    DOMTokenList.prototype[method] = function(token) {
+                        var i, len = arguments.length;
+
+                        for (i = 0; i < len; i++) {
+                            token = arguments[i];
+                            original.call(this, token);
+                        }
+                    };
+                };
+                createMethod('add');
+                createMethod('remove');
+            }
+
+            testElement.classList.toggle("c3", false);
+
+            // Polyfill for IE 10 and Firefox <24, where classList.toggle does not
+            // support the second argument.
+            if (testElement.classList.contains("c3")) {
+                var _toggle = DOMTokenList.prototype.toggle;
+
+                DOMTokenList.prototype.toggle = function(token, force) {
+                    if (1 in arguments && !this.contains(token) === !force) {
+                        return force;
+                    } else {
+                        return _toggle.call(this, token);
+                    }
+                };
+
+            }
+
+            testElement = null;
+        }());
+    }
+
+}
+
+},{}],3:[function(require,module,exports){
 /*!
  * classie - class helper functions
  * from bonzo https://github.com/ded/bonzo
@@ -23,47 +245,75 @@ module.exports = require('./lib/classie');
 /*global define: false */
 'use strict';
 
-  // class helper functions from bonzo https://github.com/ded/bonzo
+// class helper functions from bonzo https://github.com/ded/bonzo
+var classList = require('./class_list_ployfill'),
+    classie;
 
-  function classReg( className ) {
+function classReg(className) {
     return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-  }
+}
 
-  // classList support for class management
-  // altho to be fair, the api sucks because it won't accept multiple classes at once
-  var hasClass, addClass, removeClass;
+function noop() {}
 
-  if (typeof document === "object" && 'classList' in document.documentElement ) {
-    hasClass = function( elem, c ) {
-      return elem.classList.contains( c );
-    };
-    addClass = function( elem, c ) {
-      elem.classList.add( c );
-    };
-    removeClass = function( elem, c ) {
-      elem.classList.remove( c );
-    };
-  }
-  else {
-    hasClass = function( elem, c ) {
-      return classReg( c ).test( elem.className );
-    };
-    addClass = function( elem, c ) {
-      if ( !hasClass( elem, c ) ) {
-        elem.className = elem.className + ' ' + c;
-      }
-    };
-    removeClass = function( elem, c ) {
-      elem.className = elem.className.replace( classReg( c ), ' ' );
-    };
-  }
+function isArr(classes) {
+    if (Array.isArray(classes)) {
+        return true;
+    } else if (Object.prototype.toString.call(classes) === '[object Array]') {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-  function toggleClass( elem, c ) {
-    var fn = hasClass( elem, c ) ? removeClass : addClass;
-    fn( elem, c );
-  }
+function removeMultiple() {
+    var c = arguments[1],
+        elem = arguments[0];
+    c.forEach(function(value) {
+        if (classie.has(elem, value)) {
+            noop();
+        }
+        classie.removeClass(elem, value);
+    });
+}
 
-  var classie = {
+
+function addMultiple() {
+    var c = arguments[1],
+        elem = arguments[0];
+    c.forEach(function(value) {
+        if (classie.has(elem, value)) {
+            noop();
+        }
+        classie.addClass(elem, value);
+    });
+}
+
+function hasClass(elem, c) {
+    return elem.classList.contains(c);
+}
+
+function addClass(elem, c) {
+    if (isArr(c)) {
+        addMultiple.apply(this, arguments);
+    } else {
+        elem.classList.add(c);
+    }
+}
+
+function removeClass(elem, c) {
+    if (isArr(c)) {
+        removeMultiple.apply(this, arguments);
+    } else {
+        elem.classList.remove(c);
+    }
+}
+
+function toggleClass(elem, c) {
+    var fn = hasClass(elem, c) ? removeClass : addClass;
+    fn(elem, c);
+}
+
+var classie = {
     // full names
     hasClass: hasClass,
     addClass: addClass,
@@ -74,24 +324,19 @@ module.exports = require('./lib/classie');
     add: addClass,
     remove: removeClass,
     toggle: toggleClass
-  };
+};
 
-  // transport
+// transport
 
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+if (typeof module === "object" && module && typeof module.exports === "object") {
     // commonjs / browserify
     module.exports = classie;
-  } else {
+} else {
     // AMD
     define(classie);
-  }
+}
 
-  // If there is a window object, that at least has a document property,
-  // define classie
-  if ( typeof window === "object" && typeof window.document === "object" ) {
-    window.classie = classie;
-  }
-},{}],3:[function(require,module,exports){
+},{"./class_list_ployfill":2}],4:[function(require,module,exports){
 'use strict';
 
 var classie = require('classie'),
@@ -174,6 +419,19 @@ var getChildTaxonomy = function () {
 		});
 };
 
+var initAdvancedCodemirror = function () {
+
+	if (window.StylieTab && window.StylieTab['dbseed-tabs']) {
+		window.StylieTab['dbseed-tabs'].on('tabsShowIndex', function ( /*idex*/ ) {
+			if (window.codeMirrors && window.codeMirrors['genericdoc-codemirror']) {
+				window.codeMirrors['genericdoc-codemirror'].refresh();
+			}
+		});
+	}
+
+
+};
+
 var init = function () {
 	ctTableBody = document.getElementById('ct-t-body');
 	childTaxonomy = document.getElementById('ts-child-taxonomy');
@@ -184,6 +442,7 @@ var init = function () {
 	if (childTaxonomy) {
 		getChildTaxonomy();
 	}
+	initAdvancedCodemirror();
 };
 
 // window.RemoveContentTypeRowResult = function ( /* AjaxResponseObject */ ) {
@@ -209,7 +468,7 @@ else {
 	window.addEventListener('load', init, false);
 }
 
-},{"classie":1,"superagent":4}],4:[function(require,module,exports){
+},{"classie":1,"superagent":5}],5:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -222,7 +481,7 @@ var reduce = require('reduce');
  */
 
 var root = 'undefined' == typeof window
-  ? this
+  ? (this || self)
   : window;
 
 /**
@@ -259,9 +518,10 @@ function isHost(obj) {
  * Determine XHR.
  */
 
-function getXHR() {
+request.getXHR = function () {
   if (root.XMLHttpRequest
-    && ('file:' != root.location.protocol || !root.ActiveXObject)) {
+      && (!root.location || 'file:' != root.location.protocol
+          || !root.ActiveXObject)) {
     return new XMLHttpRequest;
   } else {
     try { return new ActiveXObject('Microsoft.XMLHTTP'); } catch(e) {}
@@ -270,7 +530,7 @@ function getXHR() {
     try { return new ActiveXObject('Msxml2.XMLHTTP'); } catch(e) {}
   }
   return false;
-}
+};
 
 /**
  * Removes leading and trailing whitespace, added to support IE.
@@ -506,9 +766,11 @@ function Response(req, options) {
   options = options || {};
   this.req = req;
   this.xhr = this.req.xhr;
-  this.text = this.req.method !='HEAD' 
-     ? this.xhr.responseText 
+  // responseText is accessible only if responseType is '' or 'text' and on older browsers
+  this.text = ((this.req.method !='HEAD' && (this.xhr.responseType === '' || this.xhr.responseType === 'text')) || typeof this.xhr.responseType === 'undefined')
+     ? this.xhr.responseText
      : null;
+  this.statusText = this.req.xhr.statusText;
   this.setStatusProperties(this.xhr.status);
   this.header = this.headers = parseHeader(this.xhr.getAllResponseHeaders());
   // getAllResponseHeaders sometimes falsely returns "" for CORS requests, but
@@ -517,7 +779,7 @@ function Response(req, options) {
   this.header['content-type'] = this.xhr.getResponseHeader('content-type');
   this.setHeaderProperties(this.header);
   this.body = this.req.method != 'HEAD'
-    ? this.parseBody(this.text)
+    ? this.parseBody(this.text ? this.text : this.xhr.response)
     : null;
 }
 
@@ -568,7 +830,7 @@ Response.prototype.setHeaderProperties = function(header){
 
 Response.prototype.parseBody = function(str){
   var parse = request.parse[this.type];
-  return parse && str && str.length
+  return parse && str && (str.length || str instanceof Object)
     ? parse(str)
     : null;
 };
@@ -595,6 +857,11 @@ Response.prototype.parseBody = function(str){
  */
 
 Response.prototype.setStatusProperties = function(status){
+  // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+  if (status === 1223) {
+    status = 204;
+  }
+
   var type = status / 100 | 0;
 
   // status / class
@@ -612,7 +879,7 @@ Response.prototype.setStatusProperties = function(status){
 
   // sugar
   this.accepted = 202 == status;
-  this.noContent = 204 == status || 1223 == status;
+  this.noContent = 204 == status;
   this.badRequest = 400 == status;
   this.unauthorized = 401 == status;
   this.notAcceptable = 406 == status;
@@ -668,14 +935,30 @@ function Request(method, url) {
     var res = null;
 
     try {
-      res = new Response(self); 
+      res = new Response(self);
     } catch(e) {
       err = new Error('Parser is unable to parse the response');
       err.parse = true;
       err.original = e;
+      return self.callback(err);
     }
 
-    self.callback(err, res);
+    self.emit('response', res);
+
+    if (err) {
+      return self.callback(err, res);
+    }
+
+    if (res.status >= 200 && res.status < 300) {
+      return self.callback(err, res);
+    }
+
+    var new_err = new Error(res.statusText || 'Unsuccessful HTTP response');
+    new_err.original = err;
+    new_err.response = res;
+    new_err.status = res.status;
+
+    self.callback(new_err, res);
   });
 }
 
@@ -904,7 +1187,7 @@ Request.prototype.query = function(val){
  */
 
 Request.prototype.field = function(name, val){
-  if (!this._formData) this._formData = new FormData();
+  if (!this._formData) this._formData = new root.FormData();
   this._formData.append(name, val);
   return this;
 };
@@ -927,7 +1210,7 @@ Request.prototype.field = function(name, val){
  */
 
 Request.prototype.attach = function(field, file, filename){
-  if (!this._formData) this._formData = new FormData();
+  if (!this._formData) this._formData = new root.FormData();
   this._formData.append(field, file, filename);
   return this;
 };
@@ -1006,7 +1289,7 @@ Request.prototype.send = function(data){
     this._data = data;
   }
 
-  if (!obj) return this;
+  if (!obj || isHost(data)) return this;
   if (!type) this.type('json');
   return this;
 };
@@ -1023,9 +1306,7 @@ Request.prototype.send = function(data){
 Request.prototype.callback = function(err, res){
   var fn = this._callback;
   this.clearTimeout();
-  if (2 == fn.length) return fn(err, res);
-  if (err) return this.emit('error', err);
-  fn(res);
+  fn(err, res);
 };
 
 /**
@@ -1080,7 +1361,7 @@ Request.prototype.withCredentials = function(){
 
 Request.prototype.end = function(fn){
   var self = this;
-  var xhr = this.xhr = getXHR();
+  var xhr = this.xhr = request.getXHR();
   var query = this._query.join('&');
   var timeout = this._timeout;
   var data = this._formData || this._data;
@@ -1091,24 +1372,44 @@ Request.prototype.end = function(fn){
   // state change
   xhr.onreadystatechange = function(){
     if (4 != xhr.readyState) return;
-    if (0 == xhr.status) {
-      if (self.aborted) return self.timeoutError();
+
+    // In IE9, reads to any property (e.g. status) off of an aborted XHR will
+    // result in the error "Could not complete the operation due to error c00c023f"
+    var status;
+    try { status = xhr.status } catch(e) { status = 0; }
+
+    if (0 == status) {
+      if (self.timedout) return self.timeoutError();
+      if (self.aborted) return;
       return self.crossDomainError();
     }
     self.emit('end');
   };
 
   // progress
-  if (xhr.upload) {
-    xhr.upload.onprogress = function(e){
+  var handleProgress = function(e){
+    if (e.total > 0) {
       e.percent = e.loaded / e.total * 100;
-      self.emit('progress', e);
-    };
+    }
+    self.emit('progress', e);
+  };
+  if (this.hasListeners('progress')) {
+    xhr.onprogress = handleProgress;
+  }
+  try {
+    if (xhr.upload && this.hasListeners('progress')) {
+      xhr.upload.onprogress = handleProgress;
+    }
+  } catch(e) {
+    // Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
+    // Reported here:
+    // https://connect.microsoft.com/IE/feedback/details/837245/xmlhttprequest-upload-throws-invalid-argument-when-used-from-web-worker-context
   }
 
   // timeout
   if (timeout && !this._timer) {
     this._timer = setTimeout(function(){
+      self.timedout = true;
       self.abort();
     }, timeout);
   }
@@ -1130,7 +1431,8 @@ Request.prototype.end = function(fn){
   // body
   if ('GET' != this.method && 'HEAD' != this.method && 'string' != typeof data && !isHost(data)) {
     // serialize stuff
-    var serialize = request.serialize[this.getHeader('Content-Type')];
+    var contentType = this.getHeader('Content-Type');
+    var serialize = request.serialize[contentType ? contentType.split(';')[0] : ''];
     if (serialize) data = serialize(data);
   }
 
@@ -1145,6 +1447,20 @@ Request.prototype.end = function(fn){
   xhr.send(data);
   return this;
 };
+
+/**
+ * Faux promise support
+ *
+ * @param {Function} fulfill
+ * @param {Function} reject
+ * @return {Request}
+ */
+
+Request.prototype.then = function (fulfill, reject) {
+  return this.end(function(err, res) {
+    err ? reject(err) : fulfill(res);
+  });
+}
 
 /**
  * Expose `Request`.
@@ -1292,7 +1608,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":5,"reduce":6}],5:[function(require,module,exports){
+},{"emitter":6,"reduce":7}],6:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -1458,7 +1774,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -1483,4 +1799,4 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}]},{},[3]);
+},{}]},{},[4]);
