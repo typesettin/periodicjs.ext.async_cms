@@ -6,11 +6,12 @@ var moment = require('moment'),
 pluralize.addIrregularRule('category', 'categories');
 
 var cms_default_responsive_collapse = function (options) {
-	var defaultOptions = {
-		editlink: '/' + options.adminPath + '/content/' + options.model_name + '/|||_id|||/edit',
-		deletelink: '/' + options.adminPath + '/content/' + options.model_name + '/|||_id|||/delete',
-		deleterefreshlink: '/' + options.adminPath + '/content/' + pluralize.plural(options.model_name) + '/'
-	};
+	var path_to_content = options.path_to_content || 'content',
+		defaultOptions = {
+			editlink: '/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/|||_id|||/edit',
+			deletelink: '/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/|||_id|||/delete',
+			deleterefreshlink: '/' + options.adminPath + '/'+path_to_content+'/' + pluralize.plural(options.model_name) + '/'
+		};
 	return function (data_item) {
 		var editlink = defaultOptions.editlink.replace('|||_id|||', data_item._id);
 		var deletelink = defaultOptions.deletelink.replace('|||_id|||', data_item._id);
@@ -24,7 +25,8 @@ var cms_default_responsive_collapse = function (options) {
 };
 
 var get_taxonomy_html = function (options) {
-	var returnHTML = '',
+	var path_to_content = options.path_to_content || 'content',
+		returnHTML = '',
 		display_tax_model_name = (options.tax_model_name === 'user') ? 'author' : options.tax_model_name;
 	if (options.generictaxomony && options.generictaxomony.length > 0) {
 		if (options.tax_model_name === 'attribute' || options.tax_model_name === 'parent') {
@@ -39,7 +41,7 @@ var get_taxonomy_html = function (options) {
 				returnHTML += '<small class="ts-text-divider-text-color" >' + displaylink + '</small> ';
 			}
 			else {
-				returnHTML += '<a class="async-admin-ajax-link" href="/' + options.adminPath + '/content/' + options.tax_model_name + '/' + generictax._id + '/edit">' + displaylink + '</a> ';
+				returnHTML += '<a class="async-admin-ajax-link" href="/' + options.adminPath + '/'+path_to_content+'/' + options.tax_model_name + '/' + generictax._id + '/edit">' + displaylink + '</a> ';
 			}
 			if (i !== (options.generictaxomony.length - 1)) {
 				returnHTML += ' , ';
@@ -71,7 +73,8 @@ var get_assets_html = function (options) {
 };
 
 var cms_default_tbody = function (options) {
-	var jsontableobj = {};
+	var path_to_content = options.path_to_content || 'content',
+		jsontableobj = {};
 
 	jsontableobj = {
 		tag: 'tr',
@@ -79,7 +82,7 @@ var cms_default_tbody = function (options) {
 		html: function (obj /*,i*/ ) {
 			var jsontablehtml;
 			jsontablehtml = '<td>';
-			jsontablehtml += '<a href="/' + options.adminPath + '/content/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">' + obj.title + '</a>';
+			jsontablehtml += '<a href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">' + obj.title + '</a>';
 			jsontablehtml += '</td>';
 			//create date
 			jsontablehtml += '<td>' + new moment(obj.createdat).format('MM/DD/YYYY |  hh:mm:ssa') + '</td>';
@@ -119,8 +122,8 @@ var cms_default_tbody = function (options) {
 			});
 			jsontablehtml += '</td>';
 			//options
-			jsontablehtml += '<td> <a href="/' + options.adminPath + '/content/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">edit</a> | ';
-			jsontablehtml += '<a class="ts-icon ts-button-error-color ts-dialog-delete"  data-href="/' + options.adminPath + '/content/' + options.model_name + '/' + obj._id + '/delete" data-deleted-redirect-href="/' + options.adminPath + '/content/' + pluralize.plural(options.model_name) + '"/>delete</a></td>';
+			jsontablehtml += '<td> <a href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">edit</a> | ';
+			jsontablehtml += '<a class="ts-icon ts-button-error-color ts-dialog-delete"  data-href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/delete" data-deleted-redirect-href="/' + options.adminPath + '/'+path_to_content+'/' + pluralize.plural(options.model_name) + '"/>delete</a></td>';
 			return jsontablehtml;
 		}
 	};
