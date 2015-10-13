@@ -190,6 +190,7 @@ module.exports = function (periodic) {
 		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, collectionController.loadCollection, collectionController.update);
 	// collectionRouter.post('/removechangeset/:id/:contententity/:changesetnum', collectionController.loadCollection, adminController.remove_changeset_from_content, collectionController.update);
+	// console.log('collectionController.remove',collectionController.remove);
 	collectionContentAdminRouter.post('/:id/delete', collectionController.loadCollection, collectionController.remove);
 
 	/**
@@ -284,7 +285,10 @@ module.exports = function (periodic) {
 	 */
 	contentAdminRouter.get('/user/search.:ext', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
 	contentAdminRouter.get('/user/search', global.CoreCache.disableCache, userController.loadUsers, userController.searchResults);
-	contentAdminRouter.post('/user/search/:id', global.CoreCache.disableCache, userController.loadUser, userController.show);
+	contentAdminRouter.post('/user/search/:id', global.CoreCache.disableCache, userController.loadUser, function (req, res) {
+		console.log('req.controllerData',req.controllerData);
+		res.send(req.controllerData.user);
+	});
 	contentAdminRouter.get('/category/search.:ext', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
 	contentAdminRouter.get('/category/search', global.CoreCache.disableCache, categoryController.loadCategories, categoryController.searchResults);
 	contentAdminRouter.get('/category/:id/children', global.CoreCache.disableCache, categoryController.loadCategory, categoryController.loadChildren, function (req, res) {

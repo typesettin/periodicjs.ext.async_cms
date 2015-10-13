@@ -14,8 +14,8 @@
     <%- locals.get_data_table_html({
 			data: categories,
 			data_attributes:[
-				{label:'Title'},
-				{label:'Create Date'},
+				{label:'Title',sortactive:true,sortid:'title',sortorder:'asc'},
+				{label:'Create Date',sortactive:true,sortid:'createdat',sortorder:'asc'},
 				{label:'Attributes'},
 				// {label:'Authors'},
 				// {label:'Content Types'},
@@ -36,6 +36,9 @@
 			}),
 			custom_tfoot: locals.default_custom_tfoot({
 				total:categories.length,
+				pages:categorypages,
+				currentlimit:request.query.limit,
+				currentpage:request.query.pagenum,
 				count:categoriescount
 			})
 		}) %>

@@ -11,8 +11,8 @@
     <%- locals.get_data_table_html({
 			data: collections,
 			data_attributes:[
-				{label:'Title'},
-				{label:'Create Date'},
+				{label:'Title',sortactive:true,sortid:'title',sortorder:'asc'},
+				{label:'Create Date',sortactive:true,sortid:'createdat',sortorder:'asc'},
 				{label:'Taxonomy'},
 				// {label:'Authors'},
 				// {label:'Content Types'},
@@ -33,7 +33,10 @@
 			}),
 			custom_tfoot: locals.default_custom_tfoot({
 				total:collections.length,
-				count:collectionscount
+				count:collectionscount,
+				pages:collectionpages,
+				currentlimit:request.query.limit,
+				currentpage:request.query.pagenum,
 			})
 		}) %>
 		<input type="hidden" name="_csrf" value=<%- locals.token %> >
