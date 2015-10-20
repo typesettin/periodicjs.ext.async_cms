@@ -42,8 +42,21 @@
 											</select>
 											<%
 										} 
+										else if(attr.datatype==='textarea' ){
+											%>
+											<textarea style="min-height:10em" class="ts-input noFormSubmit ts-text-sm"  placeholder="<%- attr.title %>" name="contenttypeattributes.<%- ct.name %>.<%- attr.name %>"><%- defaultVal %></textarea>
+											<%
+										} 
+										else if(attr.datatype==='url' || attr.datatype==='number'  || attr.datatype==='date'  || attr.datatype==='time'  || attr.datatype==='datetime'  || attr.datatype==='tel'  || attr.datatype==='range'  || attr.datatype==='email'   || attr.datatype==='color' ){
+											%>
+											<input class="ts-input noFormSubmit ts-text-sm" type="<%- attr.datatype %>" placeholder="<%- attr.title %>" value="<%- defaultVal %>" <%if(attr.datatype==='color'){%>style="min-height:2rem;"<%}%> name="contenttypeattributes.<%- ct.name %>.<%- attr.name %>">
+											<%
+										} 
 										else{%>
 											<input class="ts-input noFormSubmit ts-text-sm" type="text" placeholder="<%- attr.title %>" value="<%- defaultVal %>" name="contenttypeattributes.<%- ct.name %>.<%- attr.name %>">
+											<%if(attr.datatype==='image'){%> 
+											<div class="ts-width-100"><img src="<%- defaultVal %>"/></div>
+											<%} %>
 									<%}%>
 									</div>
 								</div>
@@ -70,7 +83,7 @@
 				contenttypestouse.forEach(function(ct){
 					?>
 					<div>
-						<strong style="margin-top:0;"><?= ct.title ?><small> <a href="/p-admin/contenttype/<?=ct.name?>">(edit)</a></small></strong>
+						<strong style="margin-top:0;"><?= ct.title ?><small> <a href="/p-admin/content/contenttype/<?=ct.name?>">(edit)</a></small></strong>
 						<? if(ct.attributes){
 							ct.attributes.forEach(function(attr){
 								var defaultVal = attr.defaultvalue;
@@ -96,6 +109,16 @@
 													<?
 												}); ?>
 											</select>
+											<?
+										} 
+										else if(attr.datatype==='textarea' ){
+											?>
+											<textarea style="min-height:10em" class="ts-input noFormSubmit ts-text-sm"  placeholder="<?- attr.title ?>" name="contenttypeattributes.<?- ct.name ?>.<?- attr.name ?>"><?- defaultVal ?></textarea>
+											<?
+										} 
+										else if(attr.datatype==='url' || attr.datatype==='number'  || attr.datatype==='date'  || attr.datatype==='time'  || attr.datatype==='datetime'  || attr.datatype==='tel'  || attr.datatype==='range'  || attr.datatype==='email'   || attr.datatype==='color' ){
+											?>
+											<input class="ts-input noFormSubmit ts-text-sm" type="<?- attr.datatype ?>" placeholder="<?- attr.title ?>" value="<?- defaultVal ?>"  <?if(attr.datatype==='color'){?>style="min-height:2rem;"<?}?> name="contenttypeattributes.<?- ct.name ?>.<?- attr.name ?>">
 											<?
 										} 
 										else{?>

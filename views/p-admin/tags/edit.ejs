@@ -18,8 +18,9 @@
               <% genericdocid = tag._id %>
               <% genericdoctype = "Tag" %>
               <% genericdoctypename = "tag" %>
-              <% genericdoctypelink = "tags" %>
-              <form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit"
+<% genericdoctypeplurallink = "tags" %>
+              <% genericdoctypelink = "tag" %>
+              <form id="edit-<%- genericdoctypename %>-wysiwyg-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit"
               data-successsubmitfunction="refresh_content_attributes_media">
                 <% include ../../shared/compose_taxonomy_form %>
               </form>

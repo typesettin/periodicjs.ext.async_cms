@@ -20,6 +20,25 @@ var moment = require('moment'),
 	adminPath;
 pluralize.addIrregularRule('category', 'categories');
 
+var fixCodeMirrorSubmit = function (req, res, next) {
+	// console.log('fixCodeMirrorSubmit req.body',req.body)
+	if(req.body.genericdocjson){
+
+		req.controllerData = req.controllerData || {};
+		// req.controllerData.encryptFields = true;
+		var jsonbody = JSON.parse(req.body.genericdocjson);
+		delete req.body.genericdocjson;
+		req.body = merge(req.body, jsonbody);
+		if(!req.body.docid){
+			req.body.docid = req.body._id;
+		}
+		delete req.body._id;
+		delete req.body.__v;
+	}
+	next();
+};
+
+
 var get_entity_modifications = function (entityname) {
 	var entity = entityname.toLowerCase(),
 		plural_entity = pluralize.plural(entity);
@@ -142,23 +161,27 @@ var category_parent = function (req, res) {
 
 var update_asset_from_file = function (req, res, next) {
 	try {
-		console.log('req.controllerData.files[0]', req.controllerData.files[0]);
-		console.log('req.body', req.body);
-		var assetFromFile = req.controllerData.files[0],
-			updatedAssetObj,
-			originalbodydoc;
-		if (assetFromFile) {
-			updatedAssetObj = assetController.get_asset_object_from_file({
-				file: assetFromFile,
-				req: req
-			});
-			originalbodydoc = req.controllerData.asset._doc || req.controllerData.asset;
-			delete updatedAssetObj.changes;
-			req.skipemptyvaluecheck = true;
-			req.body = merge(originalbodydoc, updatedAssetObj);
-			req.body.docid = req.controllerData.asset._id;
-			delete req.body._id;
+		// console.log('req.body', req.body);
+		if(req.controllerData && req.controllerData.files && req.controllerData.files[0]){
+		// console.log('req.controllerData.files[0]', req.controllerData.files[0]);
+
+			var assetFromFile = req.controllerData.files[0],
+				updatedAssetObj,
+				originalbodydoc;
+			if (assetFromFile) {
+				updatedAssetObj = assetController.get_asset_object_from_file({
+					file: assetFromFile,
+					req: req
+				});
+				originalbodydoc = req.controllerData.asset._doc || req.controllerData.asset;
+				delete updatedAssetObj.changes;
+				req.skipemptyvaluecheck = true;
+				req.body = merge(originalbodydoc, updatedAssetObj);
+				req.body.docid = req.controllerData.asset._id;
+				delete req.body._id;
+			}
 		}
+		req.redirectpath = '/p-admin/content/asset/';
 		next();
 	}
 	catch (e) {
@@ -255,6 +278,7 @@ var controller = function (resources) {
 		category_edit: get_edit_page({
 			entity: 'category'
 		}),
+		fixCodeMirrorSubmit:fixCodeMirrorSubmit,
 		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
 		update_asset_from_file: update_asset_from_file

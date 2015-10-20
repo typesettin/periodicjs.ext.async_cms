@@ -18,8 +18,9 @@
               <% genericdocid = asset._id %>
               <% genericdoctype = "Asset" %>
               <% genericdoctypename = "asset" %>
-              <% genericdoctypelink = "assets" %>
-              <form id="edit-<%- genericdoctypename %>-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
+              <% genericdoctypelink = "asset" %>
+              <% genericdoctypeplurallink = "assets" %>
+              <form id="edit-<%- genericdoctypename %>-wysiwyg-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
           data-successsubmitfunction="adminRefresh">
                 <% include compose_asset_form %>
               </form>
