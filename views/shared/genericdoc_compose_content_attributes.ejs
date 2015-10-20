@@ -1,4 +1,4 @@
-<details class="ts-text-sm">
+<details class="ts-text-sm" <%if(contenttypestouse && contenttypestouse.length >0){%>open<%}%>>
 	<summary>Content Type Attributes</summary>
 	<aside id="doc-ct-attr">
 		<div>
@@ -53,9 +53,9 @@
 											<%
 										} 
 										else{%>
-											<input class="ts-input noFormSubmit ts-text-sm" type="text" placeholder="<%- attr.title %>" value="<%- defaultVal %>" name="contenttypeattributes.<%- ct.name %>.<%- attr.name %>">
+											<input class="ts-input noFormSubmit ts-text-sm " type="text" placeholder="<%- attr.title %>" value="<%- defaultVal %>" name="contenttypeattributes.<%- ct.name %>.<%- attr.name %>">
 											<%if(attr.datatype==='image'){%> 
-											<div class="ts-width-100"><img src="<%- defaultVal %>"/></div>
+											<div class="ts-width-100 ts-no-x-overflow"><img  class="ts-width-100" src="<%- defaultVal %>"/></div>
 											<%} %>
 									<%}%>
 									</div>
