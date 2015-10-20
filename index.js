@@ -142,7 +142,10 @@ module.exports = function (periodic) {
 	dataContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, dataController.loadData, dataController.update);
+		periodic.core.controller.save_revision, 
+		dataController.loadData, 
+		cmsController.fixCodeMirrorSubmit,  
+		dataController.update);
 	// dataRouter.post('/removechangeset/:id/:contententity/:changesetnum', dataController.loadData, adminController.remove_changeset_from_content, dataController.update);
 	dataContentAdminRouter.post('/:id/delete', dataController.loadData, dataController.remove);
 
@@ -165,7 +168,11 @@ module.exports = function (periodic) {
 	itemContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, itemController.loadItem, itemController.update);
+		periodic.core.controller.save_revision, itemController.loadItem,cmsController.fixCodeMirrorSubmit,  itemController.update);
+
+
+	// tagContentAdminRouter.post('/:id/edit',		periodic.core.controller.save_revision, tagController.loadTag, cmsController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
+
 	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
 	itemContentAdminRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
 
@@ -188,7 +195,7 @@ module.exports = function (periodic) {
 	collectionContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, collectionController.loadCollection, collectionController.update);
+		periodic.core.controller.save_revision, collectionController.loadCollection, cmsController.fixCodeMirrorSubmit, collectionController.update);
 	// collectionRouter.post('/removechangeset/:id/:contententity/:changesetnum', collectionController.loadCollection, adminController.remove_changeset_from_content, collectionController.update);
 	// console.log('collectionController.remove',collectionController.remove);
 	collectionContentAdminRouter.post('/:id/delete', collectionController.loadCollection, collectionController.remove);
@@ -212,7 +219,7 @@ module.exports = function (periodic) {
 	compilationContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, compilationController.loadCompilation, compilationController.update);
+		periodic.core.controller.save_revision, compilationController.loadCompilation,  cmsController.fixCodeMirrorSubmit, compilationController.update);
 	// compilationRouter.post('/removechangeset/:id/:contententity/:changesetnum', compilationController.loadCompilation, adminController.remove_changeset_from_content, compilationController.update);
 	compilationContentAdminRouter.post('/:id/delete', compilationController.loadCompilation, compilationController.remove);
 
@@ -236,12 +243,14 @@ module.exports = function (periodic) {
 		assetController.multiupload,
 		periodic.core.controller.save_revision,
 		assetController.loadAsset,
+		cmsController.fixCodeMirrorSubmit, 
 		cmsController.update_asset_from_file,
 		assetController.update);
 	// // assetRouter.post('/removechangeset/:id/:contententity/:changesetnum', assetController.loadAsset, adminController.remove_changeset_from_content, assetController.update);
 	assetContentAdminRouter.post('/:id/delete', assetController.loadAsset, assetController.remove);
 
 
+	// contenttypeContentAdminRouter.post('/:id/edit',periodic.core.controller.save_revision, contenttypeController.loadContenttype, cmsController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
 
 	/**
 	 * admin/tag manager routes
@@ -249,11 +258,12 @@ module.exports = function (periodic) {
 	tagContentAdminRouter.post('/new/:id', tagController.loadTag, tagController.create);
 	tagContentAdminRouter.post('/new', tagController.loadTag, tagController.create);
 	tagContentAdminRouter.post('/:id/delete', tagController.loadTag, tagController.remove);
-	tagContentAdminRouter.post('/:id/edit', tagController.update);
 	tagContentAdminRouter.get('/:id/edit', tagController.loadTag, cmsController.tag_edit);
 	tagContentAdminRouter.get('/:id', tagController.loadTag, cmsController.tag_edit);
 	tagContentAdminRouter.get('/:id/parent', tagController.loadTag, cmsController.tag_parent);
-
+	tagContentAdminRouter.post('/:id/edit',
+		periodic.core.controller.save_revision, tagController.loadTag, cmsController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
+	tagContentAdminRouter.post('/:id/edit', tagController.update);
 
 	/**
 	 * admin/category manager routes
@@ -261,11 +271,13 @@ module.exports = function (periodic) {
 	categoryContentAdminRouter.post('/new/:id', categoryController.loadCategory, categoryController.create);
 	categoryContentAdminRouter.post('/new', categoryController.loadCategory, categoryController.create);
 	categoryContentAdminRouter.post('/:id/delete', categoryController.loadCategory, categoryController.remove);
-	categoryContentAdminRouter.post('/:id/edit', categoryController.update);
 	categoryContentAdminRouter.get('/:id/edit', categoryController.loadCategory, cmsController.category_edit);
 	categoryContentAdminRouter.get('/:id', categoryController.loadCategory, cmsController.category_edit);
 	categoryContentAdminRouter.get('/:id/parent', categoryController.loadCategory, cmsController.category_parent);
 
+	categoryContentAdminRouter.post('/:id/edit',
+		periodic.core.controller.save_revision, categoryController.loadCategory, cmsController.fixCodeMirrorSubmit, categoryController.update, cmsController.category_edit);
+	categoryContentAdminRouter.post('/:id/edit', categoryController.update);
 	/**
 	 * admin/categorytype manager routes
 	 */
@@ -277,7 +289,8 @@ module.exports = function (periodic) {
 	// contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);
 	contenttypeContentAdminRouter.get('/:id/edit', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_edit);
-
+	contenttypeContentAdminRouter.post('/:id/edit',
+		periodic.core.controller.save_revision, contenttypeController.loadContenttype, cmsController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
 
 
 	/**
