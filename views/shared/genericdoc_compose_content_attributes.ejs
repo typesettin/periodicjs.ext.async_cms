@@ -1,15 +1,17 @@
+<%
+contenttypestouse =false;
+if(!genericdoc && default_contentypes){
+	contenttypestouse = default_contentypes;
+}
+else if(genericdoc && genericdoc.contenttypes){
+	contenttypestouse = genericdoc.contenttypes;
+}
+%>
 <details class="ts-text-sm" <%if(contenttypestouse && contenttypestouse.length >0){%>open<%}%>>
 	<summary>Content Type Attributes</summary>
 	<aside id="doc-ct-attr">
 		<div>
-			<% 
-			contenttypestouse =false;
-			if(!genericdoc && default_contentypes){
-				contenttypestouse = default_contentypes;
-			}
-			else if(genericdoc && genericdoc.contenttypes){
-				contenttypestouse = genericdoc.contenttypes;
-			}
+			<%
 			if(contenttypestouse && contenttypestouse.length >0){
 				contenttypestouse.forEach(function(ct){
 					%>
