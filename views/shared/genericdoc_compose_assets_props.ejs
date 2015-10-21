@@ -10,6 +10,16 @@
 				  <input type="text" id="docfileurllabel" name="fileurl" class="ts-input ts-text-sm" value="<%- genericdoc.fileurl %>" >
 				</div>
 			</div>
+			<% if(genericdoc.size){%>
+			<div class="ts-row ts-form-row">
+				<div class="ts-col-span12">
+				  <label  class="ts-label" id="docperiodicfilenamelabel">file size:</label>
+				</div>
+				<div class="ts-col-span12">
+					<input type="text" id="docperiodicfilenamelabel" class="ts-input ts-text-sm" name="size" value="<%- locals.prettysize(genericdoc.size) %>" disabled>
+				</div>
+			</div>
+			<%}%>
 			<div class="ts-row ts-form-row">
 				<div class="ts-col-span12">
 				  <label  class="ts-label" id="doclocationtypelabel">location type:</label>

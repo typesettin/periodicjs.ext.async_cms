@@ -50,6 +50,9 @@
 			  </select>
 		  </div>
 		</div>
+		<%if(genericdoc && !genericdoc.publishat){%>
+		<%}
+		else{%>
 		<div class="ts-row ts-form-row">
 	    <div class="ts-col-span2">
 	      <label class="ts-label">Date:</label>
@@ -66,6 +69,7 @@
         <input type="time" id="newitemtime" class="ts-input ts-text-sm" value="<%- servertime %>" name="time">
       </div>
 	  </div>
+		<%}%>
 	  <% if(typeof genericdoctypename === "string" && genericdoc){%>
 			<div class="ts-row  ts-text-center ts-text-sm ts-padding-lg">
 				<% if(genericdoctype && genericdoctype!=='Asset'){%>

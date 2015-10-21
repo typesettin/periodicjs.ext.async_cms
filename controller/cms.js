@@ -119,6 +119,10 @@ var get_edit_page = function (options) {
 				adminSettings: async_cms_settings,
 				user: req.user
 			});
+		if(req.controllerData[entity.name].publishat){
+			viewdata.serverdate = moment(req.controllerData[entity.name].publishat).format('YYYY-MM-DD');
+			viewdata.servertime = moment(req.controllerData[entity.name].publishat).format('HH:mm');
+		}
 		CoreController.renderView(req, res, viewtemplate, viewdata);
 	};
 };

@@ -1,7 +1,7 @@
 {
   "name": "periodicjs.ext.async_cms",
   "description": "cms for periodicjs",
-  "version": "5.9.85",
+  "version": "5.9.86",
   "main": "index.js",
   "engines": {
     "node": ">=0.12.x"
