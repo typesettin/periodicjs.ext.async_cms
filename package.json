@@ -60,9 +60,9 @@
   ],
   "directories": {},
   "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
-  "_id": "periodicjs.ext.async_cms@5.9.82",
-  "_shasum": "0f2c20548a68fcc36b5e5dff8bea9b3991322149",
-  "_from": "periodicjs.ext.async_cms@5.9.82",
+  "_id": "periodicjs.ext.async_cms@5.9.86",
+  "_shasum": "65d3e92354866457123bf497217b37e429b18197",
+  "_from": "periodicjs.ext.async_cms@latest",
   "_npmVersion": "2.11.2",
   "_nodeVersion": "0.12.6",
   "_npmUser": {
