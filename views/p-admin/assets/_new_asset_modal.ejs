@@ -1,11 +1,10 @@
 <%
-  update_asset_test = ( typeof update_asset_test ==='boolean' && update_asset_test ===true) ? true : false; 
+  update_asset_test = ( typeof updateasset !=='undefined' && updateasset); 
 %>
 
 <div class="ts-modal-hidden-container">
   <div id="new-asset-modal" data-name="new-asset-modal" class="ts-modal ts-modal-effect-1">
     <section class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-md ts-shadow ">
-    <%- update_asset_test %>
     <h6> <% if( update_asset_test){%>Update asset<%}else{%>Upload new assets<%} %> </h6>
       <form 
         class="ts-form async-admin-ajax-forms" 
@@ -13,7 +12,7 @@
         id="new-asset-form" 
         method="post" 
         <% if( update_asset_test){%>
-        action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit?_csrf=<%- locals.token %>"
+        action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit"
         <%}else{%>
         action="/<%- locals.adminPath %>/content/asset/new" 
         <%} %>

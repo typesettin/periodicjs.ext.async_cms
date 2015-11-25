@@ -50,6 +50,28 @@ var get_entity_modifications = function (entityname) {
 	};
 };
 
+var get_revision_page = function(options){
+	var entity = get_entity_modifications(options.entity);
+
+	return function (req, res) {
+		var viewtemplate = {
+				viewname: 'p-admin/' + entity.plural_name + '/revisions',
+				themefileext: appSettings.templatefileextension,
+				extname: 'periodicjs.ext.async_cms'
+			},
+
+			viewdata = merge(req.controllerData, {
+				pagedata: {
+					title: entity.capitalized_name + ' Revisions',
+					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_plural_name + '</a>',
+					extensions: CoreUtilities.getAdminMenu()
+				},
+				user: req.user
+			});
+		CoreController.renderView(req, res, viewtemplate, viewdata);
+	};
+};
+
 var get_index_page = function (options) {
 	var entity = get_entity_modifications(options.entity);
 
@@ -229,6 +251,9 @@ var controller = function (resources) {
 			entity: 'data'
 		}),
 		items_index: get_index_page({
+			entity: 'item'
+		}),
+		item_revisions: get_revision_page({
 			entity: 'item'
 		}),
 		item_new: get_new_page({

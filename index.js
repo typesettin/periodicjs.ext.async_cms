@@ -157,8 +157,8 @@ module.exports = function (periodic) {
 	itemContentAdminRouter.get('/:id/edit', itemController.loadFullItem, cmsController.item_edit);
 	itemContentAdminRouter.get('/:id', itemController.loadFullItem, cmsController.item_edit);
 	// adminRouter.get('/items/search', itemController.loadItems, adminController.items_index);
-	// adminRouter.get('/item/edit/:id/revision/:changeset', itemController.loadFullItem, adminController.item_review_revision);
-	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_revisions);
+	itemContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, itemController.loadFullItem, cmsController.item_revisions);
+	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_review_revisions);
 	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
 	itemContentAdminRouter.post('/new',
 		assetController.multiupload,
