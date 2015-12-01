@@ -63,7 +63,7 @@ var get_revision_page = function(options){
 			viewdata = merge(req.controllerData, {
 				pagedata: {
 					title: entity.capitalized_name + ' Revisions',
-					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_plural_name + '</a>',
+					toplink: '&raquo;   <a href="/' + adminPath + '/content/' + entity.plural_name + '" class="async-admin-ajax-link">' + entity.capitalized_plural_name + '</a> &raquo; ' + req.controllerData[entity.name].title+' &raquo; Revisions',
 					extensions: CoreUtilities.getAdminMenu()
 				},
 				user: req.user
@@ -215,6 +215,7 @@ var update_asset_from_file = function (req, res, next) {
 	}
 };
 
+
 /**
  * admin controller
  * @module authController
@@ -244,6 +245,9 @@ var controller = function (resources) {
 		datas_index: get_index_page({
 			entity: 'data'
 		}),
+		data_revisions: get_revision_page({
+			entity: 'data'
+		}),
 		data_new: get_new_page({
 			entity: 'data'
 		}),
@@ -265,6 +269,9 @@ var controller = function (resources) {
 		collections_index: get_index_page({
 			entity: 'collection'
 		}),
+		collection_revisions: get_revision_page({
+			entity: 'collection'
+		}),
 		collection_new: get_new_page({
 			entity: 'collection'
 		}),
@@ -272,6 +279,9 @@ var controller = function (resources) {
 			entity: 'collection'
 		}),
 		compilations_index: get_index_page({
+			entity: 'compilation'
+		}),
+		compilation_revisions: get_revision_page({
 			entity: 'compilation'
 		}),
 		compilation_new: get_new_page({
@@ -283,11 +293,17 @@ var controller = function (resources) {
 		assets_index: get_index_page({
 			entity: 'asset'
 		}),
+		asset_revisions: get_revision_page({
+			entity: 'asset'
+		}),
 		// asset_new: get_new_page({entity:'asset'}),
 		asset_edit: get_edit_page({
 			entity: 'asset'
 		}),
 		contenttypes_index: get_index_page({
+			entity: 'contenttype'
+		}),
+		contenttype_revisions: get_revision_page({
 			entity: 'contenttype'
 		}),
 		// contenttype_new: get_new_page({entity:'contenttype'}),
@@ -297,11 +313,17 @@ var controller = function (resources) {
 		tags_index: get_index_page({
 			entity: 'tag'
 		}),
+		tag_revisions: get_revision_page({
+			entity: 'tag'
+		}),
 		tag_edit: get_edit_page({
 			entity: 'tag'
 		}),
 		tag_parent: tag_parent,
 		categories_index: get_index_page({
+			entity: 'category'
+		}),
+		category_revisions: get_revision_page({
 			entity: 'category'
 		}),
 		category_edit: get_edit_page({

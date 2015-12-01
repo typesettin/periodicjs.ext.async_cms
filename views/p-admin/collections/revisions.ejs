@@ -1,0 +1,13 @@
+<% include ../../shared/header %>
+<div class="ts-container">
+  <% genericdoc = collection %>
+  <% genericdocid = collection._id %>
+  <% genericdoctype = "Collection" %>
+  <% genericdoctypename = "collection" %>
+  <% genericdoctypelink = "collection" %>
+  <% genericdoctypeplurallink = "collections" %>
+
+  <% include ../../shared/genericdoc_show_revisions %>
+</div>
+<script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
+<% include ../../shared/footer %>

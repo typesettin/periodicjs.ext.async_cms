@@ -131,8 +131,6 @@ module.exports = function (periodic) {
 	dataContentAdminRouter.get('/:id/edit', dataController.loadFullData, cmsController.data_edit);
 	dataContentAdminRouter.get('/:id', dataController.loadFullData, cmsController.data_edit);
 	// adminRouter.get('/datas/search', dataController.loadDatas, adminController.datas_index);
-	// adminRouter.get('/data/edit/:id/revision/:changeset', dataController.loadFullData, adminController.data_review_revision);
-	// adminRouter.get('/data/edit/:id/revisions', dataController.loadFullData, adminController.data_revisions);
 	// adminRouter.get('/data/search', adminController.setSearchLimitTo1000, dataController.loadDatas, dataController.index);
 	dataContentAdminRouter.post('/new',
 		assetController.multiupload,
@@ -149,6 +147,10 @@ module.exports = function (periodic) {
 	// dataRouter.post('/removechangeset/:id/:contententity/:changesetnum', dataController.loadData, adminController.remove_changeset_from_content, dataController.update);
 	dataContentAdminRouter.post('/:id/delete', dataController.loadData, dataController.remove);
 
+	dataContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, dataController.loadFullData, cmsController.data_revisions);
+	dataContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, dataController.loadFullData, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  dataController.update);
+	dataContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, dataController.loadFullData, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  dataController.update);
+
 	/**
 	 * admin/item manager routes
 	 */
@@ -156,9 +158,7 @@ module.exports = function (periodic) {
 	itemContentAdminRouter.get('/new', cmsController.item_new);
 	itemContentAdminRouter.get('/:id/edit', itemController.loadFullItem, cmsController.item_edit);
 	itemContentAdminRouter.get('/:id', itemController.loadFullItem, cmsController.item_edit);
-	// adminRouter.get('/items/search', itemController.loadItems, adminController.items_index);
-	itemContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, itemController.loadFullItem, cmsController.item_revisions);
-	// adminRouter.get('/item/edit/:id/revisions', itemController.loadFullItem, adminController.item_review_revisions);
+
 	// adminRouter.get('/item/search', adminController.setSearchLimitTo1000, itemController.loadItems, itemController.index);
 	itemContentAdminRouter.post('/new',
 		assetController.multiupload,
@@ -170,12 +170,11 @@ module.exports = function (periodic) {
 		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, itemController.loadItem,cmsController.fixCodeMirrorSubmit,  itemController.update);
 
-
-	// tagContentAdminRouter.post('/:id/edit',		periodic.core.controller.save_revision, tagController.loadTag, cmsController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
-
-	// itemRouter.post('/removechangeset/:id/:contententity/:changesetnum', itemController.loadItem, adminController.remove_changeset_from_content, itemController.update);
 	itemContentAdminRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
 
+	itemContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, itemController.loadFullItem, cmsController.item_revisions);
+	itemContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, itemController.loadFullItem, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  itemController.update);
+	itemContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, itemController.loadFullItem, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  itemController.update);
 
 	/**
 	 * admin/collection manager routes
@@ -184,8 +183,6 @@ module.exports = function (periodic) {
 	collectionContentAdminRouter.get('/:id/edit', collectionController.loadCollection, cmsController.collection_edit);
 	collectionContentAdminRouter.get('/:id', collectionController.loadCollection, cmsController.collection_edit);
 	// // adminRouter.get('/collections/search', collectionController.loadCollections, adminController.collections_index);
-	// // adminRouter.get('/collection/edit/:id/revision/:changeset', collectionController.loadCollection, adminController.collection_review_revision);
-	// // adminRouter.get('/collection/edit/:id/revisions', collectionController.loadCollection, adminController.collection_revisions);
 	// // adminRouter.get('/collection/search', adminController.setSearchLimitTo1000, collectionController.loadCollections, collectionController.index);
 	collectionContentAdminRouter.post('/new',
 		assetController.multiupload,
@@ -196,9 +193,11 @@ module.exports = function (periodic) {
 		assetController.multiupload,
 		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, collectionController.loadCollection, cmsController.fixCodeMirrorSubmit, collectionController.update);
-	// collectionRouter.post('/removechangeset/:id/:contententity/:changesetnum', collectionController.loadCollection, adminController.remove_changeset_from_content, collectionController.update);
-	// console.log('collectionController.remove',collectionController.remove);
 	collectionContentAdminRouter.post('/:id/delete', collectionController.loadCollection, collectionController.remove);
+	collectionContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, collectionController.loadFullCollection, cmsController.collection_revisions);
+	collectionContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, collectionController.loadFullCollection, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  collectionController.update);
+	collectionContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, collectionController.loadFullCollection, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  collectionController.update);
+
 
 	/**
 	//  * admin/compilation manager routes
@@ -208,8 +207,6 @@ module.exports = function (periodic) {
 	compilationContentAdminRouter.get('/:id/edit', compilationController.loadCompilation, cmsController.compilation_edit);
 	compilationContentAdminRouter.get('/:id', compilationController.loadCompilation, cmsController.compilation_edit);
 	// adminRouter.get('/compilations/search', compilationController.loadCompilations, adminController.compilations_index);
-	// adminRouter.get('/compilation/edit/:id/revision/:changeset', compilationController.loadCompilation, adminController.compilation_review_revision);
-	// adminRouter.get('/compilation/edit/:id/revisions', compilationController.loadCompilation, adminController.compilation_revisions);
 	// adminRouter.get('/compilation/search', adminController.setSearchLimitTo1000, compilationController.loadCompilations, compilationController.index);
 	compilationContentAdminRouter.post('/new',
 		assetController.multiupload,
@@ -220,8 +217,12 @@ module.exports = function (periodic) {
 		assetController.multiupload,
 		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, compilationController.loadCompilation,  cmsController.fixCodeMirrorSubmit, compilationController.update);
-	// compilationRouter.post('/removechangeset/:id/:contententity/:changesetnum', compilationController.loadCompilation, adminController.remove_changeset_from_content, compilationController.update);
 	compilationContentAdminRouter.post('/:id/delete', compilationController.loadCompilation, compilationController.remove);
+
+
+	compilationContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, compilationController.loadFullCompilation, cmsController.compilation_revisions);
+	compilationContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, compilationController.loadFullCompilation, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  compilationController.update);
+	compilationContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, compilationController.loadFullCompilation, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  compilationController.update);
 
 	/**
 	 * admin/asset manager routes
@@ -231,8 +232,6 @@ module.exports = function (periodic) {
 	assetContentAdminRouter.get('/:id/edit', assetController.loadAsset, cmsController.asset_edit);
 	assetContentAdminRouter.get('/:id', assetController.loadAsset, cmsController.asset_edit);
 	// // adminRouter.get('/assets/search', assetController.loadAssets, adminController.assets_index);
-	// // adminRouter.get('/asset/edit/:id/revision/:changeset', assetController.loadAsset, adminController.asset_review_revision);
-	// // adminRouter.get('/asset/edit/:id/revisions', assetController.loadAsset, adminController.asset_revisions);
 	// // adminRouter.get('/asset/search', adminController.setSearchLimitTo1000, assetController.loadAssets, assetController.index);
 	assetContentAdminRouter.post('/new',
 		assetController.multiupload,
@@ -246,11 +245,12 @@ module.exports = function (periodic) {
 		cmsController.fixCodeMirrorSubmit, 
 		cmsController.update_asset_from_file,
 		assetController.update);
-	// // assetRouter.post('/removechangeset/:id/:contententity/:changesetnum', assetController.loadAsset, adminController.remove_changeset_from_content, assetController.update);
 	assetContentAdminRouter.post('/:id/delete', assetController.loadAsset, assetController.remove);
 
 
-	// contenttypeContentAdminRouter.post('/:id/edit',periodic.core.controller.save_revision, contenttypeController.loadContenttype, cmsController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
+	assetContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, assetController.loadFullAsset, cmsController.asset_revisions);
+	assetContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, assetController.loadFullAsset, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  assetController.update);
+	assetContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, assetController.loadFullAsset, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  assetController.update);
 
 	/**
 	 * admin/tag manager routes
@@ -263,7 +263,11 @@ module.exports = function (periodic) {
 	tagContentAdminRouter.get('/:id/parent', tagController.loadTag, cmsController.tag_parent);
 	tagContentAdminRouter.post('/:id/edit',
 		periodic.core.controller.save_revision, tagController.loadTag, cmsController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
-	tagContentAdminRouter.post('/:id/edit', tagController.update);
+	tagContentAdminRouter.post('/:id/edit',periodic.core.controller.save_revision,  tagController.update);
+
+	tagContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, tagController.loadFullTag, cmsController.tag_revisions);
+	tagContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, tagController.loadFullTag, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  tagController.update);
+	tagContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, tagController.loadFullTag, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  tagController.update);
 
 	/**
 	 * admin/category manager routes
@@ -277,22 +281,34 @@ module.exports = function (periodic) {
 
 	categoryContentAdminRouter.post('/:id/edit',
 		periodic.core.controller.save_revision, categoryController.loadCategory, cmsController.fixCodeMirrorSubmit, categoryController.update, cmsController.category_edit);
-	categoryContentAdminRouter.post('/:id/edit', categoryController.update);
+	categoryContentAdminRouter.post('/:id/edit', periodic.core.controller.save_revision, categoryController.update);
+	
+
+	categoryContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, categoryController.loadFullCategory, cmsController.category_revisions);
+	categoryContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, categoryController.loadFullCategory, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  categoryController.update);
+	categoryContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, categoryController.loadFullCategory, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  categoryController.update);
 	/**
 	 * admin/categorytype manager routes
 	 */
 	contenttypeContentAdminRouter.post('/new/:id', contenttypeController.loadContenttype, contenttypeController.create);
 	contenttypeContentAdminRouter.post('/new', contenttypeController.loadContenttype, contenttypeController.create);
-	contenttypeContentAdminRouter.post('/:id/delete', contenttypeController.loadContenttype, contenttypeController.remove);
-	contenttypeRouter.post('/append/:id', contenttypeController.loadContenttype, contenttypeController.append);
-	contenttypeRouter.post('/removeitem/:id', contenttypeController.loadContenttype, contenttypeController.removeitem);
+	contenttypeContentAdminRouter.post('/:id/delete',
+		periodic.core.controller.save_revision, contenttypeController.loadContenttype, contenttypeController.remove);
+	contenttypeRouter.post('/append/:id', 
+		periodic.core.controller.save_revision,contenttypeController.loadContenttype, contenttypeController.append);
+	contenttypeRouter.post('/removeitem/:id',
+		periodic.core.controller.save_revision, contenttypeController.loadContenttype, contenttypeController.removeitem);
 	// contenttypeContentAdminRouter.get('/new', cmsController.contenttype_new);
 	contenttypeContentAdminRouter.get('/:id/edit', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.post('/:id/edit',
 		periodic.core.controller.save_revision, contenttypeController.loadContenttype, cmsController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
 
+	
 
+	contenttypeContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, contenttypeController.loadFullContenttype, cmsController.contenttype_revisions);
+	contenttypeContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, contenttypeController.loadFullContenttype, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  contenttypeController.update);
+	contenttypeContentAdminRouter.post('/:id/revision/:revisionindex/revert',periodic.app.controller.extension.asyncadmin.admin.skip_population, contenttypeController.loadFullContenttype, periodic.app.controller.extension.asyncadmin.admin.revision_revert,  contenttypeController.update);
 	/**
 	 * periodic routes
 	 */
@@ -316,7 +332,7 @@ module.exports = function (periodic) {
 	});
 
 	//link routers
-	console.log('periodic.app.locals.adminPath', periodic.app.locals.adminPath);
+	// console.log('periodic.app.locals.adminPath', periodic.app.locals.adminPath);
 	contentAdminRouter.use('/item', itemContentAdminRouter);
 	contentAdminRouter.use('/data', dataContentAdminRouter);
 	contentAdminRouter.use('/collection', collectionContentAdminRouter);
