@@ -1,7 +1,7 @@
 {
   "name": "periodicjs.ext.async_cms",
   "description": "cms for periodicjs",
-  "version": "5.9.87",
+  "version": "5.9.9",
   "main": "index.js",
   "engines": {
     "node": ">=0.12.x"
@@ -60,9 +60,9 @@
   ],
   "directories": {},
   "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
-  "_id": "periodicjs.ext.async_cms@5.9.86",
-  "_shasum": "65d3e92354866457123bf497217b37e429b18197",
-  "_from": "periodicjs.ext.async_cms@5.9.86",
+  "_id": "periodicjs.ext.async_cms@5.9.87",
+  "_shasum": "71941c6bc6cfe12086083440df4de4480b42469a",
+  "_from": "periodicjs.ext.async_cms@5.9.87",
   "_npmVersion": "2.11.2",
   "_nodeVersion": "0.12.6",
   "_npmUser": {

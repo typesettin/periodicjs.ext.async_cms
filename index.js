@@ -117,6 +117,16 @@ module.exports = function (periodic) {
 	contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
 	contentAdminRouter.get('/assets', assetController.loadAssetsWithCount, assetController.loadAssetsWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
 
+
+	periodic.app.controller.extension.asyncadmin.search.item = cmsController.item_search;
+	periodic.app.controller.extension.asyncadmin.search.data = cmsController.data_search;
+	periodic.app.controller.extension.asyncadmin.search.collection = cmsController.collection_search;
+	periodic.app.controller.extension.asyncadmin.search.compilation = cmsController.compilation_search;
+	periodic.app.controller.extension.asyncadmin.search.contenttype = cmsController.contenttype_search;
+	periodic.app.controller.extension.asyncadmin.search.tag = cmsController.tag_search;
+	periodic.app.controller.extension.asyncadmin.search.category = cmsController.category_search;
+	periodic.app.controller.extension.asyncadmin.search.asset = cmsController.asset_search;
+
 	// contentAdminRouter.get('/extensions', cmsController.loadExtensions, cmsController.extensions_index);
 	// contentAdminRouter.get('/themes', cmsController.loadThemes, adminSettingsController.load_theme_settings, cmsController.themes_index);
 	// contentAdminRouter.get('/users', userController.loadUsersWithCount, userController.loadUsersWithDefaultLimit, uacController.loadUacUsers, cmsController.users_index);
@@ -330,6 +340,9 @@ module.exports = function (periodic) {
 	contentAdminRouter.get('/tag/:id/children', global.CoreCache.disableCache, tagController.loadTag, tagController.loadChildren, function (req, res) {
 		res.send(req.controllerData);
 	});
+
+
+
 
 	//link routers
 	// console.log('periodic.app.locals.adminPath', periodic.app.locals.adminPath);

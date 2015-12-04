@@ -10,6 +10,7 @@ var moment = require('moment'),
 	pluralize = require('pluralize'),
 	capitalize = require('capitalize'),
 	assetController,
+	controllerOptions,
 	// configError,
 	// Contenttype,
 	// Collection,
@@ -38,7 +39,6 @@ var fixCodeMirrorSubmit = function (req, res, next) {
 	next();
 };
 
-
 var get_entity_modifications = function (entityname) {
 	var entity = entityname.toLowerCase(),
 		plural_entity = pluralize.plural(entity);
@@ -47,6 +47,20 @@ var get_entity_modifications = function (entityname) {
 		plural_name: pluralize.plural(entity), //items
 		capitalized_name: capitalize(entity), //Item
 		capitalized_plural_name: capitalize(plural_entity) //Items
+	};
+};
+
+var get_entity_search = function(options){
+	var entityname = options.entity;
+
+	return function(options,callback){
+		CoreController.controller_model_search_query({
+			req: options.req,
+			res: options.res,
+			orQuery: [],
+			controllerOptions: controllerOptions[entityname],
+			asyncCallback: callback
+		});
 	};
 };
 
@@ -215,7 +229,6 @@ var update_asset_from_file = function (req, res, next) {
 	}
 };
 
-
 /**
  * admin controller
  * @module authController
@@ -240,6 +253,7 @@ var controller = function (resources) {
 	assetController = resources.app.controller.native.asset;
 	async_cms_settings = resources.app.controller.extension.async_cms.async_cms_settings;
 	adminPath = resources.app.locals.adminPath;
+	controllerOptions = resources.app.controller.native.ControllerSettings;
 
 	return {
 		datas_index: get_index_page({
@@ -329,6 +343,14 @@ var controller = function (resources) {
 		category_edit: get_edit_page({
 			entity: 'category'
 		}),
+		item_search: get_entity_search({entity: 'item'}),
+		data_search: get_entity_search({entity: 'data'}),
+		collection_search: get_entity_search({entity: 'collection'}),
+		compilation_search: get_entity_search({entity: 'compilation'}),
+		contenttype_search: get_entity_search({entity: 'contenttype'}),
+		tag_search: get_entity_search({entity: 'tag'}),
+		category_search: get_entity_search({entity: 'category'}),
+		asset_search: get_entity_search({entity: 'asset'}),
 		fixCodeMirrorSubmit:fixCodeMirrorSubmit,
 		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
