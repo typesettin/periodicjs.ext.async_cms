@@ -5,6 +5,9 @@
   	<% genericdoctype = "Compilation" %>
   	<% genericdoctypename = "compilation" %>
   	<% genericdoctypelink = "compilations" %>
+<% genericdoctypeplurallink = "compilations" %>
+    <% include ../../shared/genericdoc_compose_title %>
+
 	  <form class="ts-form" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/new" >
 	    <% include compose_compilation_form %>
 	  </form>
