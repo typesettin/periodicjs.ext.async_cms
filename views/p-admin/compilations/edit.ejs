@@ -1,7 +1,13 @@
+<% genericdoc = compilation %>
+<% genericdocid = compilation._id %>
+<% genericdoctype = "Compilation" %>
+<% genericdoctypename = "compilation" %>
+<% genericdoctypelink = "compilation" %>
+<% genericdoctypeplurallink = "compilations" %>
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
-    
+    <% include ../../shared/genericdoc_compose_title %>
 
     <div class="ts-row">
       <div class="ts-col-span12">
@@ -14,12 +20,6 @@
           </nav>
           <div class="ts-tabs-content">
             <section class="ts-no-padding">
-              <% genericdoc = compilation %>
-              <% genericdocid = compilation._id %>
-              <% genericdoctype = "Compilation" %>
-              <% genericdoctypename = "compilation" %>
-              <% genericdoctypelink = "compilation" %>
-              <% genericdoctypeplurallink = "compilations" %>
               <form id="edit-<%- genericdoctypename %>-wysiwyg-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" enctype="multipart/form-data" 
           data-successsubmitfunction="refresh_content_attributes_media">
                 <% include compose_compilation_form %>

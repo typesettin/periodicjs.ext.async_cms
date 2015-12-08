@@ -1,7 +1,13 @@
+<% include ../../shared/html_inject_precontent %>
+<% genericdoc = contenttype %>
+<% genericdoctype = "Contenttype" %>
+<% genericdoctypelink = "contenttype" %>
+<% genericdoctypeplurallink = "contenttypes" %>
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
     
+    <% include ../../shared/genericdoc_compose_title %>
 
     <div class="ts-row">
       <div class="ts-col-span12">
@@ -14,11 +20,6 @@
           </nav>
           <div class="ts-tabs-content">
             <section class="ts-no-padding">
-	            <% include ../../shared/html_inject_precontent %>
-							<% genericdoc = contenttype %>
-							<% genericdoctype = "Contenttype" %>
-							<% genericdoctypelink = "contenttype" %>
-							<% genericdoctypeplurallink = "contenttypes" %>
 							<div class="ts-container">
 							  <div class="ts-page-content-container">
 							    <div class="ts_row">

@@ -1,7 +1,14 @@
+<% genericdoc = category %>
+<% genericdocid = category._id %>
+<% genericdoctype = "Category" %>
+<% genericdoctypename = "category" %>
+<% genericdoctypeplurallink = "categories" %>
+<% genericdoctypelink = "category" %>
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
     
+    <% include ../../shared/genericdoc_compose_title %>
 
     <div class="ts-row">
       <div class="ts-col-span12">
@@ -14,12 +21,7 @@
           </nav>
           <div class="ts-tabs-content">
             <section class="ts-no-padding">
-              <% genericdoc = category %>
-              <% genericdocid = category._id %>
-              <% genericdoctype = "Category" %>
-              <% genericdoctypename = "category" %>
-<% genericdoctypeplurallink = "categories" %>
-              <% genericdoctypelink = "category" %>
+
               <form id="edit-<%- genericdoctypename %>-wysiwyg-form" name="edit-<%- genericdoctypename %>-form" class="ts-form async-admin-ajax-forms" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit" 
               data-successsubmitfunction="refresh_content_attributes_media">
                 <% include ../../shared/compose_taxonomy_form %>

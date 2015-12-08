@@ -60,8 +60,8 @@
   ],
   "directories": {},
   "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
-  "_id": "periodicjs.ext.async_cms@5.9.9",
-  "_shasum": "6ac27a66505457bd031a38957c227c7cc6a991a5",
+  "_id": "periodicjs.ext.async_cms@6.0.0",
+  "_shasum": "ff652931a0ded8858dde9072d0f3a1fd7815d98b",
   "_from": "periodicjs.ext.async_cms@latest",
   "_npmVersion": "2.11.2",
   "_nodeVersion": "0.12.6",
@@ -70,8 +70,8 @@
     "email": "yaw.etse@gmail.com"
   },
   "dist": {
-    "shasum": "6ac27a66505457bd031a38957c227c7cc6a991a5",
-    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-5.9.9.tgz"
+    "shasum": "ff652931a0ded8858dde9072d0f3a1fd7815d98b",
+    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.0.0.tgz"
   },
-  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-5.9.9.tgz"
+  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.0.0.tgz"
 }
