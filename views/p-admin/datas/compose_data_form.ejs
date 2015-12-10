@@ -1,4 +1,5 @@
-<% genericdoctaxfields = "tags:array:tag:doc:createable,categories:array:category:doc:createable,contenttypes:array:contenttype:doc:createable,primaryauthor:single:user:doc:static" %>
+<% genericdoctaxfields = "tags:array:tag:doc:createable,categories:array:category:doc:createable,contenttypes:array:contenttype:doc:createable,primaryauthor:single:user:doc:static";
+  ts_taxman_initial_placeholder ="Search existing tags, users, categories and contenttypes"; %>
 
 <input type="hidden" name="_csrf" value=<%- locals.token %> >
 <%if(typeof genericdocid !=='undefined'){%>
