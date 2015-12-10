@@ -1,3 +1,5 @@
+<% genericdoctaxfields = "assets:array:asset:media:createable,primaryasset:single:asset:media:createable,tags:array:tag:doc:createable,categories:array:category:doc:createable,contenttypes:array:contenttype:doc:createable,items.item:array:item:doc:static,authors:array:user:doc:static,primaryauthor:single:user:doc:static" %>
+
 <input type="hidden" name="_csrf" value=<%- locals.token %> >
 <%if(typeof genericdocid !=='undefined'){%>
 	<input type="hidden" name="docid" value=<%- genericdocid %> >
@@ -5,12 +7,11 @@
 <div class="ts-row">
 	<div class="ts-genericdoc-entry ts-col-span8 ts-screensm-col-span12 ts-screenxs-col-span12">
 		<% include ../../shared/genericdoc_compose_title_content %>
+		<% include ../../shared/genericdoc_compose_taxonomy_manager %>
 		<% include ../../shared/genericdoc_compose_content_attributes %>
-		<% include ../../shared/genericdoc_compose_media_assets %>
 	</div>
 	<div class=" ts-col-span4 ts-screensm-col-span12 ts-screenxs-col-span12">
 		<% include ../../shared/genericdoc_compose_publish %>
-		<% include ../../shared/genericdoc_compose_taxonomy %>
 		<% include ../../shared/genericdoc_compose_content_revisions %>
 	</div>
 </div>
