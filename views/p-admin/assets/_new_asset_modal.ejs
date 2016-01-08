@@ -12,7 +12,7 @@
         id="new-asset-form" 
         method="post" 
         <% if( update_asset_test){%>
-        action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit"
+        action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/<%- genericdoc._id %>/edit?_csrf=<%- locals.token %>"
         <%}else{%>
         action="/<%- locals.adminPath %>/content/asset/new" 
         <%} %>

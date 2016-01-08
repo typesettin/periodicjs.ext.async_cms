@@ -1,10 +1,10 @@
 {
   "name": "periodicjs.ext.async_cms",
   "description": "cms for periodicjs",
-  "version": "6.2.0",
+  "version": "6.9.0",
   "main": "index.js",
   "engines": {
-    "node": ">=0.12.x"
+    "node": ">=4.2.x"
   },
   "license": "MIT",
   "author": {
@@ -60,9 +60,9 @@
   ],
   "directories": {},
   "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
-  "_id": "periodicjs.ext.async_cms@6.1.0",
-  "_shasum": "1a65986fd3bf66119fb904b5f9eb44f4e85316a3",
-  "_from": "periodicjs.ext.async_cms@latest",
+  "_id": "periodicjs.ext.async_cms@6.2.0",
+  "_shasum": "2c87d612c709081440becba1b180f3a544ae3377",
+  "_from": "periodicjs.ext.async_cms@6.2.0",
   "_npmVersion": "2.11.2",
   "_nodeVersion": "0.12.6",
   "_npmUser": {
@@ -73,5 +73,7 @@
     "shasum": "1a65986fd3bf66119fb904b5f9eb44f4e85316a3",
     "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz"
   },
-  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz"
+  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz",
+  "readme": "# periodicjs.ext.login\n\nAn authentication extension that uses passport to authenticate user sessions.\n\n [API Documentation](https://github.com/typesettin/periodicjs.ext.login/blob/master/doc/api.md)\n\n## Installation\n\n```\n$ npm install periodicjs.ext.login\n```\n\n## Configure\n\nyou can define your own passort authentication strategies, after the extension has been installed, the extension configuration is located in `content/config/extensions/periodicjs.ext.login/transport.json`\n\n##Development\n*Make sure you have grunt installed*\n```\n$ npm install -g grunt-cli\n```\n\nThen run grunt watch\n```\n$ grunt watch\n```\nFor generating documentation\n```\n$ grunt doc\n$ jsdoc2md controller/**/*.js index.js install.js uninstall.js > doc/api.md\n```\n##Notes\n* Check out https://github.com/typesettin/periodicjs for the full Periodic Documentation",
+  "readmeFilename": "README.md"
 }
