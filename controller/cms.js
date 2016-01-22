@@ -310,7 +310,7 @@ var controller = function (resources) {
 		asset_revisions: get_revision_page({
 			entity: 'asset'
 		}),
-		// asset_new: get_new_page({entity:'asset'}),
+		asset_new: get_new_page({entity:'asset'}),
 		asset_edit: get_edit_page({
 			entity: 'asset'
 		}),

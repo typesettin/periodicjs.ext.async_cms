@@ -1,29 +1,50 @@
 {
-  "name": "periodicjs.ext.async_cms",
-  "description": "cms for periodicjs",
-  "version": "6.9.0",
-  "main": "index.js",
-  "engines": {
-    "node": ">=4.2.x"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Yaw Joseph Etse",
+  "_args": [
+    [
+      "periodicjs.ext.async_cms@6.9.0",
+      "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
+    ]
+  ],
+  "_from": "periodicjs.ext.async_cms@6.9.0",
+  "_id": "periodicjs.ext.async_cms@6.9.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/periodicjs.ext.async_cms",
+  "_nodeVersion": "0.12.6",
+  "_npmUser": {
     "email": "yaw.etse@gmail.com",
+    "name": "yawetse"
+  },
+  "_npmVersion": "2.11.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "periodicjs.ext.async_cms",
+    "raw": "periodicjs.ext.async_cms@6.9.0",
+    "rawSpec": "6.9.0",
+    "scope": null,
+    "spec": "6.9.0",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz",
+  "_shasum": "573a707de62bf82f7357034eb75e95cf07a51003",
+  "_shrinkwrap": null,
+  "_spec": "periodicjs.ext.async_cms@6.9.0",
+  "_where": "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs",
+  "author": {
+    "email": "yaw.etse@gmail.com",
+    "name": "Yaw Joseph Etse",
     "url": "http://about.me/yawjosephetse"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/typesettin/periodicjs.ext.async_cms.git"
-  },
-  "scripts": {
-    "test": "mocha -R spec --recursive",
-    "postinstall": "node install.js",
-    "postuninstall": "node uninstall.js"
+  "bugs": {
+    "url": "https://github.com/typesettin/periodicjs.ext.async_cms/issues"
   },
   "dependencies": {
     "validate-js": "^1.5.1"
   },
+  "description": "cms for periodicjs",
   "devDependencies": {
     "browserify": "^10.2.4",
     "chai": "^3.0.0",
@@ -45,35 +66,38 @@
     "uglify-js": "^2.4.15",
     "uglifyify": "^3.0.1"
   },
+  "directories": {},
+  "dist": {
+    "shasum": "573a707de62bf82f7357034eb75e95cf07a51003",
+    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.9.0.tgz"
+  },
+  "engines": {
+    "node": ">=4.2.x"
+  },
+  "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
+  "homepage": "https://github.com/typesettin/periodicjs.ext.async_cms",
   "keywords": [
     "periodicjs"
   ],
-  "bugs": {
-    "url": "https://github.com/typesettin/periodicjs.ext.async_cms/issues"
-  },
-  "homepage": "https://github.com/typesettin/periodicjs.ext.async_cms",
+  "license": "MIT",
+  "main": "index.js",
   "maintainers": [
     {
       "name": "yawetse",
       "email": "yaw.etse@gmail.com"
     }
   ],
-  "directories": {},
-  "gitHead": "cf3950c5d376e3dc8ee6b389f8f3d6f725823024",
-  "_id": "periodicjs.ext.async_cms@6.2.0",
-  "_shasum": "2c87d612c709081440becba1b180f3a544ae3377",
-  "_from": "periodicjs.ext.async_cms@6.2.0",
-  "_npmVersion": "2.11.2",
-  "_nodeVersion": "0.12.6",
-  "_npmUser": {
-    "name": "yawetse",
-    "email": "yaw.etse@gmail.com"
+  "name": "periodicjs.ext.async_cms",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/typesettin/periodicjs.ext.async_cms.git"
   },
-  "dist": {
-    "shasum": "1a65986fd3bf66119fb904b5f9eb44f4e85316a3",
-    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz"
+  "scripts": {
+    "postinstall": "node install.js",
+    "postuninstall": "node uninstall.js",
+    "test": "mocha -R spec --recursive"
   },
-  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz",
-  "readme": "# periodicjs.ext.login\n\nAn authentication extension that uses passport to authenticate user sessions.\n\n [API Documentation](https://github.com/typesettin/periodicjs.ext.login/blob/master/doc/api.md)\n\n## Installation\n\n```\n$ npm install periodicjs.ext.login\n```\n\n## Configure\n\nyou can define your own passort authentication strategies, after the extension has been installed, the extension configuration is located in `content/config/extensions/periodicjs.ext.login/transport.json`\n\n##Development\n*Make sure you have grunt installed*\n```\n$ npm install -g grunt-cli\n```\n\nThen run grunt watch\n```\n$ grunt watch\n```\nFor generating documentation\n```\n$ grunt doc\n$ jsdoc2md controller/**/*.js index.js install.js uninstall.js > doc/api.md\n```\n##Notes\n* Check out https://github.com/typesettin/periodicjs for the full Periodic Documentation",
-  "readmeFilename": "README.md"
+  "version": "6.9.1"
 }

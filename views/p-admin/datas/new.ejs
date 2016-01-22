@@ -1,23 +1,27 @@
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
-  	<% genericdoc = data %>
-  	<% genericdoctype = "Data" %>
-  	<% genericdoctypename = "data" %>
-  	<% genericdoctypelink = "datas" %>
+  	<% var genericdoc = data %>
+  	<% var genericdoctype = "Data" %>
+  	<% var genericdoctypename = "data" %>
+    <% var genericdoctypelink = "datas" %>
+    <% var genericdoctypeplurallink = "datas" %>
+
+        <% include ../../shared/genericdoc_compose_title %>
+
 	  <form class="ts-form" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/new" >
 	    <% include compose_data_form %>
 	  </form>
 	</div>
 </div>
 <script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
-  <% generictaxnomy = 'tag' %>
+  <% var generictaxnomy = 'tag' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'category' %>
+  <% var generictaxnomy = 'category' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'contenttype' %>
+  <% var generictaxnomy = 'contenttype' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'asset' %>
+  <% var generictaxnomy = 'asset' %>
   <% include ../../shared/_new_generic_asset_modal %>
 <% include ../../shared/footer %>
 

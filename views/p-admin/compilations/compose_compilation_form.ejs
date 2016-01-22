@@ -1,4 +1,4 @@
-<% genericdoctaxfields = "assets:array:asset:media:createable,primaryasset:single:asset:media:createable,tags:array:tag:doc:createable,categories:array:category:doc:createable,contenttypes:array:contenttype:doc:createable,items.item:array:item:doc:static,authors:array:user:doc:static,primaryauthor:single:user:doc:static" %>
+<% var genericdoctaxfields = "assets:array:asset:media:createable,primaryasset:single:asset:media:createable,tags:array:tag:doc:createable,categories:array:category:doc:createable,contenttypes:array:contenttype:doc:createable,items.item:array:item:doc:static,authors:array:user:doc:static,primaryauthor:single:user:doc:static" %>
 
 <input type="hidden" name="_csrf" value=<%- locals.token %> >
 <%if(typeof genericdocid !=='undefined'){%>

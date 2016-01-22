@@ -1,11 +1,11 @@
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">
-  	<% genericdoc = collection %>
-  	<% genericdoctype = "Collection" %>
-  	<% genericdoctypename = "collection" %>
-  	<% genericdoctypelink = "collections" %>
-<% genericdoctypeplurallink = "collections" %>
+  	<% var genericdoc = collection %>
+  	<% var genericdoctype = "Collection" %>
+  	<% var genericdoctypename = "collection" %>
+  	<% var genericdoctypelink = "collections" %>
+<% var genericdoctypeplurallink = "collections" %>
     <% include ../../shared/genericdoc_compose_title %>
 
 	  <form class="ts-form" method="post" action="/<%- locals.adminPath %>/content/<%- genericdoctypename %>/new" >
@@ -14,13 +14,13 @@
 	</div>
 </div>
 <script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
-  <% generictaxnomy = 'tag' %>
+  <% var generictaxnomy = 'tag' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'category' %>
+  <% var generictaxnomy = 'category' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'contenttype' %>
+  <% var generictaxnomy = 'contenttype' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'asset' %>
+  <% var generictaxnomy = 'asset' %>
   <% include ../../shared/_new_generic_asset_modal %>
 <% include ../../shared/footer %>
 

@@ -1,9 +1,9 @@
-<% genericdoc = collection %>
-<% genericdocid = collection._id %>
-<% genericdoctype = "Collection" %>
-<% genericdoctypename = "collection" %>
-<% genericdoctypelink = "collection" %>
-<% genericdoctypeplurallink = "collections" %>
+<% var genericdoc = collection %>
+<% var genericdocid = collection._id %>
+<% var genericdoctype = "Collection" %>
+<% var genericdoctypename = "collection" %>
+<% var genericdoctypelink = "collection" %>
+<% var genericdoctypeplurallink = "collections" %>
 
 <% include ../../shared/header %>
 <div class="ts-container">
@@ -39,12 +39,12 @@
   </div>
 </div>
 <script type="text/javascript" src="/extensions/periodicjs.ext.async_cms/js/cms.min.js"></script>
-  <% generictaxnomy = 'tag' %>
+  <% var generictaxnomy = 'tag' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'category' %>
+  <% var generictaxnomy = 'category' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'contenttype' %>
+  <% var generictaxnomy = 'contenttype' %>
   <% include ../../shared/_new_generic_taxonomy_modal %>
-  <% generictaxnomy = 'asset' %>
+  <% var generictaxnomy = 'asset' %>
   <% include ../../shared/_new_generic_asset_modal %>
 <% include ../../shared/footer %>

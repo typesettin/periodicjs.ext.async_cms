@@ -1,8 +1,11 @@
 <% include ../../shared/html_inject_precontent %>
-<% genericdoc = contenttype %>
-<% genericdoctype = "Contenttype" %>
-<% genericdoctypelink = "contenttype" %>
-<% genericdoctypeplurallink = "contenttypes" %>
+<% var genericdoc = contenttype %>
+<% var genericdocid = contenttype._id %>
+
+<% var genericdoctype = "Contenttype" %>
+<% var genericdoctypename = "contenttype" %>
+<% var genericdoctypelink = "contenttype" %>
+<% var genericdoctypeplurallink = "contenttypes" %>
 <% include ../../shared/header %>
 <div class="ts-container">
   <div class="ts-text-container ts-genericdoc">

@@ -80,9 +80,10 @@ var cms_default_tbody = function (options) {
 		tag: 'tr',
 		style: 'vertical-align:top;',
 		html: function (obj /*,i*/ ) {
+			var displayname = obj.title || obj.name || obj._id;
 			var jsontablehtml;
 			jsontablehtml = '<td>';
-			jsontablehtml += '<a href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">' + obj.title + '</a>';
+			jsontablehtml += '<a href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">' + displayname + '</a>';
 			jsontablehtml += '</td>';
 			//create date
 			jsontablehtml += '<td>' + new moment(obj.createdat).format('MM/DD/YYYY |  hh:mm:ssa') + '</td>';
