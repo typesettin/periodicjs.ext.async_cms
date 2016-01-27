@@ -86,6 +86,7 @@ module.exports = function (periodic) {
 		authController = periodic.app.controller.extension.login.auth,
 		uacController = periodic.app.controller.extension.user_access_control.uac,
 		cmsController = periodic.app.controller.extension.async_cms.cms;
+	var asyncadminController = periodic.app.controller.extension.asyncadmin.admin;
 
 	/**
 	 * access control routes
@@ -108,14 +109,14 @@ module.exports = function (periodic) {
 	 */
 	// contentAdminRouter.get('/', cmsController.admin_index);
 	// contentAdminRouter.get('/', cmsController.getMarkdownReleases, cmsController.getHomepageStats, cmsController.admin_index);
-	contentAdminRouter.use('/items', itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
-	contentAdminRouter.use('/datas', dataController.loadDatasWithCount, dataController.loadDatasWithDefaultLimit, dataController.loadDatas, cmsController.datas_index);
-	contentAdminRouter.get('/collections', collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
-	contentAdminRouter.get('/compilations', compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
-	contentAdminRouter.get('/contenttypes', contenttypeController.loadContenttypesWithCount, contenttypeController.loadContenttypesWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
-	contentAdminRouter.get('/tags', tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
-	contentAdminRouter.get('/categories', categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
-	contentAdminRouter.get('/assets', assetController.loadAssetsWithCount, assetController.loadAssetsWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
+	contentAdminRouter.get('/items', cmsController.remove_content_and_changes, itemController.loadItemsWithCount, itemController.loadItemsWithDefaultLimit, itemController.loadItems, cmsController.items_index);
+	contentAdminRouter.get('/datas', cmsController.remove_content_and_changes, dataController.loadDatasWithCount, dataController.loadDatasWithDefaultLimit, dataController.loadDatas, cmsController.datas_index);
+	contentAdminRouter.get('/collections', cmsController.remove_content_and_changes, collectionController.loadCollectionsWithCount, collectionController.loadCollectionsWithDefaultLimit, collectionController.loadCollections, cmsController.collections_index);
+	contentAdminRouter.get('/compilations', cmsController.remove_content_and_changes, compilationController.loadCompilationsWithCount, compilationController.loadCompilationsWithDefaultLimit, compilationController.loadCompilations, cmsController.compilations_index);
+	contentAdminRouter.get('/contenttypes', cmsController.remove_content_and_changes, contenttypeController.loadContenttypesWithCount, contenttypeController.loadContenttypesWithDefaultLimit, contenttypeController.loadContenttypes, cmsController.contenttypes_index);
+	contentAdminRouter.get('/tags', cmsController.remove_content_and_changes, tagController.loadTagsWithCount, tagController.loadTagsWithDefaultLimit, tagController.loadTags, cmsController.tags_index);
+	contentAdminRouter.get('/categories', cmsController.remove_content_and_changes, categoryController.loadCategoriesWithCount, categoryController.loadCategoriesWithDefaultLimit, categoryController.loadCategories, cmsController.categories_index);
+	contentAdminRouter.get('/assets', cmsController.remove_content_and_changes, assetController.loadAssetsWithCount, assetController.loadAssetsWithDefaultLimit, assetController.loadAssets, cmsController.assets_index);
 
 
 	periodic.app.controller.extension.asyncadmin.search.item = cmsController.item_search;
@@ -152,7 +153,7 @@ module.exports = function (periodic) {
 		assetController.create_assets_from_files,
 		periodic.core.controller.save_revision, 
 		dataController.loadData, 
-		cmsController.fixCodeMirrorSubmit,  
+		asyncadminController.fixCodeMirrorSubmit,  
 		dataController.update);
 	// dataRouter.post('/removechangeset/:id/:contententity/:changesetnum', dataController.loadData, adminController.remove_changeset_from_content, dataController.update);
 	dataContentAdminRouter.post('/:id/delete', dataController.loadData, dataController.remove);
@@ -178,7 +179,7 @@ module.exports = function (periodic) {
 	itemContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, itemController.loadItem,cmsController.fixCodeMirrorSubmit,  itemController.update);
+		periodic.core.controller.save_revision, itemController.loadItem,asyncadminController.fixCodeMirrorSubmit,  itemController.update);
 
 	itemContentAdminRouter.post('/:id/delete', itemController.loadItem, itemController.remove);
 
@@ -202,7 +203,7 @@ module.exports = function (periodic) {
 	collectionContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, collectionController.loadCollection, cmsController.fixCodeMirrorSubmit, collectionController.update);
+		periodic.core.controller.save_revision, collectionController.loadCollection, asyncadminController.fixCodeMirrorSubmit, collectionController.update);
 	collectionContentAdminRouter.post('/:id/delete', collectionController.loadCollection, collectionController.remove);
 	collectionContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, collectionController.loadFullCollection, cmsController.collection_revisions);
 	collectionContentAdminRouter.post('/:id/revision/:revisionindex/delete',periodic.app.controller.extension.asyncadmin.admin.skip_population, collectionController.loadFullCollection, periodic.app.controller.extension.asyncadmin.admin.revision_delete,  collectionController.update);
@@ -226,7 +227,7 @@ module.exports = function (periodic) {
 	compilationContentAdminRouter.post('/:id/edit',
 		assetController.multiupload,
 		assetController.create_assets_from_files,
-		periodic.core.controller.save_revision, compilationController.loadCompilation,  cmsController.fixCodeMirrorSubmit, compilationController.update);
+		periodic.core.controller.save_revision, compilationController.loadCompilation,  asyncadminController.fixCodeMirrorSubmit, compilationController.update);
 	compilationContentAdminRouter.post('/:id/delete', compilationController.loadCompilation, compilationController.remove);
 
 
@@ -252,7 +253,7 @@ module.exports = function (periodic) {
 		assetController.multiupload,
 		periodic.core.controller.save_revision,
 		assetController.loadAsset,
-		cmsController.fixCodeMirrorSubmit, 
+		asyncadminController.fixCodeMirrorSubmit, 
 		cmsController.update_asset_from_file,
 		assetController.update);
 	assetContentAdminRouter.post('/:id/delete', assetController.loadAsset, assetController.remove);
@@ -272,7 +273,7 @@ module.exports = function (periodic) {
 	tagContentAdminRouter.get('/:id', tagController.loadTag, cmsController.tag_edit);
 	tagContentAdminRouter.get('/:id/parent', tagController.loadTag, cmsController.tag_parent);
 	tagContentAdminRouter.post('/:id/edit',
-		periodic.core.controller.save_revision, tagController.loadTag, cmsController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
+		periodic.core.controller.save_revision, tagController.loadTag, asyncadminController.fixCodeMirrorSubmit, tagController.update, cmsController.tag_edit);
 	tagContentAdminRouter.post('/:id/edit',periodic.core.controller.save_revision,  tagController.update);
 
 	tagContentAdminRouter.get('/:id/revisions',periodic.app.controller.extension.asyncadmin.admin.skip_population, tagController.loadFullTag, cmsController.tag_revisions);
@@ -290,7 +291,7 @@ module.exports = function (periodic) {
 	categoryContentAdminRouter.get('/:id/parent', categoryController.loadCategory, cmsController.category_parent);
 
 	categoryContentAdminRouter.post('/:id/edit',
-		periodic.core.controller.save_revision, categoryController.loadCategory, cmsController.fixCodeMirrorSubmit, categoryController.update, cmsController.category_edit);
+		periodic.core.controller.save_revision, categoryController.loadCategory, asyncadminController.fixCodeMirrorSubmit, categoryController.update, cmsController.category_edit);
 	categoryContentAdminRouter.post('/:id/edit', periodic.core.controller.save_revision, categoryController.update);
 	
 
@@ -312,7 +313,7 @@ module.exports = function (periodic) {
 	contenttypeContentAdminRouter.get('/:id/edit', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.get('/:id', contenttypeController.loadContenttype, cmsController.contenttype_edit);
 	contenttypeContentAdminRouter.post('/:id/edit',
-		periodic.core.controller.save_revision, contenttypeController.loadContenttype, cmsController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
+		periodic.core.controller.save_revision, contenttypeController.loadContenttype, asyncadminController.fixCodeMirrorSubmit, contenttypeController.update, cmsController.contenttype_edit);
 
 	
 

@@ -21,6 +21,22 @@ var moment = require('moment'),
 	adminPath;
 pluralize.addIrregularRule('category', 'categories');
 
+var remove_content_and_changes = function (req, res, next) {
+	req.controllerData = req.controllerData || {};
+	req.controllerData.model_fields = {
+		'primaryasset.changes':0,
+		'primaryasset.content':0,
+		'assets.changes':0,
+		'assets.content':0,
+		'primaryauthor.changes':0,
+		'primaryauthor.content':0,
+		'authors.changes':0,
+		'authors.content':0,
+		changes:0,
+		content:0
+	}; 
+	next();
+};
 var fixCodeMirrorSubmit = function (req, res, next) {
 	// console.log('fixCodeMirrorSubmit req.body',req.body)
 	if(req.body.genericdocjson){
@@ -354,7 +370,8 @@ var controller = function (resources) {
 		fixCodeMirrorSubmit:fixCodeMirrorSubmit,
 		category_parent: category_parent,
 		async_cms_settings: async_cms_settings,
-		update_asset_from_file: update_asset_from_file
+		update_asset_from_file: update_asset_from_file,
+		remove_content_and_changes: remove_content_and_changes
 	};
 };
 

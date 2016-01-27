@@ -3,35 +3,37 @@
     [
       "periodicjs.ext.async_cms@6.9.0",
       "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
+    ],
+    [
+      "periodicjs.ext.async_cms@6.9.1",
+      "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
     ]
   ],
-  "_from": "periodicjs.ext.async_cms@6.9.0",
-  "_id": "periodicjs.ext.async_cms@6.9.0",
+  "_from": "periodicjs.ext.async_cms@6.9.1",
+  "_id": "periodicjs.ext.async_cms@6.9.1",
   "_inCache": true,
   "_installable": true,
   "_location": "/periodicjs.ext.async_cms",
-  "_nodeVersion": "0.12.6",
+  "_nodeVersion": "4.2.4",
   "_npmUser": {
     "email": "yaw.etse@gmail.com",
     "name": "yawetse"
   },
-  "_npmVersion": "2.11.2",
+  "_npmVersion": "2.14.12",
   "_phantomChildren": {},
   "_requested": {
     "name": "periodicjs.ext.async_cms",
-    "raw": "periodicjs.ext.async_cms@6.9.0",
-    "rawSpec": "6.9.0",
+    "raw": "periodicjs.ext.async_cms@6.9.1",
+    "rawSpec": "6.9.1",
     "scope": null,
-    "spec": "6.9.0",
+    "spec": "6.9.1",
     "type": "version"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.1.0.tgz",
-  "_shasum": "573a707de62bf82f7357034eb75e95cf07a51003",
   "_shrinkwrap": null,
-  "_spec": "periodicjs.ext.async_cms@6.9.0",
+  "_spec": "periodicjs.ext.async_cms@6.9.1",
   "_where": "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs",
   "author": {
     "email": "yaw.etse@gmail.com",
@@ -68,8 +70,8 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "573a707de62bf82f7357034eb75e95cf07a51003",
-    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.9.0.tgz"
+    "shasum": "ca9d5886c0484d66d20efe681e173e143ad7020d",
+    "tarball": "http://registry.npmjs.org/periodicjs.ext.async_cms/-/periodicjs.ext.async_cms-6.9.1.tgz"
   },
   "engines": {
     "node": ">=4.2.x"
@@ -99,5 +101,5 @@
     "postuninstall": "node uninstall.js",
     "test": "mocha -R spec --recursive"
   },
-  "version": "6.9.1"
+  "version": "6.9.2"
 }
