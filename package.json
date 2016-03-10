@@ -1,45 +1,4 @@
 {
-  "_args": [
-    [
-      "periodicjs.ext.async_cms@6.9.0",
-      "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
-    ],
-    [
-      "periodicjs.ext.async_cms@6.9.1",
-      "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
-    ],
-    [
-      "periodicjs.ext.async_cms@6.9.2",
-      "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs"
-    ]
-  ],
-  "_from": "periodicjs.ext.async_cms@6.9.2",
-  "_id": "periodicjs.ext.async_cms@6.9.2",
-  "_inCache": true,
-  "_installable": true,
-  "_location": "/periodicjs.ext.async_cms",
-  "_nodeVersion": "4.2.4",
-  "_npmUser": {
-    "email": "yaw.etse@gmail.com",
-    "name": "yawetse"
-  },
-  "_npmVersion": "2.14.12",
-  "_phantomChildren": {},
-  "_requested": {
-    "name": "periodicjs.ext.async_cms",
-    "raw": "periodicjs.ext.async_cms@6.9.2",
-    "rawSpec": "6.9.2",
-    "scope": null,
-    "spec": "6.9.2",
-    "type": "version"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_shrinkwrap": null,
-  "_spec": "periodicjs.ext.async_cms@6.9.2",
-  "_where": "/Users/yawetse/Developer/github/promise/promise-internal-server/node_modules/periodicjs",
   "author": {
     "email": "yaw.etse@gmail.com",
     "name": "Yaw Joseph Etse",
@@ -106,5 +65,5 @@
     "postuninstall": "node uninstall.js",
     "test": "mocha -R spec --recursive"
   },
-  "version": "6.9.2"
+  "version": "7.0.0"
 }
