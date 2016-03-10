@@ -1,11 +1,11 @@
 'use strict';
 
-var errorie = require('errorie'),
+var Errorie = require('errorie'),
 	asyncadminInstalled,
 	path = require('path'),
 	fs = require('fs-extra'),
 	extend = require('utils-merge'),
-	cms_view_helpers = require('./controller/cms_view_helpers'),
+	// cms_view_helpers = require('./controller/cms_view_helpers'),
 	async_cms_settings,
 	appenvironment,
 	settingJSON,
@@ -49,14 +49,14 @@ module.exports = function (periodic) {
 	}
 
 	if (asyncadminInstalled !== true) {
-		throw new errorie({
+		throw new Errorie({
 			name: 'Extension: async_cms',
 			message: 'Your application extension configuriation is missing periodicjs.ext.asyncadmin'
 		});
 	}
 
-	periodic.app.locals.cms_default_responsive_collapse = cms_view_helpers.cms_default_responsive_collapse;
-	periodic.app.locals.cms_default_tbody = cms_view_helpers.cms_default_tbody;
+	// periodic.app.locals.cms_default_responsive_collapse = cms_view_helpers.cms_default_responsive_collapse;
+	// periodic.app.locals.cms_default_tbody = cms_view_helpers.cms_default_tbody;
 	var contentAdminRouter = periodic.express.Router(),
 		itemRouter = periodic.express.Router(),
 		itemContentAdminRouter = periodic.express.Router(),
@@ -356,6 +356,9 @@ module.exports = function (periodic) {
 	contentAdminRouter.use('/tag', tagContentAdminRouter);
 	contentAdminRouter.use('/category', categoryContentAdminRouter);
 	periodic.app.use('/' + periodic.app.locals.adminPath + '/content', contentAdminRouter);
+
+	periodic.app.get('/p-secure/asset/:id/:filename', assetController.loadAsset, assetController.decryptAsset);
+
 	periodic.app.use('/data', dataRouter);
 	periodic.app.use('/item', itemRouter);
 	periodic.app.use('/collection', collectionRouter);

@@ -1,6 +1,7 @@
 'use strict';
 
 var moment = require('moment'),
+Moment = moment,
 	path = require('path'),
 	pluralize = require('pluralize');
 pluralize.addIrregularRule('category', 'categories');
@@ -19,7 +20,7 @@ var cms_default_responsive_collapse = function (options) {
 		drcHTML += '<a href="' + editlink + '" class="async-admin-ajax-link" data-ajax-href="' + editlink + '"><img src="/extensions/periodicjs.ext.asyncadmin/img/icons/doc_edit_three.svg" alt="edit" class="ts-icon async-admin-ajax-link" data-ajax-href="' + editlink + '"/></a>';
 		drcHTML += '<a class="ts-button-error-color ts-dialog-delete"  data-href="' + deletelink + '" data-deleted-redirect-href="' + options.deleterefreshlink + '" ><img src="/extensions/periodicjs.ext.asyncadmin/img/icons/doc_delete.svg" class="ts-icon  ts-dialog-delete"  data-href="' + deletelink + '" data-deleted-redirect-href="' + defaultOptions.deleterefreshlink + '" alt="delete" /></a>';
 		drcHTML += '</div>';
-		drcHTML += data_item.name + ' <small class="ts-text-divider-text-color">(' + new moment(data_item.createdat).format('MM/DD/YYYY hh:mm:ssa') + ')</small>';
+		drcHTML += data_item.name + ' <small class="ts-text-divider-text-color">(' + new Moment(data_item.createdat).format('MM/DD/YYYY hh:mm:ssa') + ')</small>';
 		return drcHTML;
 	};
 };
@@ -54,20 +55,36 @@ var get_taxonomy_html = function (options) {
 var get_assets_html = function (options) {
 	var returnHTML = '';
 	if (options.genericassets && options.genericassets.length > 0) {
-		returnHTML += '<br>';
+		returnHTML += '<div>';
 		options.genericassets.forEach(function (genericasset) {
 			returnHTML += '<span class="ts-padding-md">';
 			// returnHTML+='<figure>';
-			if (genericasset.assettype && genericasset.assettype.match('image')) {
+			// audio55
+			// music232
+			// code41
+			// compressed1
+			// image79
+			// lock72 - keyhole lock74
+			// text140
+			// video170
+			// word6 - ms word
+			// x16 - excel
+			// zipped2 - zip
+			if(genericasset.attributes && genericasset.attributes.encrypted_client_side){
+				returnHTML += '<span class="ts-button flaticon-file82 ts-text-xx"></span>';
+			}
+			else if (genericasset.assettype && genericasset.assettype.match('image')) {
 				returnHTML += '<img style="max-width:4em; max-height:4em;" src="' + genericasset.fileurl + '"/>';
 			}
 			else {
-				returnHTML += '<span class="ts-button">' + path.basename(decodeURIComponent(genericasset.fileurl)) + '</span>';
+				returnHTML += '<span class="ts-button flaticon-file87 ts-text-xx"></span>';
 			}
+			//delete - recycle70
+			//edit - write19
 			// returnHTML+='<caption>'+ genericasset.title +'</caption>';
 			// returnHTML+='</figure>';
-			returnHTML += '</div>';
 		});
+			returnHTML += '</div>';
 	}
 	return returnHTML;
 };
@@ -81,12 +98,15 @@ var cms_default_tbody = function (options) {
 		style: 'vertical-align:top;',
 		html: function (obj /*,i*/ ) {
 			var displayname = obj.title || obj.name || obj._id;
+			if(obj.attributes && obj.attributes.encrypted_client_side){
+				displayname+=' <i class="flaticon-access1 ts-text-xs ts-button-icon"></i>';
+			}
 			var jsontablehtml;
 			jsontablehtml = '<td>';
 			jsontablehtml += '<a href="/' + options.adminPath + '/'+path_to_content+'/' + options.model_name + '/' + obj._id + '/edit"  class="async-admin-ajax-link">' + displayname + '</a>';
 			jsontablehtml += '</td>';
 			//create date
-			jsontablehtml += '<td>' + new moment(obj.createdat).format('MM/DD/YYYY |  hh:mm:ssa') + '</td>';
+			jsontablehtml += '<td>' + new Moment(obj.createdat).format('MM/DD/YYYY |  hh:mm:ssa') + '</td>';
 
 			//authors
 			options.generictaxomony = obj.authors;

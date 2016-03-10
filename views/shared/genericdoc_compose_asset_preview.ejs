@@ -4,17 +4,22 @@
 	      <button class="ts-button ts-button-accent-color" type="submit" name="savebutton">save
 	      </button>
 		</div> -->
-		Asset Preview
+		<% if(asset.attributes && asset.attributes.encrypted_client_side){%>[Decrypted] <%} %>Asset Preview
 		<a class="ts-open-modal ts-button ts-pull-right"  data-tsmodal-id="new-asset-modal">Update <%- genericdoctype %></a>
 	</summary>
 	<aside>
 		<div class="ts-row ts-form-row">
 			<figure>
-				<% if(asset.assettype && asset.assettype.match("image")){ %>
-					<img class="ts-col-span12" src="<%-asset.fileurl%>"/><%
+				<% if(asset.assettype && asset.assettype.match("image")){
+						if(asset.attributes && asset.attributes.encrypted_client_side){%>
+							<img class="ts-col-span12" src="/p-secure/asset/<%- asset._id %>/<%- asset.attributes.periodicFilename %>"/>
+						<%}
+						else{%>
+							<img class="ts-col-span12" src="<%-asset.fileurl%>"/>
+						<%}
 				} 
 				else{ %>
-					<div class="ts-col-span12"> <%-asset.fileurl%></div>
+					<div class="ts-col-span12"> <%-asset.fileurl%> </div>
 				<% } %>
 			</figure>
 		</div>
