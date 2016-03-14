@@ -1,7 +1,7 @@
 {
   "author": {
-    "email": "yaw.etse@gmail.com",
     "name": "Yaw Joseph Etse",
+    "email": "yaw.etse@gmail.com",
     "url": "http://about.me/yawjosephetse"
   },
   "bugs": {
@@ -49,8 +49,8 @@
   "main": "index.js",
   "maintainers": [
     {
-      "email": "yaw.etse@gmail.com",
-      "name": "yawetse"
+      "name": "yawetse",
+      "email": "yaw.etse@gmail.com"
     }
   ],
   "name": "periodicjs.ext.async_cms",
@@ -65,5 +65,5 @@
     "postuninstall": "node uninstall.js",
     "test": "mocha -R spec --recursive"
   },
-  "version": "7.0.0"
+  "version": "7.1.0"
 }

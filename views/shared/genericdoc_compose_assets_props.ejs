@@ -28,6 +28,23 @@
 					<input type="text" id="doclocationtypelabel" class="ts-input ts-text-sm" name="locationtype" value="<%- genericdoc.locationtype %>" >
 				</div>
 			</div>
+			<div class="ts-row ts-form-row">
+				<div class="ts-col-span12">
+				  <label  class="ts-label" id="doclocationtypelabel">Encrypted:</label>
+				</div>
+				<div class="ts-col-span12">
+					<%if(genericdoc && genericdoc.attributes && genericdoc.attributes.encrypted_client_side){%>
+						<div class="ts-row">
+							<div class="ts-col-span6"><input type="text" id="docencryptedtypelabel" class="ts-input ts-text-sm"  value="true" disabled="disabled"></div>
+							<div class="ts-col-span6"><a class="ts-input ts-bg-light-primary-color ts-text-sm ts-width-100" target="_blank" href="/p-secure/asset/<%- genericdoc._id %>/<%- genericdoc.attributes.periodicFilename %>">Download</a></div>
+						</div>
+					
+					<%}
+					else{%>
+					<input type="text" id="docencryptedtypelabel" class="ts-input ts-text-sm"  value="false" disabled="disabled" >
+					<%}%>
+				</div>
+			</div>
 			<% if(genericdoc.attributes && genericdoc.attributes.periodicFilename){%>
 			<div class="ts-row ts-form-row">
 				<div class="ts-col-span12">

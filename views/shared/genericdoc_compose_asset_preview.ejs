@@ -12,14 +12,48 @@
 			<figure>
 				<% if(asset.assettype && asset.assettype.match("image")){
 						if(asset.attributes && asset.attributes.encrypted_client_side){%>
-							<img class="ts-col-span12" src="/p-secure/asset/<%- asset._id %>/<%- asset.attributes.periodicFilename %>"/>
+							<img  style="min-height:10rem; min-width:10rem; background-image:url('/extensions/periodicjs.ext.asyncadmin/img/preloader/128x128/Preloader_7/Preloader_7.gif'); background-position:50% 50%; background-repeat:no-repeat;" class="ts-col-span12" src="/p-secure/asset/<%- asset._id %>/<%- asset.attributes.periodicFilename %>"/>
 						<%}
 						else{%>
 							<img class="ts-col-span12" src="<%-asset.fileurl%>"/>
 						<%}
 				} 
-				else{ %>
-					<div class="ts-col-span12"> <%-asset.fileurl%> </div>
+				else{ 
+					var img_button_icon = 'flaticon-file87';
+					if(asset.attributes && asset.attributes.encrypted_client_side){
+						img_button_icon = 'flaticon-file82';
+					}
+					else if (asset.assettype && asset.assettype.match('audio')) {
+						img_button_icon = 'flaticon-audio55';
+					}
+					else if (asset.assettype && asset.assettype.match('music')) {
+						img_button_icon = 'flaticon-music232';
+					}
+					else if (asset.assettype && asset.assettype.match('application') || asset.assettype && asset.assettype.match('javascript') || asset.assettype && asset.assettype.match('css')) {
+						img_button_icon = 'flaticon-code41';
+					}
+					else if (asset.assettype && asset.assettype.match('video')) {
+						img_button_icon = 'flaticon-video170';
+					}
+					else if (asset.assettype && asset.assettype.match('word')) {
+						img_button_icon = 'flaticon-word6';
+					}
+					else if (asset.assettype && asset.assettype.match('excel')) {
+						img_button_icon = 'flaticon-x16';
+					}
+					else if (asset.assettype && asset.assettype.match('zip')) {
+						img_button_icon = 'flaticon-compressed1';
+					}
+					else if (asset.assettype && asset.assettype.match('image')) {
+						returnHTML += '<img style="max-width:4em; max-height:4em;" src="' + asset.fileurl + '"/>';
+					}
+					else if (asset.assettype && asset.assettype.match('text')) {
+						img_button_icon = 'flaticon-text140';
+					}
+					%>
+					<div class="ts-text-center">
+						<a target="_blank" href="<%-asset.fileurl%>" class=" ts-button-icon <%-img_button_icon%> ts-text-xx" style="zoom:6;"></a>
+					</div>
 				<% } %>
 			</figure>
 		</div>
