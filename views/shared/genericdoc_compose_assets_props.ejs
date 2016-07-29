@@ -38,6 +38,13 @@
 							<div class="ts-col-span6"><input type="text" id="docencryptedtypelabel" class="ts-input ts-text-sm"  value="true" disabled="disabled"></div>
 							<div class="ts-col-span6"><a class="ts-input ts-bg-light-primary-color ts-text-sm ts-width-100" target="_blank" href="/p-secure/asset/<%- genericdoc._id %>/<%- genericdoc.attributes.periodicFilename %>">Download</a></div>
 						</div>
+						
+							<div class="ts-col-span12">
+								<label  class="ts-label" id="doclocationtypelabel">Encrypted file location:</label>
+							</div>
+							<div class="ts-col-span12">
+								<input type="text" id="doclocationtypelabel" class="ts-input ts-text-sm"  value="<%- request.headerHost %>/p-secure/asset/<%- genericdoc._id %>/<%- genericdoc.attributes.periodicFilename %>" >
+							</div>
 					
 					<%}
 					else{%>
